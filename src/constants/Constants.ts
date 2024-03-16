@@ -19,6 +19,7 @@ export const Colors = {
   BORDER_COLOR: '#D0D5DD',
   FADED_BORDER_COLOR: '#D0D2D7',
   FADED_TEXT_COLOR: '#667085',
+  ERROR_COLOR: '#CC4141',
 };
 
 export const Images = {

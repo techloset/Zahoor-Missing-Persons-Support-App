@@ -1,7 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import { View, SafeAreaView, TextInput, Image, Text } from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  TextInput,
+  Image,
+  Text,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import { Colors, Images } from '../../constants/Constants';
+import Card from '../../components/missingPerson/card/Card';
+import NavigationStack from '../../components/navigationStack/NavigationStack';
 
 const Home = () => {
   return (
@@ -86,6 +95,17 @@ const Home = () => {
             See More
           </Text>
         </View>
+        <ScrollView horizontal>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </ScrollView>
+      </View>
+      <View style={{ position: 'absolute', bottom: 0 }}>
+        <NavigationStack />
       </View>
     </SafeAreaView>
   );

@@ -32,6 +32,7 @@ const NavigationStack = () => {
           borderColor: Colors.SECONDARY_COLOR,
           flexDirection: 'row',
           gap: 28,
+          backgroundColor: Colors.WHITE_COLOR,
         }}
       >
         {data.map((item, index) => {
