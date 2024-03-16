@@ -8,6 +8,7 @@ import HomeIcon from '../assets/svg/Home.svg';
 import ProfileIcon from '../assets/svg/Profile.svg';
 import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
 import Reports from '../assets/svg/HandsHelping.svg';
+import SearchIcon from '../assets/svg/Search.svg';
 
 export const Colors = {
   PRIMARY_COLOR: '#5B59FE',
@@ -32,4 +33,5 @@ export const Images = {
   PROFILE_ICON: ProfileIcon,
   PLUS_CIRCLE_ICON: PlusCircleIcon,
   REPORTS_ICON: Reports,
+  SEARCH_ICON: SearchIcon,
 };

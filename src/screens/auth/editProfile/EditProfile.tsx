@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import React from 'react';
 import { Colors, Images } from '../../../constants/Constants';
 
-const Home = () => {
+const EditProfile = () => {
   return (
     <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
       <View>
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default EditProfile;
