@@ -4,22 +4,10 @@ import React, { useState } from 'react';
 import { Colors, Images } from '../../constants/Constants';
 import { styles } from './Styles';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
-// import Button from '../../components/inputComponents/buttonComponent/ButtonComponent';
-
-type formData = {
-  fullName: string;
-  gender: string;
-  dateOfBirth: string;
-  nicknames: string;
-  height: string;
-  width: string;
-  eyeColor: string;
-  hairColor: string;
-  lengthOfTheHair: string;
-};
+import { FormData } from '../../types/types';
 
 const ReportMissing = () => {
-  const [formData, setFormData] = useState<formData>({
+  const [formData, setFormData] = useState<FormData>({
     fullName: '',
     gender: '',
     dateOfBirth: '',
@@ -49,7 +37,7 @@ const ReportMissing = () => {
     <TextInputComponent
       keyboardType={keyboardType}
       name={name}
-      value={formData[name as keyof formData]}
+      value={formData[name as keyof FormData]}
       onChangeText={text => handleChange(name, text)}
       placeholderText={placeholder}
       security={false}
