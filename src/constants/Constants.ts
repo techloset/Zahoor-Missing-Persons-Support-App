@@ -4,6 +4,10 @@ import GoogleImage from '../assets/svg/Google.svg';
 import LoginImage from '../assets/svg/LoginVector.svg';
 import ThinkingVector from '../assets/svg/ThinkingVector.svg';
 import BackspaceIcon from '../assets/svg/KeyboardBackspace.svg';
+import HomeIcon from '../assets/svg/Home.svg';
+import ProfileIcon from '../assets/svg/Profile.svg';
+import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
+import Reports from '../assets/svg/HandsHelping.svg';
 
 export const Colors = {
   PRIMARY_COLOR: '#5B59FE',
@@ -24,4 +28,8 @@ export const Images = {
   VECTOR_DIAGRAM_LOGIN: LoginImage,
   THINKING_VECTOR: ThinkingVector,
   BACKSPACE_ICON: BackspaceIcon,
+  HOME_ICON: HomeIcon,
+  PROFILE_ICON: ProfileIcon,
+  PLUS_CIRCLE_ICON: PlusCircleIcon,
+  REPORTS_ICON: Reports,
 };
