@@ -13,4 +13,16 @@ export type MissingPerson = {
   eyeColor: string;
   hairColor: string;
   lengthOfTheHair: number;
+  image: string;
+};
+export type FormData = {
+  fullName: string;
+  gender: string;
+  dateOfBirth: string;
+  nicknames: string;
+  height: string;
+  width: string;
+  eyeColor: string;
+  hairColor: string;
+  lengthOfTheHair: string;
 };
