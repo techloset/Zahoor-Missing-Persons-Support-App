@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { Colors, Images } from '../../constants/Constants';

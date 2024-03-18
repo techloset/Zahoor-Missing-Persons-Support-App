@@ -1,29 +1,29 @@
-/* eslint-disable react-native/no-inline-styles */
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { Colors } from '../../constants/Constants';
+import { Colors, Units } from '../../constants/Constants';
 
 const HomeIndicator = () => {
   return (
-    <View
-      style={{
-        width: '100%',
-        height: 34,
-        alignItems: 'center',
-        backgroundColor: Colors.WHITE_COLOR,
-      }}
-    >
-      <View
-        style={{
-          width: 134,
-          height: 5,
-          borderRadius: 10,
-          top: 21,
-          backgroundColor: Colors.SECONDARY_COLOR,
-        }}
-      />
+    <View style={styles.container}>
+      <View style={styles.indicator} />
     </View>
   );
 };
 
 export default HomeIndicator;
+
+const styles = StyleSheet.create({
+  container: {
+    width: Units.WINDOW_WIDTH,
+    height: 34,
+    alignItems: 'center',
+  },
+  indicator: {
+    width: 134,
+    height: 5,
+    borderRadius: 10,
+    top: 21,
+    bottom: 8,
+    backgroundColor: Colors.SECONDARY_COLOR,
+  },
+});

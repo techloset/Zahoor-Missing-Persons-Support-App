@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Colors, Images } from '../../../constants/Constants';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -33,20 +34,35 @@ const TextInputComponent = ({
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={styles.name}>{name}</Text>
-        {icon && (
-          <View>
-            <Image source={Images.MAIL_ICON} style={styles.image} />
-          </View>
-        )}
-        <TextInput
-          style={styles.input}
-          value={value}
-          onChangeText={onChangeText}
-          placeholder={placeholderText}
-          placeholderTextColor={Colors.FADED_SECONDARY_COLOR}
-          secureTextEntry={security}
-          keyboardType={keyboardType}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {icon && (
+            <View
+              style={{
+                marginRight: -34,
+                marginTop: -5,
+                height: 20,
+                width: 20,
+              }}
+            >
+              <Image source={Images.MAIL_ICON} style={styles.image} />
+            </View>
+          )}
+          <TextInput
+            style={[styles.input, { paddingLeft: icon ? 42 : 14 }]}
+            value={value}
+            onChangeText={onChangeText}
+            placeholder={placeholderText}
+            placeholderTextColor={Colors.FADED_SECONDARY_COLOR}
+            secureTextEntry={security}
+            keyboardType={keyboardType}
+          />
+        </View>
         {validationText && (
           <Text style={styles.textStyle}>{validationText}</Text>
         )}
@@ -62,7 +78,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 'auto',
     paddingVertical: 10,
-    paddingHorizontal: 14,
+
+    paddingRight: 14,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.BORDER_COLOR,

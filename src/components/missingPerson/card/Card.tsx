@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { Colors } from '../../../constants/Constants';
 
@@ -25,7 +25,9 @@ const Card = () => {
       >
         MISSING
       </Text>
-      <View></View>
+      <View>
+        <Image source={require('../../../assets/images/HeroImage.png')} />
+      </View>
     </View>
   );
 };

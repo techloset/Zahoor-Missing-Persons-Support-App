@@ -30,6 +30,8 @@ const Home = () => {
           gap: 26,
           height: 142,
           justifyContent: 'center',
+          // position: 'absolute',
+          // top: 0,
         }}
       >
         <View>
@@ -69,42 +71,55 @@ const Home = () => {
           </View>
         </View>
       </View>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 224,
-          width: 335,
-          overflow: 'hidden',
-          borderRadius: 8,
-        }}
-      >
-        <Image source={require('../../assets/images/HeroImage.png')} />
-      </View>
-      <View style={{ width: 335, height: 344, gap: 12 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ color: Colors.SECONDARY_COLOR }}>
-            Featured Profiles
-          </Text>
-          <Text
+      <ScrollView style={{ height: 106 }}>
+        <View
+          style={{
+            gap: 27,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <View
             style={{
-              color: Colors.PRIMARY_COLOR,
-              textDecorationLine: 'underline',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 224,
+              width: 335,
+              overflow: 'hidden',
+              borderRadius: 8,
             }}
           >
-            See More
-          </Text>
+            <Image source={Images.HERO_IMAGE} />
+          </View>
+          <View style={{ width: 335, height: 344, gap: 12 }}>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Text style={{ color: Colors.SECONDARY_COLOR }}>
+                Featured Profiles
+              </Text>
+              <Text
+                style={{
+                  color: Colors.PRIMARY_COLOR,
+                  textDecorationLine: 'underline',
+                }}
+              >
+                See More
+              </Text>
+            </View>
+            <ScrollView horizontal>
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+            </ScrollView>
+          </View>
         </View>
-        <ScrollView horizontal>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </ScrollView>
-      </View>
-      <View style={{ position: 'absolute', bottom: 0 }}>
+      </ScrollView>
+      <View style={{}}>
         <NavigationStack />
       </View>
     </SafeAreaView>

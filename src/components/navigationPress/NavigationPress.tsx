@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { Colors } from '../../constants/Constants';
 import { FC } from 'react';
@@ -19,23 +18,27 @@ const NavigationPress = ({
   width,
 }: NavigationPressProps) => {
   return (
-    <View style={{ height: 46, alignItems: 'center' }}>
+    <View style={styles.container}>
       <View style={{ height: height, width: width }}>
         <IconComponent width={width} height={height} />
       </View>
-      <Text
-        style={{
-          color: Colors.SECONDARY_COLOR,
-          fontSize: 12,
-          textAlign: 'center',
-          lineHeight: 20,
-          fontWeight: '400',
-        }}
-      >
-        {title}
-      </Text>
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 };
 
 export default NavigationPress;
+
+const styles = StyleSheet.create({
+  container: {
+    height: 46,
+    alignItems: 'center',
+  },
+  text: {
+    color: Colors.SECONDARY_COLOR,
+    fontSize: 12,
+    textAlign: 'center',
+    lineHeight: 20,
+    fontWeight: '400',
+  },
+});

@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { Images } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
-import { styles } from './Styles';
+import { styles } from './styles';
 
 export default function Forgot() {
   return (

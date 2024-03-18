@@ -4,7 +4,7 @@ import { Colors, Images } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
-import { styles } from './Styles';
+import { styles } from './styles';
 
 export default function Registration() {
   const [email, setEmail] = useState<string>('');
@@ -38,7 +38,7 @@ export default function Registration() {
             keyboardType="default"
           />
           <TextInputComponent
-            icon={false}
+            icon={true}
             name="Email"
             value={email}
             onChangeText={setEmail}

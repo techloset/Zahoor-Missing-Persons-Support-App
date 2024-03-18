@@ -4,7 +4,7 @@ import { SafeAreaView, Text, View } from 'react-native';
 import { Colors, Images } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
-import { styles } from './Styles';
+import { styles } from './styles';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
@@ -25,7 +25,7 @@ const Login = () => {
       <View style={styles.container}>
         <View style={styles.formSection}>
           <TextInputComponent
-            icon={false}
+            icon={true}
             name="Email"
             value={email}
             onChangeText={setEmail}

@@ -9,6 +9,10 @@ import ProfileIcon from '../assets/svg/Profile.svg';
 import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
 import Reports from '../assets/svg/HandsHelping.svg';
 import SearchIcon from '../assets/svg/Search.svg';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const Colors = {
   PRIMARY_COLOR: '#5B59FE',
@@ -22,11 +26,17 @@ export const Colors = {
   ERROR_COLOR: '#CC4141',
 };
 
+export const Units = {
+  WINDOW_WIDTH: windowWidth,
+  WINDOW_HEIGHT: windowHeight,
+};
+
 export const Images = {
   GOOGLE_IMAGE: GoogleImage,
   LOGO: Logo,
   VECTOR_ROUNDED_DIAGRAM: RoundedDiagram,
   MAIL_ICON: require('../assets/images/MailIcon.png'),
+  HERO_IMAGE: require('../assets/images/HeroImage.png'),
   VECTOR_DIAGRAM_LOGIN: LoginImage,
   THINKING_VECTOR: ThinkingVector,
   BACKSPACE_ICON: BackspaceIcon,
