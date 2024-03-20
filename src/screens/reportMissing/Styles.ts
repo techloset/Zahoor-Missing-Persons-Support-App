@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
     height: 75,
     top: 1256,
     left: 5,
+    borderTopColor: Colors.SECONDARY_COLOR,
     paddingTop: 16,
     paddingRight: 84,
     paddingBottom: 15,

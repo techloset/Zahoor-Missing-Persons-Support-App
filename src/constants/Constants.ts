@@ -9,6 +9,8 @@ import ProfileIcon from '../assets/svg/Profile.svg';
 import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
 import Reports from '../assets/svg/HandsHelping.svg';
 import SearchIcon from '../assets/svg/Search.svg';
+import Calender from '../assets/svg/Calendar.svg';
+import Uploader from '../assets/svg/Uploader.svg';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -45,4 +47,6 @@ export const Images = {
   PLUS_CIRCLE_ICON: PlusCircleIcon,
   REPORTS_ICON: Reports,
   SEARCH_ICON: SearchIcon,
+  CALENDER_ICON: Calender,
+  UPLOADER_IMAGE: Uploader,
 };
