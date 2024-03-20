@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
@@ -11,13 +12,8 @@ import { Colors, Images } from '../../constants/Constants';
 import { styles } from './Styles';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
 import { FormData } from '../../types/types';
-import DatePicker from 'react-native-date-picker';
 
 const ReportMissing = () => {
-  const [date, setDate] = useState<Date>(new Date());
-  const [open, setOpen] = useState(false);
-  const [openDatePicker, setOpenDatePicker] = useState(false);
-
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     gender: '',
@@ -75,10 +71,7 @@ const ReportMissing = () => {
             {renderTextInput('Missing Person’s Full Name', '', 'default')}
             {renderTextInput('Gender', ' ', 'default')}
             {/* {renderTextInput('Date of Birth', ' ', 'default')} */}
-            <TouchableOpacity
-              onPress={() => setOpen(true)}
-              style={styless.container}
-            >
+            <TouchableOpacity style={styless.container}>
               <Text style={styless.name}>Date Of Birth</Text>
               <View style={styless.inputContainer}>
                 <View>
@@ -95,18 +88,6 @@ const ReportMissing = () => {
             {renderTextInput('Last Seen', ' ', 'default')}
           </View>
         </View>
-        <DatePicker
-          modal
-          open={openDatePicker}
-          date={date}
-          onConfirm={date => {
-            setOpenDatePicker(false);
-            setDate(date);
-          }}
-          onCancel={() => {
-            setOpenDatePicker(false);
-          }}
-        />
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Physical Description</Text>
           <View>
@@ -125,12 +106,7 @@ const ReportMissing = () => {
         </View>
         <View style={styles.submitContainer}>
           <Pressable onPress={handleSubmit} style={styles.submitButton}>
-            <Text style={{ color: Colors.SECONDARY_COLOR }}>Submit Report</Text>
-          </Pressable>
-          <Pressable onPress={handleSubmit}>
-            <Text style={{ color: Colors.SECONDARY_COLOR }}>
-              I'm pressable!
-            </Text>
+            <Text style={styles.submitText}>Submit Report</Text>
           </Pressable>
         </View>
       </View>

@@ -26,6 +26,7 @@ export const Colors = {
   FADED_BORDER_COLOR: '#D0D2D7',
   FADED_TEXT_COLOR: '#667085',
   ERROR_COLOR: '#CC4141',
+  SUBMIT_BUTTON_TEXT: '#FAFAFC',
 };
 
 export const Units = {
