@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import {
   View,
@@ -12,8 +13,9 @@ import { Colors, Images } from '../../constants/Constants';
 import { styles } from './Styles';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
 import { FormData } from '../../types/types';
+import DatePicker from 'react-native-date-picker';
 
-const ReportMissing = () => {
+const MissingPersonDetail = () => {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     gender: '',
@@ -25,6 +27,8 @@ const ReportMissing = () => {
     hairColor: '',
     lengthOfTheHair: '',
   });
+  const [date, setDate] = useState<String>('');
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
   const handleChange = (name: string, value: string) => {
     setFormData(prevFormData => ({
@@ -32,6 +36,17 @@ const ReportMissing = () => {
       [name]: value,
     }));
   };
+
+  // const handleDateChange = (event: any, selectedDate: Date) => {
+  //   setShowDatePicker(false);
+  //   if (selectedDate) {
+  //     setSelectedDate(selectedDate);
+  //     setFormData(prevFormData => ({
+  //       ...prevFormData,
+  //       dateOfBirth: selectedDate.toISOString(), // Convert date to ISO string or any other format you prefer
+  //     }));
+  //   }
+  // };
 
   const handleSubmit = () => {
     console.log('Submitting Report with:', formData);
@@ -54,12 +69,12 @@ const ReportMissing = () => {
   );
   return (
     <ScrollView style={styles.main}>
-      <View style={styles.rowContainer}>
+      {/* <View style={styles.rowContainer}>
         <View>
           <Images.BACKSPACE_ICON height={24} width={24} />
         </View>
         <Text style={styles.title}>Missing Person Details</Text>
-      </View>
+      </View> */}
 
       {/* Basic Details */}
       <View style={styles.mainContainer}>
@@ -71,9 +86,13 @@ const ReportMissing = () => {
             {renderTextInput('Missing Person’s Full Name', '', 'default')}
             {renderTextInput('Gender', ' ', 'default')}
             {/* {renderTextInput('Date of Birth', ' ', 'default')} */}
-            <TouchableOpacity style={styless.container}>
+            <TouchableOpacity
+              onPress={() => setOpenDatePicker(true)}
+              style={styless.container}
+            >
               <Text style={styless.name}>Date Of Birth</Text>
               <View style={styless.inputContainer}>
+                <Text style={styless.dateColor}>{(date && date) || ' '}</Text>
                 <View>
                   <Images.CALENDER_ICON
                     height={20}
@@ -83,6 +102,18 @@ const ReportMissing = () => {
                 </View>
               </View>
             </TouchableOpacity>
+            <DatePicker
+              modal
+              open={openDatePicker} // Pass openDatePicker state here
+              date={date ? new Date(String(date)) : new Date()}
+              onConfirm={date => {
+                setOpenDatePicker(false);
+                setDate(date.toISOString());
+              }}
+              onCancel={() => {
+                setOpenDatePicker(false);
+              }}
+            />
             {renderTextInput('Nickname or know aliases', ' ', 'default')}
             {renderTextInput('Last Seen Location', ' ', 'default')}
             {renderTextInput('Last Seen', ' ', 'default')}
@@ -114,7 +145,7 @@ const ReportMissing = () => {
   );
 };
 
-export default ReportMissing;
+export default MissingPersonDetail;
 const styless = StyleSheet.create({
   input: {
     width: '100%',
@@ -151,9 +182,14 @@ const styless = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     marginBottom: 6,
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 14,
+    justifyContent: 'space-between',
+    paddingHorizontal: 14,
+    // margin: 10,
+  },
+  dateColor: {
+    color: Colors.SECONDARY_COLOR,
   },
   image: {
     width: 16.67,
