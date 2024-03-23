@@ -6,13 +6,20 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
+
 import DatePicker from 'react-native-date-picker';
 import { Images } from '../../constants/Constants';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
 import { FormData } from '../../types/types';
 import { styles } from './styles';
 
-const CustomTouchableOpacity = ({ onPress, label, selectedDate }: any) => (
+interface DateTimeProps {
+  onPress: () => void;
+  label: string;
+  selectedDate: Date | null;
+}
+
+const DateTime = ({ onPress, label, selectedDate }: DateTimeProps) => (
   <TouchableOpacity onPress={onPress} style={styles.container}>
     <Text style={styles.name}>{label}</Text>
     <View style={styles.inputContainer}>
@@ -96,7 +103,7 @@ const MissingPersonDetail = () => {
             {renderTextInput('Missing Person’s Full Name', '', 'default')}
             {renderTextInput('Gender', ' ', 'default')}
             {touchableOpacities.map((item, index) => (
-              <CustomTouchableOpacity
+              <DateTime
                 key={index}
                 label={item.label}
                 onPress={item.onPress}

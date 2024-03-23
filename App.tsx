@@ -12,15 +12,15 @@ import MissingPersonDetail from './src/screens/missingPersonDetail/MissingPerson
 const App: React.FC = (): JSX.Element => {
   const Stack = createNativeStackNavigator();
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //     <Stack.Screen
-    //       name="Missing Person Detail"
-    //       component={MissingPersonDetail}
-    //     />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    <MissingPersonDetail />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Missing Person Detail"
+          component={MissingPersonDetail}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <MissingPersonDetail />
   );
 };
 
