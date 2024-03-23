@@ -25,4 +25,5 @@ export type FormData = {
   eyeColor: string;
   hairColor: string;
   lengthOfTheHair: string;
+  lastSeen: string;
 };

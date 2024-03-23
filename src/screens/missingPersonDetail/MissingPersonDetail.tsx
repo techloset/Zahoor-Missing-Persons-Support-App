@@ -1,19 +1,30 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
 import {
   View,
   Text,
   ScrollView,
   Pressable,
   TouchableOpacity,
-  StyleSheet,
 } from 'react-native';
-import React, { useState } from 'react';
-import { Colors, Images } from '../../constants/Constants';
-import { styles } from './Styles';
+import DatePicker from 'react-native-date-picker';
+import { Images } from '../../constants/Constants';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
 import { FormData } from '../../types/types';
-import DatePicker from 'react-native-date-picker';
+import { styles } from './styles';
+
+const CustomTouchableOpacity = ({ onPress, label, selectedDate }: any) => (
+  <TouchableOpacity onPress={onPress} style={styles.container}>
+    <Text style={styles.name}>{label}</Text>
+    <View style={styles.inputContainer}>
+      <Text style={styles.dateColor}>
+        {selectedDate ? selectedDate.toDateString() : ' '}
+      </Text>
+      <View>
+        <Images.CALENDER_ICON height={20} width={20} style={styles.image} />
+      </View>
+    </View>
+  </TouchableOpacity>
+);
 
 const MissingPersonDetail = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -26,9 +37,11 @@ const MissingPersonDetail = () => {
     eyeColor: '',
     hairColor: '',
     lengthOfTheHair: '',
+    lastSeen: '',
   });
-  const [date, setDate] = useState<String>('');
-  const [openDatePicker, setOpenDatePicker] = useState(false);
+
+  const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleChange = (name: string, value: string) => {
     setFormData(prevFormData => ({
@@ -37,20 +50,19 @@ const MissingPersonDetail = () => {
     }));
   };
 
-  // const handleDateChange = (event: any, selectedDate: Date) => {
-  //   setShowDatePicker(false);
-  //   if (selectedDate) {
-  //     setSelectedDate(selectedDate);
-  //     setFormData(prevFormData => ({
-  //       ...prevFormData,
-  //       dateOfBirth: selectedDate.toISOString(), // Convert date to ISO string or any other format you prefer
-  //     }));
-  //   }
-  // };
+  const handleDateChange = (date: Date) => {
+    setOpenDatePicker(false);
+    setSelectedDate(date);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      dateOfBirth: date.toISOString(),
+    }));
+  };
 
   const handleSubmit = () => {
     console.log('Submitting Report with:', formData);
   };
+
   const renderTextInput = (
     name: string,
     placeholder: string,
@@ -67,16 +79,14 @@ const MissingPersonDetail = () => {
       validationText=""
     />
   );
+
+  const touchableOpacities = [
+    { label: 'Date Of Birth', onPress: () => setOpenDatePicker(true) },
+    { label: 'Last Seen', onPress: () => setOpenDatePicker(true) },
+  ];
+
   return (
     <ScrollView style={styles.main}>
-      {/* <View style={styles.rowContainer}>
-        <View>
-          <Images.BACKSPACE_ICON height={24} width={24} />
-        </View>
-        <Text style={styles.title}>Missing Person Details</Text>
-      </View> */}
-
-      {/* Basic Details */}
       <View style={styles.mainContainer}>
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>
@@ -85,38 +95,16 @@ const MissingPersonDetail = () => {
           <View>
             {renderTextInput('Missing Person’s Full Name', '', 'default')}
             {renderTextInput('Gender', ' ', 'default')}
-            {/* {renderTextInput('Date of Birth', ' ', 'default')} */}
-            <TouchableOpacity
-              onPress={() => setOpenDatePicker(true)}
-              style={styless.container}
-            >
-              <Text style={styless.name}>Date Of Birth</Text>
-              <View style={styless.inputContainer}>
-                <Text style={styless.dateColor}>{(date && date) || ' '}</Text>
-                <View>
-                  <Images.CALENDER_ICON
-                    height={20}
-                    width={20}
-                    style={styless.image}
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-            <DatePicker
-              modal
-              open={openDatePicker} // Pass openDatePicker state here
-              date={date ? new Date(String(date)) : new Date()}
-              onConfirm={date => {
-                setOpenDatePicker(false);
-                setDate(date.toISOString());
-              }}
-              onCancel={() => {
-                setOpenDatePicker(false);
-              }}
-            />
+            {touchableOpacities.map((item, index) => (
+              <CustomTouchableOpacity
+                key={index}
+                label={item.label}
+                onPress={item.onPress}
+                selectedDate={selectedDate}
+              />
+            ))}
             {renderTextInput('Nickname or know aliases', ' ', 'default')}
             {renderTextInput('Last Seen Location', ' ', 'default')}
-            {renderTextInput('Last Seen', ' ', 'default')}
           </View>
         </View>
         <View style={styles.detailsContainer}>
@@ -129,7 +117,7 @@ const MissingPersonDetail = () => {
             {renderTextInput('Length of the Hair', '', 'number-pad')}
           </View>
         </View>
-        <View style={{ flexDirection: 'column', gap: 16 }}>
+        <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Upload Photographs</Text>
           <TouchableOpacity>
             <Images.UPLOADER_IMAGE height={173} width={335} />
@@ -141,71 +129,17 @@ const MissingPersonDetail = () => {
           </Pressable>
         </View>
       </View>
+      {openDatePicker && (
+        <DatePicker
+          modal
+          open={openDatePicker}
+          date={selectedDate || new Date()}
+          onConfirm={date => handleDateChange(date)}
+          onCancel={() => setOpenDatePicker(false)}
+        />
+      )}
     </ScrollView>
   );
 };
 
 export default MissingPersonDetail;
-const styless = StyleSheet.create({
-  input: {
-    width: '100%',
-    height: 'auto',
-    paddingVertical: 10,
-
-    paddingRight: 14,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: Colors.BORDER_COLOR,
-    marginBottom: 8,
-    color: Colors.SECONDARY_COLOR,
-  },
-  name: {
-    color: Colors.SECONDARY_COLOR,
-    width: 'auto',
-    height: 20,
-    fontFamily: 'Inter',
-    fontSize: 14,
-    fontWeight: '500',
-    lineHeight: 20,
-    letterSpacing: 0,
-    textAlign: 'left',
-  },
-  container: {
-    width: 335,
-    height: 'auto',
-  },
-  inputContainer: {
-    borderColor: Colors.BORDER_COLOR,
-    height: 44,
-    width: 308,
-    borderRadius: 8,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    marginBottom: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    // margin: 10,
-  },
-  dateColor: {
-    color: Colors.SECONDARY_COLOR,
-  },
-  image: {
-    width: 16.67,
-    height: 13.33,
-    // top: 3.33,
-    left: -10,
-    borderWidth: 1.67,
-  },
-  textStyle: {
-    width: 308,
-    height: 20,
-    fontFamily: 'Inter',
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 20,
-    letterSpacing: 0,
-    textAlign: 'left',
-  },
-});
