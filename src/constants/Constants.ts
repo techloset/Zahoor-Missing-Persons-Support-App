@@ -40,6 +40,7 @@ export const Images = {
   VECTOR_ROUNDED_DIAGRAM: RoundedDiagram,
   MAIL_ICON: require('../assets/images/MailIcon.png'),
   HERO_IMAGE: require('../assets/images/HeroImage.png'),
+  MISSING_PERSON: require('../assets/images/MissingPerson.png'),
   VECTOR_DIAGRAM_LOGIN: LoginImage,
   THINKING_VECTOR: ThinkingVector,
   BACKSPACE_ICON: BackspaceIcon,
