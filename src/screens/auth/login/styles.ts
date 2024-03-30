@@ -1,0 +1,132 @@
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../constants/Constants';
+
+export const styles = StyleSheet.create({
+  logoContainer: {
+    width: 'auto',
+    height: 96,
+    alignSelf: 'center',
+    alignContent: 'center',
+    marginTop: 26,
+    gap: 24,
+  },
+  logo: {
+    width: 167,
+    height: 96,
+    alignSelf: 'center',
+    marginTop: 26,
+  },
+  name: {
+    fontSize: 14,
+    color: Colors.SECONDARY_COLOR,
+    fontWeight: '500',
+    marginBottom: 6,
+  },
+  welcome: {
+    fontSize: 45,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    color: Colors.SECONDARY_COLOR,
+  },
+  input: {
+    marginHorizontal: 16,
+  },
+  container: {
+    width: 308,
+    height: 190,
+    borderColor: Colors.SECONDARY_COLOR,
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: 'center',
+    alignSelf: 'center',
+    // justifyContent: 'center',
+    // top: 200,
+  },
+  textStyle: {
+    width: 308,
+    height: 20,
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 20,
+    letterSpacing: 0,
+    textAlign: 'left',
+    color: Colors.SECONDARY_COLOR,
+  },
+  formSection: {
+    // top: -200,
+    width: 308,
+    height: 450,
+    marginBottom: 34,
+    // marginHorizontal: 25,
+    justifyContent: 'center',
+    // alignContent: 'center',
+  },
+  lastLayout: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    textAlign: 'center',
+    top: 170,
+
+    // gap: 21,
+    width: 'auto',
+    height: 227,
+    // left: 0,
+    backgroundColor: Colors.WHITE_COLOR,
+  },
+  forgotInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
+    alignSelf: 'center',
+    color: Colors.SECONDARY_COLOR,
+    backgroundColor: Colors.WHITE_COLOR,
+    gap: 10,
+    marginTop: 21,
+    textDecorationLine: 'underline',
+  },
+  forgotText: {
+    textDecorationLine: 'underline',
+    color: Colors.SECONDARY_COLOR,
+    marginRight: 10,
+  },
+  divider: {
+    color: Colors.SECONDARY_COLOR,
+  },
+  registerText: {
+    textDecorationLine: 'underline',
+    color: Colors.SECONDARY_COLOR,
+    marginLeft: 10,
+  },
+  separatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  separator: {
+    borderBottomColor: Colors.FADED_BORDER_COLOR,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    flex: 1,
+  },
+  orText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: Colors.SECONDARY_COLOR,
+    marginHorizontal: 10,
+  },
+  googleContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  googleButton: {
+    borderColor: Colors.FADED_BORDER_COLOR,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+  },
+  vectorDiagramContainer: {
+    alignItems: 'center',
+    backgroundColor: Colors.WHITE_COLOR,
+    marginTop: -20,
+  },
+});
