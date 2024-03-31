@@ -22,29 +22,75 @@ const ListItem = () => {
           style={{ height: 154, width: 115 }}
         />
       </View>
-      <View>
-        <View style={{ height: 96 }}>
-          <Text style={{ color: Colors.SECONDARY_COLOR }}>Name: </Text>
-          <Text style={{ color: Colors.SECONDARY_COLOR }}>Age: </Text>
-          <Text style={{ color: Colors.SECONDARY_COLOR }}>Last Seen: </Text>
-          <Text style={{ color: Colors.SECONDARY_COLOR }}>
-            Last Seen Location:{' '}
-          </Text>
-          <Pressable
+      <View
+        style={{
+          height: 132,
+          flex: 1,
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <View>
+          <Text
             style={{
-              backgroundColor: Colors.PRIMARY_COLOR,
-              width: 93,
-              height: 24,
-              paddingVertical: 12,
-              paddingHorizontal: 16,
-              marginBottom: 10,
-              borderRadius: 8,
-              opacity: 0.8,
+              color: Colors.SECONDARY_COLOR,
+              lineHeight: 24,
+              fontSize: 16,
+              fontWeight: '400',
             }}
           >
-            <Text style={{ color: Colors.WHITE_COLOR }}>Details</Text>
-          </Pressable>
+            Name:{' '}
+          </Text>
+          <Text
+            style={{
+              color: Colors.SECONDARY_COLOR,
+              lineHeight: 24,
+              fontSize: 16,
+              fontWeight: '400',
+            }}
+          >
+            Age:{' '}
+          </Text>
+          <Text
+            style={{
+              color: Colors.SECONDARY_COLOR,
+              lineHeight: 24,
+              fontSize: 16,
+              fontWeight: '400',
+            }}
+          >
+            Last Seen:{' '}
+          </Text>
+          <Text
+            style={{
+              color: Colors.SECONDARY_COLOR,
+              lineHeight: 24,
+              fontSize: 16,
+              fontWeight: '400',
+            }}
+          >
+            Last Seen Location:{' '}
+          </Text>
         </View>
+        <Pressable
+          style={{
+            backgroundColor: Colors.PRIMARY_COLOR,
+            width: 93,
+            height: 24,
+            marginBottom: 10,
+            borderRadius: 8,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: Colors.WHITE_COLOR,
+            }}
+          >
+            Details
+          </Text>
+        </Pressable>
       </View>
     </View>
   );

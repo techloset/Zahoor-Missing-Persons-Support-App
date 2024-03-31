@@ -6,7 +6,7 @@ import Card from '../../components/missingPerson/card/Card';
 import NavigationStack from '../../components/navigationStack/NavigationStack';
 import SearchComponent from '../../components/searchComponent/SearchComponent';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation }: any) => {
   return (
     <SafeAreaView
       style={{
@@ -76,12 +76,9 @@ const Home = ({ navigation }) => {
               </Text>
             </View>
             <ScrollView horizontal>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {
+                return <Card key={index} />;
+              })}
             </ScrollView>
           </View>
         </View>
