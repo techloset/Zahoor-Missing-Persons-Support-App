@@ -4,7 +4,7 @@ import React from 'react';
 import { Colors, Units } from '../../../constants/Constants';
 import SearchComponent from '../../../components/searchComponent/SearchComponent';
 import ListItem from '../../../components/missingPerson/listItem/ListItem';
-import NavigationStack from '../../../components/navigationStack/NavigationStack';
+// import NavigationStack from '../../../components/navigationStack/NavigationStack';
 // import ListItem from '../../../components/missingPerson/listItem/ListItem';
 
 const ProfileFlow = () => {
@@ -69,7 +69,7 @@ const ProfileFlow = () => {
         ))}
       </ScrollView>
 
-      <NavigationStack />
+      {/* <NavigationStack /> */}
     </SafeAreaView>
   );
 };

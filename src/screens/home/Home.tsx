@@ -3,7 +3,6 @@ import { View, SafeAreaView, Image, Text, ScrollView } from 'react-native';
 import React from 'react';
 import { Colors, Images } from '../../constants/Constants';
 import Card from '../../components/missingPerson/card/Card';
-import NavigationStack from '../../components/navigationStack/NavigationStack';
 import SearchComponent from '../../components/searchComponent/SearchComponent';
 
 const Home = ({ navigation }: any) => {
@@ -83,9 +82,9 @@ const Home = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-      <View style={{}}>
+      {/* <View style={{}}>
         <NavigationStack />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

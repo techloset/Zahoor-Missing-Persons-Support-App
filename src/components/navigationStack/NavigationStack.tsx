@@ -3,10 +3,14 @@ import React from 'react';
 import { Colors, Images, Units } from '../../constants/Constants';
 import NavigationPress from '../navigationPress/NavigationPress';
 import HomeIndicator from '../homeIndicator/HomeIndicator';
-import { useNavigation } from '@react-navigation/native';
-
+// import { useNavigation } from '@react-navigation/native';
+// import MissingPersonDetail from '../../screens/missingPersonDetail/MissingPersonDetail';
+// {
+//   /* <MissingPersonDetail */
+// }
+// const navigation = useNavigation();
+// onPress: () => navigation.navigate('MissingPersonDetail'),
 const NavigationStack = () => {
-  const navigation = useNavigation();
   const data = [
     { iconName: 'HOME_ICON', height: 26, width: 21, title: 'Home' },
     { iconName: 'REPORTS_ICON', height: 26, width: 23, title: 'Reports' },
@@ -15,7 +19,6 @@ const NavigationStack = () => {
       height: 26,
       width: 18,
       title: 'Upload',
-      onPress: () => navigation.navigate('MissingPersonDetail'),
     },
     { iconName: 'PROFILE_ICON', height: 26, width: 18, title: 'Profile' },
   ];

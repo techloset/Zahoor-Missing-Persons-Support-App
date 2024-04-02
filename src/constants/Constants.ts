@@ -5,9 +5,13 @@ import LoginImage from '../assets/svg/LoginVector.svg';
 import ThinkingVector from '../assets/svg/ThinkingVector.svg';
 import BackspaceIcon from '../assets/svg/KeyboardBackspace.svg';
 import HomeIcon from '../assets/svg/Home.svg';
+import BlueHome from '../assets/svg/BlueHome.svg';
 import ProfileIcon from '../assets/svg/Profile.svg';
+import BlueProfileIcon from '../assets/svg/BlueProfile.svg';
 import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
+import BlueCircleIcon from '../assets/svg/BluePlusCircle.svg';
 import Reports from '../assets/svg/HandsHelping.svg';
+import BlueReports from '../assets/svg/BLueHandsHelping.svg';
 import SearchIcon from '../assets/svg/Search.svg';
 import Calender from '../assets/svg/Calendar.svg';
 import Uploader from '../assets/svg/Uploader.svg';
@@ -51,4 +55,8 @@ export const Images = {
   SEARCH_ICON: SearchIcon,
   CALENDER_ICON: Calender,
   UPLOADER_IMAGE: Uploader,
+  BLUE_HOME: BlueHome,
+  BLUE_PLUS_CIRCLE: BlueCircleIcon,
+  BLUE_PROFILE: BlueProfileIcon,
+  BLUE_REPORTS: BlueReports,
 };
