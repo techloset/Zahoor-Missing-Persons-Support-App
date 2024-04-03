@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { Colors, Images } from '../../../constants/Constants';
+import { Colors, Images, Units } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
 import { styles } from './styles';
@@ -29,7 +29,12 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors.WHITE_COLOR,
+        height: Units.WINDOW_HEIGHT,
+      }}
+    >
       <View style={styles.logoContainer}>
         <View style={styles.logo}>
           <Images.LOGO width={167} height={96} />

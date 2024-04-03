@@ -27,3 +27,20 @@ export type FormData = {
   lengthOfTheHair: string;
   lastSeen: string;
 };
+
+export type InputComponentsProps = {
+  icon: boolean;
+  name: string;
+  value: string;
+  validationText?: string;
+  onChangeText: (text: string) => void;
+  placeholderText: string;
+  security?: boolean;
+  keyboardType:
+    | 'default'
+    | 'number-pad'
+    | 'decimal-pad'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad';
+};

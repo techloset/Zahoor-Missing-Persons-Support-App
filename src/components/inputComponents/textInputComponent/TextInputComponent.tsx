@@ -1,24 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Colors, Images } from '../../../constants/Constants';
+import { Colors, Images, Units } from '../../../constants/Constants';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-
-type InputComponentsProps = {
-  icon: boolean;
-  name: string;
-  value: string;
-  validationText?: string;
-  onChangeText: (text: string) => void;
-  placeholderText: string;
-  security?: boolean;
-  keyboardType:
-    | 'default'
-    | 'number-pad'
-    | 'decimal-pad'
-    | 'numeric'
-    | 'email-address'
-    | 'phone-pad';
-};
+import { InputComponentsProps } from '../../../types/types';
 
 const TextInputComponent = ({
   icon,
@@ -44,17 +28,20 @@ const TextInputComponent = ({
           {icon && (
             <View
               style={{
-                marginRight: -34,
-                marginTop: -5,
-                height: 20,
-                width: 20,
+                marginRight: -Units.WINDOW_WIDTH * 0.0907,
+                marginTop: -Units.WINDOW_HEIGHT * 0.0062,
+                height: Units.WINDOW_HEIGHT * 0.0246,
+                width: Units.WINDOW_WIDTH * 0.0533,
               }}
             >
               <Image source={Images.MAIL_ICON} style={styles.image} />
             </View>
           )}
           <TextInput
-            style={[styles.input, { paddingLeft: icon ? 42 : 14 }]}
+            style={[
+              styles.input,
+              { paddingLeft: icon ? Units.WINDOW_WIDTH * 0.112 : 14 },
+            ]}
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholderText}
@@ -77,23 +64,22 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 'auto',
-    paddingVertical: 10,
-
-    paddingRight: 14,
+    paddingVertical: Units.WINDOW_HEIGHT * 0.0123,
+    paddingRight: Units.WINDOW_WIDTH * 0.0373,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.BORDER_COLOR,
-    marginBottom: 8,
+    marginBottom: Units.WINDOW_HEIGHT * 0.0098,
     color: Colors.SECONDARY_COLOR,
   },
   name: {
     color: Colors.SECONDARY_COLOR,
     width: 'auto',
-    height: 20,
+    height: Units.WINDOW_HEIGHT * 0.0246,
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '500',
-    lineHeight: 20,
+    lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
   },
@@ -102,24 +88,24 @@ const styles = StyleSheet.create({
     height: 'auto',
   },
   inputContainer: {
-    width: 308,
+    width: Units.WINDOW_WIDTH * 0.8213,
     height: 'auto',
-    marginBottom: 6,
+    marginBottom: Units.WINDOW_HEIGHT * 0.0074,
   },
   image: {
-    width: 16.67,
-    height: 13.33,
-    top: 3.33,
-    left: 1.67,
-    borderWidth: 1.67,
+    width: Units.WINDOW_WIDTH * 0.0445,
+    height: Units.WINDOW_HEIGHT * 0.0163,
+    top: Units.WINDOW_HEIGHT * 0.0041,
+    left: Units.WINDOW_WIDTH * 0.0045,
+    borderWidth: Units.WINDOW_WIDTH * 0.0045,
   },
   textStyle: {
-    width: 308,
-    height: 20,
+    width: Units.WINDOW_WIDTH * 0.8213,
+    height: Units.WINDOW_HEIGHT * 0.0246,
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: '400',
-    lineHeight: 20,
+    lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
   },

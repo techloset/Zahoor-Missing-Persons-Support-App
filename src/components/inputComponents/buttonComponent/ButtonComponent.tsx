@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
-import { Colors } from '../../../constants/Constants';
+import { Colors, Units } from '../../../constants/Constants';
 
 type ButtonProps = {
   onPressLearnMore: () => void;
@@ -18,10 +18,9 @@ const Button: React.FC<ButtonProps> = ({ onPressLearnMore, titleText }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: 308,
+    width: Units.WINDOW_WIDTH * 0.8213,
     height: 'auto',
-    paddingVertical: 12,
-    // paddingHorizontal: 16,
+    paddingVertical: Units.WINDOW_HEIGHT * 0.0148,
     borderRadius: 8,
     backgroundColor: Colors.PRIMARY_COLOR,
   },

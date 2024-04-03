@@ -1,5 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Colors } from '../../../constants/Constants';
+
+// Get the screen dimensions
+const { width, height } = Dimensions.get('window');
+
+// Calculate the dynamic units
+const dynamicWidth = width * 0.8213; // 308 / 375
+const dynamicHeight = height * 0.2334; // 190 / 812
+const dynamicTop = height * 0.2084; // 170 / 812
+const dynamicLastLayoutHeight = height * 0.2793; // 227 / 812
 
 export const styles = StyleSheet.create({
   logoContainer: {
@@ -7,14 +16,14 @@ export const styles = StyleSheet.create({
     height: 96,
     alignSelf: 'center',
     alignContent: 'center',
-    marginTop: 26,
+    marginTop: height * 0.0319, // 26 / 812
     gap: 24,
   },
   logo: {
     width: 167,
     height: 96,
     alignSelf: 'center',
-    marginTop: 26,
+    marginTop: height * 0.0319, // 26 / 812
   },
   name: {
     fontSize: 14,
@@ -32,18 +41,16 @@ export const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   container: {
-    width: 308,
-    height: 190,
+    width: dynamicWidth,
+    height: dynamicHeight,
     borderColor: Colors.SECONDARY_COLOR,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: 'center',
     alignSelf: 'center',
-    // justifyContent: 'center',
-    // top: 200,
   },
   textStyle: {
-    width: 308,
+    width: dynamicWidth,
     height: 20,
     fontFamily: 'Inter',
     fontSize: 14,
@@ -54,24 +61,18 @@ export const styles = StyleSheet.create({
     color: Colors.SECONDARY_COLOR,
   },
   formSection: {
-    // top: -200,
-    width: 308,
-    height: 450,
-    marginBottom: 34,
-    // marginHorizontal: 25,
+    width: dynamicWidth,
+    height: height * 0.5539, // 450 / 812
+    marginBottom: height * 0.0418, // 34 / 812
     justifyContent: 'center',
-    // alignContent: 'center',
   },
   lastLayout: {
     flexDirection: 'column',
     justifyContent: 'space-between',
     textAlign: 'center',
-    top: 170,
-
-    // gap: 21,
+    top: dynamicTop,
     width: 'auto',
-    height: 227,
-    // left: 0,
+    height: dynamicLastLayoutHeight,
     backgroundColor: Colors.WHITE_COLOR,
   },
   forgotInfo: {
@@ -82,7 +83,7 @@ export const styles = StyleSheet.create({
     color: Colors.SECONDARY_COLOR,
     backgroundColor: Colors.WHITE_COLOR,
     gap: 10,
-    marginTop: 21,
+    marginTop: height * 0.0258, // 21 / 812
     textDecorationLine: 'underline',
   },
   forgotText: {
