@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colors, Images, Units } from '../constants/Constants';
 import Home from '../screens/home/Home';
-import ProfileFlow from '../screens/profile/profileFlow/ProfileFlow';
-import MissingPersonDetail from '../screens/missingPersonDetail/MissingPersonDetail';
+import Missing from '../screens/missing/Missing';
+import Upload from '../screens/upload/Upload';
 import EditProfile from '../screens/auth/editProfile/EditProfile';
 
 const Tab = createBottomTabNavigator();
@@ -41,8 +41,8 @@ const TabNavigator = () => (
     />
 
     <Tab.Screen
-      name="ProfileFlow"
-      component={ProfileFlow}
+      name="Missing"
+      component={Missing}
       options={{
         title: 'Reports',
         tabBarIcon: ({ focused }: { focused: boolean }) => {
@@ -52,8 +52,8 @@ const TabNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="MissingPersonDetail"
-      component={MissingPersonDetail}
+      name="Upload"
+      component={Upload}
       options={{
         title: 'Upload',
         tabBarIcon: ({ focused }: { focused: boolean }) => {

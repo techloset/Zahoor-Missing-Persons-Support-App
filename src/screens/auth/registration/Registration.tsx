@@ -5,18 +5,31 @@ import TextInputComponent from '../../../components/inputComponents/textInputCom
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
 import { styles } from './styles';
+import auth from '@react-native-firebase/auth';
 
 export default function Registration() {
+  const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [fullName, setFullName] = useState<string>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
 
   const handleCheckboxPress = () => {
     setIsChecked(!isChecked);
   };
-  const buttonPressHandler = () => {
-    console.log(email, password, fullName, isChecked);
+  const createUser = () => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        } else if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+        console.error(error);
+      });
   };
   return (
     <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
@@ -80,7 +93,7 @@ export default function Registration() {
           </View>
         </View>
         <Button
-          onPressLearnMore={buttonPressHandler}
+          onPressLearnMore={createUser}
           titleText="Next"
           accessibilityLabelText="Register Button"
         />

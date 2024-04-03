@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../../constants/Constants';
+import { Colors, Images, Units } from '../../constants/Constants';
 
 const EditProfile = () => {
   return (

@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView } from 'react-native';
 import React from 'react';
 import { Colors, Images } from '../../constants/Constants';
 
-const MissingPersonReport = () => {
+const Report = () => {
   return (
     <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
       <View>
@@ -15,4 +15,4 @@ const MissingPersonReport = () => {
   );
 };
 
-export default MissingPersonReport;
+export default Report;

@@ -33,7 +33,7 @@ const DateTime = ({ onPress, label, selectedDate }: DateTimeProps) => (
   </TouchableOpacity>
 );
 
-const MissingPersonDetail = () => {
+const Upload = () => {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     gender: '',
@@ -149,4 +149,4 @@ const MissingPersonDetail = () => {
   );
 };
 
-export default MissingPersonDetail;
+export default Upload;

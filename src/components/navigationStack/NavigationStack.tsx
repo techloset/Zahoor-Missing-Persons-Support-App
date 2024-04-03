@@ -4,12 +4,12 @@ import { Colors, Images, Units } from '../../constants/Constants';
 import NavigationPress from '../navigationPress/NavigationPress';
 import HomeIndicator from '../homeIndicator/HomeIndicator';
 // import { useNavigation } from '@react-navigation/native';
-// import MissingPersonDetail from '../../screens/missingPersonDetail/MissingPersonDetail';
+// import Upload from '../../screens/Upload/Upload';
 // {
-//   /* <MissingPersonDetail */
+//   /* <Upload */
 // }
 // const navigation = useNavigation();
-// onPress: () => navigation.navigate('MissingPersonDetail'),
+// onPress: () => navigation.navigate('Upload'),
 const NavigationStack = () => {
   const data = [
     { iconName: 'HOME_ICON', height: 26, width: 21, title: 'Home' },

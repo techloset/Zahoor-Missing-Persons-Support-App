@@ -5,13 +5,27 @@ import { Colors, Images } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
 import { styles } from './styles';
+import auth from '@react-native-firebase/auth';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const buttonPressHandler = () => {
-    console.log('Login Screen', email, password);
+  const loginHandler = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User successfully signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/user-not-found') {
+          console.log('User not found. Please check your credentials.');
+        } else if (error.code === 'auth/wrong-password') {
+          console.log('Incorrect password. Please try again.');
+        } else {
+          console.error(error);
+        }
+      });
   };
 
   return (
@@ -48,7 +62,7 @@ const Login = () => {
       <View style={styles.lastLayout}>
         <View style={{ alignItems: 'center' }}>
           <Button
-            onPressLearnMore={buttonPressHandler}
+            onPressLearnMore={loginHandler}
             titleText="Log in"
             accessibilityLabelText="Login Button"
           />

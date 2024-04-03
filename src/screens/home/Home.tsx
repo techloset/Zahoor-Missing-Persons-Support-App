@@ -29,7 +29,7 @@ const Home = ({ navigation }: any) => {
               <Text
                 style={styles.seeMoreText}
                 onPress={() =>
-                  navigation.navigate('ProfileFlow', {
+                  navigation.navigate('Missing', {
                     title: 'Featured Profiles',
                   })
                 }
