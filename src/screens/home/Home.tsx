@@ -1,70 +1,33 @@
-/* eslint-disable react-native/no-inline-styles */
-import { View, SafeAreaView, Image, Text, ScrollView } from 'react-native';
 import React from 'react';
+import {
+  View,
+  SafeAreaView,
+  Image,
+  Text,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import { Colors, Images } from '../../constants/Constants';
 import Card from '../../components/missingPerson/card/Card';
 import SearchComponent from '../../components/searchComponent/SearchComponent';
 
 const Home = ({ navigation }: any) => {
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: Colors.WHITE_COLOR,
-        height: '100%',
-        flexDirection: 'column',
-        gap: 27,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <View
-        style={{
-          alignItems: 'center',
-          gap: 26,
-          height: 142,
-          justifyContent: 'center',
-          // position: 'absolute',
-          // top: 0,
-        }}
-      >
-        <View>
-          <Images.LOGO />
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Images.LOGO />
         <SearchComponent />
       </View>
-      <ScrollView style={{ height: 106 }}>
-        <View
-          style={{
-            gap: 27,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 224,
-              width: 335,
-              overflow: 'hidden',
-              borderRadius: 8,
-            }}
-          >
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.featuredProfilesContainer}>
+          <View style={styles.imageContainer}>
             <Image source={Images.HERO_IMAGE} />
           </View>
-          <View style={{ width: 335, height: 344, gap: 12 }}>
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-            >
-              <Text style={{ color: Colors.SECONDARY_COLOR }}>
-                Featured Profiles
-              </Text>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.featuredProfilesText}>Featured Profiles</Text>
               <Text
-                style={{
-                  color: Colors.PRIMARY_COLOR,
-                  textDecorationLine: 'underline',
-                }}
+                style={styles.seeMoreText}
                 onPress={() =>
                   navigation.navigate('ProfileFlow', {
                     title: 'Featured Profiles',
@@ -82,11 +45,60 @@ const Home = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
-      {/* <View style={{}}>
-        <NavigationStack />
-      </View> */}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.WHITE_COLOR,
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 27,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 26,
+    height: 142,
+    justifyContent: 'center',
+  },
+  scrollView: {
+    height: 106,
+    marginBottom: 27,
+  },
+  featuredProfilesContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 224,
+    width: 335,
+    overflow: 'hidden',
+    borderRadius: 8,
+  },
+  cardContainer: {
+    width: 335,
+    height: 344,
+    marginBottom: 12,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  featuredProfilesText: {
+    color: Colors.SECONDARY_COLOR,
+  },
+  seeMoreText: {
+    color: Colors.PRIMARY_COLOR,
+    textDecorationLine: 'underline',
+  },
+});
 
 export default Home;
