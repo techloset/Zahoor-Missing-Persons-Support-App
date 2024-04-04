@@ -18,6 +18,7 @@ import SearchIcon from '../assets/svg/Search.svg';
 import Calender from '../assets/svg/Calendar.svg';
 import Uploader from '../assets/svg/Uploader.svg';
 import Logout from '../assets/svg/Logout.svg';
+import CrossIcon from '../assets/svg/CrossIcon.svg';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -65,4 +66,5 @@ export const Images = {
   NEWS_ICON: NewsIcon,
   BLUE_NEWS: BlueNewsIcon,
   LOGOUT_ICON: Logout,
+  CROSS_ICON: CrossIcon,
 };

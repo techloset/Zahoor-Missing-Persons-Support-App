@@ -6,7 +6,13 @@ import {
   ScrollView,
   Pressable,
   TouchableOpacity,
+  Image,
 } from 'react-native';
+import {
+  ImageLibraryOptions,
+  ImagePickerResponse,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 
 import DatePicker from 'react-native-date-picker';
 import { Images, Units } from '../../constants/Constants';
@@ -47,7 +53,7 @@ const Upload = () => {
     lengthOfTheHair: '',
     lastSeen: '',
   });
-
+  const [selectedImage, setSelectedImage] = useState<string>('');
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -71,6 +77,24 @@ const Upload = () => {
     console.log('Submitting Report with:', formData);
   };
 
+  const imagePicker = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+      mediaType: 'photo',
+      quality: 1,
+    } as ImageLibraryOptions;
+    launchImageLibrary(options, (response: ImagePickerResponse) => {
+      if (!response.didCancel) {
+        const selectedImgUri = response.assets?.[0]?.uri;
+        if (selectedImgUri) {
+          setSelectedImage(selectedImgUri);
+        }
+      }
+    });
+  };
   const renderTextInput = (
     name: string,
     placeholder: string,
@@ -127,13 +151,20 @@ const Upload = () => {
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Upload Photographs</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => imagePicker()}>
             <Images.UPLOADER_IMAGE
               height={Units.WINDOW_HEIGHT * 0.2126}
               width={Units.WINDOW_WIDTH * 0.8933}
             />
           </TouchableOpacity>
         </View>
+        {selectedImage ? (
+          <Image
+            source={{ uri: selectedImage }}
+            style={{ width: 350, height: 250 }}
+            resizeMode="cover"
+          />
+        ) : null}
         <View style={styles.submitContainer}>
           <Pressable onPress={handleSubmit} style={styles.submitButton}>
             <Text style={styles.submitText}>Submit Report</Text>

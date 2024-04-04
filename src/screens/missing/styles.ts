@@ -10,9 +10,6 @@ export const styles = StyleSheet.create({
   },
   searchContainer: {
     marginBottom: 26,
-    // flex:1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
