@@ -51,7 +51,6 @@ export const screenConfigs = [
     name: 'Profile',
     component: EditProfile,
     title: 'Profile',
-    // headerTitle: 'Edit Profile',
     icon: {
       focused: <Images.BLUE_PROFILE height={25} width={25} />,
       unfocused: <Images.PROFILE_ICON height={25} width={25} />,
