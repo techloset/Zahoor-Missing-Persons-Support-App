@@ -29,11 +29,11 @@ export const styles = StyleSheet.create({
     marginTop: Units.WINDOW_HEIGHT * 0.0271, // (unit: 22) / 812
     width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
     height: 'auto',
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   mainContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     gap: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
@@ -94,6 +94,8 @@ export const styles = StyleSheet.create({
   container: {
     width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
     height: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   inputContainer: {
     borderColor: Colors.BORDER_COLOR,
@@ -105,7 +107,9 @@ export const styles = StyleSheet.create({
     marginBottom: Units.WINDOW_HEIGHT * 0.0074, // (unit: 6) / 812
     flexDirection: 'row',
     alignItems: 'center',
+    marginHorizontal: 'auto',
     justifyContent: 'space-between',
+
     paddingHorizontal: Units.WINDOW_WIDTH * 0.0373, // (unit: 14) / 375
     // margin: 10,
   },

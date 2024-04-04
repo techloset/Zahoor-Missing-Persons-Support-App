@@ -13,6 +13,7 @@ import {
   ImagePickerResponse,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 
 import DatePicker from 'react-native-date-picker';
 import { Images, Units } from '../../constants/Constants';
@@ -77,7 +78,7 @@ const Upload = () => {
     console.log('Submitting Report with:', formData);
   };
 
-  const imagePicker = () => {
+  const imagePicker = async () => {
     let options = {
       storageOptions: {
         skipBackup: true,
@@ -86,14 +87,22 @@ const Upload = () => {
       mediaType: 'photo',
       quality: 1,
     } as ImageLibraryOptions;
-    launchImageLibrary(options, (response: ImagePickerResponse) => {
-      if (!response.didCancel) {
-        const selectedImgUri = response.assets?.[0]?.uri;
-        if (selectedImgUri) {
-          setSelectedImage(selectedImgUri);
-        }
-      }
-    });
+
+    try {
+      const res = await ImagePicker.launchImageLibrary(
+        options,
+        (response: ImagePickerResponse) => {
+          if (!response.didCancel) {
+            const selectedImgUri = response.assets?.[0]?.uri;
+            if (selectedImgUri) {
+              setSelectedImage(selectedImgUri);
+            }
+          }
+        },
+      );
+    } catch (error) {
+      console.log('Error in image picker:', error);
+    }
   };
   const renderTextInput = (
     name: string,
@@ -124,7 +133,7 @@ const Upload = () => {
           <Text style={styles.detailsTitle}>
             Basic Details of Missing Person
           </Text>
-          <View>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             {renderTextInput('Missing Person’s Full Name', '', 'default')}
             {renderTextInput('Gender', ' ', 'default')}
             {touchableOpacities.map((item, index) => (
