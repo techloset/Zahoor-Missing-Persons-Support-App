@@ -12,9 +12,12 @@ import PlusCircleIcon from '../assets/svg/PlusCircle.svg';
 import BlueCircleIcon from '../assets/svg/BluePlusCircle.svg';
 import Reports from '../assets/svg/HandsHelping.svg';
 import BlueReports from '../assets/svg/BLueHandsHelping.svg';
+import NewsIcon from '../assets/svg/NewsIcon.svg';
+import BlueNewsIcon from '../assets/svg/BlueNewsIcon.svg';
 import SearchIcon from '../assets/svg/Search.svg';
 import Calender from '../assets/svg/Calendar.svg';
 import Uploader from '../assets/svg/Uploader.svg';
+import Logout from '../assets/svg/Logout.svg';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -59,4 +62,7 @@ export const Images = {
   BLUE_PLUS_CIRCLE: BlueCircleIcon,
   BLUE_PROFILE: BlueProfileIcon,
   BLUE_REPORTS: BlueReports,
+  NEWS_ICON: NewsIcon,
+  BLUE_NEWS: BlueNewsIcon,
+  LOGOUT_ICON: Logout,
 };

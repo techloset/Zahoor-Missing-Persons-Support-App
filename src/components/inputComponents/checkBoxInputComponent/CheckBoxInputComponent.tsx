@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.SECONDARY_COLOR,
   },
   checkboxChecked: {
-    backgroundColor: Colors.WHITE_COLOR,
+    ,
   },
 });
 

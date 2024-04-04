@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 10,
     paddingTop: 17,
-    backgroundColor: Colors.WHITE_COLOR,
+    ,
   },
   navigationContainer: {
     width: 277,
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 28,
     borderColor: Colors.SECONDARY_COLOR,
-    backgroundColor: Colors.WHITE_COLOR,
+    ,
   },
 });

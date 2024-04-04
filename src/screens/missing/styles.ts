@@ -3,13 +3,18 @@ import { Colors } from '../../constants/Constants';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.WHITE_COLOR,
+    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
   searchContainer: {
     marginBottom: 26,
+    // flex:1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   filterContainer: {
     flexDirection: 'row',
@@ -27,9 +32,16 @@ export const styles = StyleSheet.create({
   filterItem: {
     marginRight: 16,
     height: 36,
-    backgroundColor: Colors.WHITE_COLOR,
     borderRadius: 6,
     justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 10,
+    padding: 8,
+    shadowColor: Colors.FADED_BORDER_COLOR,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.01,
+    shadowRadius: 2,
+    backgroundColor: Colors.WHITE_COLOR,
   },
   filterItemText: {
     color: Colors.SECONDARY_COLOR,
@@ -37,8 +49,6 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 20,
-    textAlign: 'center',
-    marginRight: 16,
   },
   listContainer: {
     flex: 1,

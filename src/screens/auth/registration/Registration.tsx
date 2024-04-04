@@ -32,7 +32,7 @@ export default function Registration() {
       });
   };
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
+    <SafeAreaView style={{}}>
       <View style={styles.imageStyles}>
         <Images.VECTOR_ROUNDED_DIAGRAM width={302} height={259} />
       </View>

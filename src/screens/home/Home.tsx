@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Units.WINDOW_WIDTH * 0.0427,
+    // paddingHorizontal: Units.WINDOW_WIDTH * 0.0427,
     paddingTop: Units.WINDOW_HEIGHT * 0.0332,
   },
   logoContainer: {

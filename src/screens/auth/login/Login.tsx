@@ -31,7 +31,7 @@ const Login = () => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: Colors.WHITE_COLOR,
+        ,
         height: Units.WINDOW_HEIGHT,
       }}
     >

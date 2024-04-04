@@ -2,7 +2,6 @@ import { Colors } from '../../../constants/Constants';
 import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   safeAreaView: {
-    backgroundColor: Colors.WHITE_COLOR,
     height: '100%',
   },
   rowContainer: {

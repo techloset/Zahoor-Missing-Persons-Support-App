@@ -34,7 +34,6 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: Colors.WHITE_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
     gap: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812

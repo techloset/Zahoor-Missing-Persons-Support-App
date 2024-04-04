@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginLeft: -Units.WINDOW_WIDTH * 0.08,
   },
   icon: {
-    marginLeft: -Units.WINDOW_WIDTH * 0.08,
+    marginLeft: -Units.WINDOW_WIDTH * 0.0001,
   },
 });
 

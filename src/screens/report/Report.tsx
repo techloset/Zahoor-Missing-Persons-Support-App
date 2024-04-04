@@ -4,7 +4,7 @@ import { Colors, Images } from '../../constants/Constants';
 
 const Report = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.WHITE_COLOR }}>
+    <SafeAreaView style={{}}>
       <View>
         <Images.LOGO />
         <Text style={{ color: Colors.SECONDARY_COLOR }}>

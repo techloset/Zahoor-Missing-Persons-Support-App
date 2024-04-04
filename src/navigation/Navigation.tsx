@@ -1,22 +1,22 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/react-in-jsx-scope */
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colors, Images, Units } from '../constants/Constants';
-import Home from '../screens/home/Home';
-import Missing from '../screens/missing/Missing';
-import Upload from '../screens/upload/Upload';
-import EditProfile from '../screens/auth/editProfile/EditProfile';
+import { TouchableOpacity } from 'react-native';
+import { screenConfigs } from './screenConfig';
 
 const Tab = createBottomTabNavigator();
+
 const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={{
       headerShown: false,
       tabBarInactiveTintColor: Colors.SECONDARY_COLOR,
       tabBarActiveTintColor: Colors.PRIMARY_COLOR,
-      tabBarActiveBackgroundColor: Colors.WHITE_COLOR,
       tabBarStyle: {
+        elevation: 0,
         height: 62,
         marginHorizontal: 40,
         borderRadius: 44,
@@ -25,59 +25,38 @@ const TabNavigator = () => (
         borderWidth: 3,
         borderColor: Colors.SECONDARY_COLOR,
         borderTopWidth: 3,
-        width: Units.WINDOW_WIDTH - 80,
+        width: Units.WINDOW_WIDTH - 70,
+        paddingHorizontal: 10,
         overflow: 'hidden',
-        // padding: 8,
+        backgroundColor: Colors.WHITE_COLOR,
+        marginRight: 'auto',
+        marginLeft: 'auto',
       },
     }}
   >
-    <Tab.Screen
-      name="Home"
-      component={Home}
-      options={{
-        title: 'Home',
-        tabBarIcon: ({ focused }: { focused: boolean }) => {
-          return focused ? <Images.BLUE_HOME /> : <Images.HOME_ICON />;
-        },
-        headerShown: false,
-      }}
-    />
-
-    <Tab.Screen
-      name="Missing"
-      component={Missing}
-      options={{
-        title: 'Reports',
-        tabBarIcon: ({ focused }: { focused: boolean }) => {
-          return focused ? <Images.BLUE_REPORTS /> : <Images.REPORTS_ICON />;
-        },
-        headerShown: true,
-      }}
-    />
-    <Tab.Screen
-      name="Upload"
-      component={Upload}
-      options={{
-        title: 'Upload',
-        tabBarIcon: ({ focused }: { focused: boolean }) => {
-          return focused ? (
-            <Images.BLUE_PLUS_CIRCLE />
-          ) : (
-            <Images.PLUS_CIRCLE_ICON />
-          );
-        },
-      }}
-    />
-    <Tab.Screen
-      name="EditProfile"
-      component={EditProfile}
-      options={{
-        title: 'Profile',
-        tabBarIcon: ({ focused }: { focused: boolean }) => {
-          return focused ? <Images.BLUE_PROFILE /> : <Images.PROFILE_ICON />;
-        },
-      }}
-    />
+    {screenConfigs.map(screen => (
+      <Tab.Screen
+        key={screen.name}
+        name={screen.name}
+        component={screen.component}
+        options={({ navigation }) => ({
+          title: screen.title,
+          tabBarIcon: ({ focused }) =>
+            focused ? screen.icon.focused : screen.icon.unfocused,
+          headerShown: screen.hideHeader ? false : true,
+          headerStyle: { backgroundColor: Colors.WHITE_COLOR },
+          headerTitle: screen.headerTitle || screen.title,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 10 }}
+              onPress={() => navigation.goBack()}
+            >
+              <Images.BACKSPACE_ICON height={25} width={25} />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+    ))}
   </Tab.Navigator>
 );
 

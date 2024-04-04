@@ -73,7 +73,6 @@ export const styles = StyleSheet.create({
     top: dynamicTop,
     width: 'auto',
     height: dynamicLastLayoutHeight,
-    backgroundColor: Colors.WHITE_COLOR,
   },
   forgotInfo: {
     flexDirection: 'row',
@@ -81,7 +80,6 @@ export const styles = StyleSheet.create({
     alignContent: 'space-between',
     alignSelf: 'center',
     color: Colors.SECONDARY_COLOR,
-    backgroundColor: Colors.WHITE_COLOR,
     gap: 10,
     marginTop: height * 0.0258, // 21 / 812
     textDecorationLine: 'underline',
@@ -127,7 +125,6 @@ export const styles = StyleSheet.create({
   },
   vectorDiagramContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.WHITE_COLOR,
     marginTop: -20,
   },
 });
