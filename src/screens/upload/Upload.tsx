@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
   View,
@@ -8,7 +9,7 @@ import {
 } from 'react-native';
 
 import DatePicker from 'react-native-date-picker';
-import { Images } from '../../constants/Constants';
+import { Images, Units } from '../../constants/Constants';
 import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
 import { FormData } from '../../types/types';
 import { styles } from './styles';
@@ -20,9 +21,9 @@ interface DateTimeProps {
 }
 
 const DateTime = ({ onPress, label, selectedDate }: DateTimeProps) => (
-  <TouchableOpacity onPress={onPress} style={styles.container}>
+  <TouchableOpacity onPress={onPress} style={[styles.container, {}]}>
     <Text style={styles.name}>{label}</Text>
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, { height: 50 }]}>
       <Text style={styles.dateColor}>
         {selectedDate ? selectedDate.toDateString() : ' '}
       </Text>
@@ -127,7 +128,10 @@ const Upload = () => {
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Upload Photographs</Text>
           <TouchableOpacity>
-            <Images.UPLOADER_IMAGE height={173} width={335} />
+            <Images.UPLOADER_IMAGE
+              height={Units.WINDOW_HEIGHT * 0.2126}
+              width={Units.WINDOW_WIDTH * 0.8933}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.submitContainer}>

@@ -7,7 +7,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { Colors, Images } from '../../constants/Constants';
+import { Colors, Images, Units } from '../../constants/Constants';
 import Card from '../../components/missingPerson/card/Card';
 import SearchComponent from '../../components/searchComponent/SearchComponent';
 
@@ -21,7 +21,7 @@ const Home = ({ navigation }: any) => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.featuredProfilesContainer}>
           <View style={styles.imageContainer}>
-            <Image source={Images.HERO_IMAGE} />
+            <Image source={Images.HERO_IMAGE} style={styles.heroImage} />
           </View>
           <View style={styles.cardContainer}>
             <View style={styles.cardHeader}>
@@ -56,18 +56,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 27,
+    paddingHorizontal: Units.WINDOW_WIDTH * 0.0427,
+    paddingTop: Units.WINDOW_HEIGHT * 0.0332,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 26,
-    height: 142,
+    marginBottom: Units.WINDOW_HEIGHT * 0.032,
+    height: Units.WINDOW_HEIGHT * 0.1744,
     justifyContent: 'center',
   },
   scrollView: {
-    height: 106,
-    marginBottom: 27,
+    height: Units.WINDOW_HEIGHT * 0.1301,
+    marginBottom: Units.WINDOW_HEIGHT * 0.0332,
   },
   featuredProfilesContainer: {
     flexDirection: 'column',
@@ -77,20 +77,24 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 224,
-    width: 335,
+    height: Units.WINDOW_HEIGHT * 0.2754,
+    width: Units.WINDOW_WIDTH * 0.8933,
     overflow: 'hidden',
     borderRadius: 8,
   },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+  },
   cardContainer: {
-    width: 335,
-    height: 344,
-    marginBottom: 12,
+    width: Units.WINDOW_WIDTH * 0.8933,
+    height: Units.WINDOW_HEIGHT * 0.4234,
+    marginBottom: Units.WINDOW_HEIGHT * 0.0148,
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: Units.WINDOW_HEIGHT * 0.0148,
   },
   featuredProfilesText: {
     color: Colors.SECONDARY_COLOR,

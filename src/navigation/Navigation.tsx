@@ -15,6 +15,7 @@ const TabNavigator = () => (
       headerShown: false,
       tabBarInactiveTintColor: Colors.SECONDARY_COLOR,
       tabBarActiveTintColor: Colors.PRIMARY_COLOR,
+      tabBarActiveBackgroundColor: Colors.WHITE_COLOR,
       tabBarStyle: {
         height: 62,
         marginHorizontal: 40,
@@ -25,7 +26,8 @@ const TabNavigator = () => (
         borderColor: Colors.SECONDARY_COLOR,
         borderTopWidth: 3,
         width: Units.WINDOW_WIDTH - 80,
-        padding: 8,
+        overflow: 'hidden',
+        // padding: 8,
       },
     }}
   >
@@ -37,6 +39,7 @@ const TabNavigator = () => (
         tabBarIcon: ({ focused }: { focused: boolean }) => {
           return focused ? <Images.BLUE_HOME /> : <Images.HOME_ICON />;
         },
+        headerShown: false,
       }}
     />
 
