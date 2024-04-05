@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../../constants/Constants';
@@ -11,25 +10,12 @@ const Card = () => {
       <View style={styles.imageContainer}>
         <Image source={Images.HERO_IMAGE} />
       </View>
-      <View
-        style={{
-          height: 88,
-          minWidth: 152,
-          position: 'absolute',
-          bottom: 50,
-          left: 16,
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          gap: 12,
-        }}
-      >
+      <View style={styles.infoContainer}>
         <View>
-          <Text style={{ color: Colors.WHITE_COLOR }}>Name: </Text>
-          <Text style={{ color: Colors.WHITE_COLOR }}>Age: </Text>
-          <Text style={{ color: Colors.WHITE_COLOR }}>Last Seen: </Text>
-          <Text style={{ color: Colors.WHITE_COLOR }}>
-            Last Seen Location:{' '}
-          </Text>
+          <Text style={styles.text}>Name: </Text>
+          <Text style={styles.text}>Age: </Text>
+          <Text style={styles.text}>Last Seen: </Text>
+          <Text style={styles.text}>Last Seen Location: </Text>
         </View>
         <DetailsButton title="Details" onPress={() => {}} />
       </View>
@@ -55,6 +41,22 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+  },
+  infoContainer: {
+    height: 88,
+    minWidth: 152,
+    position: 'absolute',
+    bottom: 50,
+    left: 16,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  text: {
+    color: Colors.WHITE_COLOR,
+    fontSize: 11,
+    lineHeight: 13.2,
+    fontWeight: '400',
   },
 });
 
