@@ -56,10 +56,8 @@ export const screenConfigs = [
       unfocused: <Images.PROFILE_ICON height={25} width={25} />,
     },
     hideHeader: true,
-    // Add tabBarVisible option to hide the Profile tab
     tabBarVisible: ({ route }: any) => {
       const routeName = route.name;
-      // Hide the tab if the current route is 'Profile'
       return routeName !== 'Profile';
     },
   },
