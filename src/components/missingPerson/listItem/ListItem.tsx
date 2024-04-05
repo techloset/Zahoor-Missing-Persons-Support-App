@@ -1,6 +1,7 @@
-import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../../constants/Constants';
+import DetailsButton from '../../detailsButton/DetailsButton';
 
 const ListItem = () => {
   return (
@@ -15,9 +16,7 @@ const ListItem = () => {
           <Text style={styles.text}>Last Seen: </Text>
           <Text style={styles.text}>Last Seen Location: </Text>
         </View>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Details</Text>
-        </Pressable>
+        <DetailsButton title="Details" onPress={() => {}} />
       </View>
     </View>
   );
@@ -26,7 +25,7 @@ const ListItem = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: Units.WINDOW_HEIGHT * 0.1893,
+    minHeight: Units.WINDOW_HEIGHT * 0.1893,
     width: Units.WINDOW_WIDTH * 0.8907,
     gap: Units.WINDOW_WIDTH * 0.0213,
     marginBottom: Units.WINDOW_HEIGHT * 0.0197,

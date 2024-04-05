@@ -5,11 +5,12 @@ import {
   Image,
   Text,
   ScrollView,
-  StyleSheet,
+  Alert,
 } from 'react-native';
-import { Colors, Images, Units } from '../../constants/Constants';
+import { Images } from '../../constants/Constants';
 import Card from '../../components/missingPerson/card/Card';
 import SearchComponent from '../../components/searchComponent/SearchComponent';
+import { styles } from './styles';
 
 const Home = ({ navigation }: any) => {
   return (
@@ -45,64 +46,14 @@ const Home = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+      <Images.FLOAT_ICON
+        height={48}
+        width={48}
+        style={styles.floatButton}
+        onPress={() => Alert.alert('Floating Button Clicked')}
+      />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.WHITE_COLOR,
-    height: '100%',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // paddingHorizontal: Units.WINDOW_WIDTH * 0.0427,
-    paddingTop: Units.WINDOW_HEIGHT * 0.0332,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: Units.WINDOW_HEIGHT * 0.032,
-    height: Units.WINDOW_HEIGHT * 0.1744,
-    justifyContent: 'center',
-  },
-  scrollView: {
-    height: Units.WINDOW_HEIGHT * 0.1301,
-    marginBottom: Units.WINDOW_HEIGHT * 0.0332,
-  },
-  featuredProfilesContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: Units.WINDOW_HEIGHT * 0.2754,
-    width: Units.WINDOW_WIDTH * 0.8933,
-    overflow: 'hidden',
-    borderRadius: 8,
-  },
-  heroImage: {
-    width: '100%',
-    height: '100%',
-  },
-  cardContainer: {
-    width: Units.WINDOW_WIDTH * 0.8933,
-    height: Units.WINDOW_HEIGHT * 0.4234,
-    marginBottom: Units.WINDOW_HEIGHT * 0.0148,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: Units.WINDOW_HEIGHT * 0.0148,
-  },
-  featuredProfilesText: {
-    color: Colors.SECONDARY_COLOR,
-  },
-  seeMoreText: {
-    color: Colors.PRIMARY_COLOR,
-    textDecorationLine: 'underline',
-  },
-});
 
 export default Home;
