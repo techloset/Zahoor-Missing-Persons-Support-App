@@ -20,6 +20,7 @@ import Uploader from '../assets/svg/Uploader.svg';
 import Logout from '../assets/svg/Logout.svg';
 import CrossIcon from '../assets/svg/CrossIcon.svg';
 import EditIcon from '../assets/svg/EditIcon.svg';
+import FloatIcon from '../assets/svg/FloatingIcon.svg';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -69,4 +70,5 @@ export const Images = {
   LOGOUT_ICON: Logout,
   CROSS_ICON: CrossIcon,
   EDIT_ICON: EditIcon,
+  FLOAT_ICON: FloatIcon,
 };

@@ -5,8 +5,14 @@ import { Colors, Images, Units } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
 import Button from '../../../components/inputComponents/buttonComponent/ButtonComponent';
 import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 const Profile = () => {
+  const signoutHandler = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
   const navigation = useNavigation();
   return (
     <View
@@ -40,7 +46,7 @@ const Profile = () => {
         >
           Edit Profile
         </Text>
-        <Images.LOGOUT_ICON height={25} width={25} />
+        <Images.LOGOUT_ICON height={25} width={25} onPress={signoutHandler} />
       </View>
       <View style={{ alignItems: 'center', flexDirection: 'column', gap: 69 }}>
         <View style={{ position: 'relative' }}>

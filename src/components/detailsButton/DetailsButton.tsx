@@ -14,11 +14,9 @@ const DetailsButton = ({ onPress, title }: DetailsButtonProps) => {
       onPress={onPress}
       style={{
         backgroundColor: Colors.PRIMARY_COLOR,
-        // height: 24,
         borderRadius: 8,
-        // minWidth: 78,
-        // maxWidth: 90,
-        width: Units.WINDOW_WIDTH * 0.248,
+        minWidth: 78,
+        maxWidth: 101,
         height: Units.WINDOW_HEIGHT * 0.0296,
         justifyContent: 'center',
         alignItems: 'center',
