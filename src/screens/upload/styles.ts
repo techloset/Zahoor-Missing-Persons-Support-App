@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     fontSize: Units.WINDOW_HEIGHT * 0.0283, // (unit: 23) / 812
     fontWeight: '400',
     lineHeight: Units.WINDOW_HEIGHT * 0.0338, // (unit: 27.6) / 812
+    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
   },
   submitContainer: {
     width: Units.WINDOW_WIDTH, // (unit: 375) / 375
@@ -82,7 +83,7 @@ export const styles = StyleSheet.create({
   },
   name: {
     color: Colors.SECONDARY_COLOR,
-    width: 'auto',
+    width: Units.WINDOW_WIDTH * 0.8213,
     height: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
     fontFamily: 'Inter',
     fontSize: Units.WINDOW_HEIGHT * 0.0172, // (unit: 14) / 812

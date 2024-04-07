@@ -1,23 +1,42 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../../constants/Constants';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { Colors, Units } from '../../../constants/Constants';
 import DetailsButton from '../../inputComponents/detailsButton/DetailsButton';
 
-const Card = () => {
+type CardProps = {
+  imageUrl: string;
+  name: string;
+  age: number;
+  lastSeen: string;
+  lastSeenLocation: string;
+};
+
+const Card = ({
+  imageUrl,
+  name,
+  age,
+  lastSeen,
+  lastSeenLocation,
+}: CardProps) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.missingText}>MISSING</Text>
       <View style={styles.imageContainer}>
-        <Image source={Images.HERO_IMAGE} />
+        <Image
+          source={imageUrl}
+          // style={styles.image}
+        />
       </View>
       <View style={styles.infoContainer}>
         <View>
-          <Text style={styles.text}>Name: </Text>
-          <Text style={styles.text}>Age: </Text>
-          <Text style={styles.text}>Last Seen: </Text>
-          <Text style={styles.text}>Last Seen Location: </Text>
+          <Text style={styles.text}>Name: {name} </Text>
+          <Text style={styles.text}>Age: {age}</Text>
+          <Text style={styles.text}>Last Seen: {lastSeen}</Text>
+          <Text style={styles.text}>
+            Last Seen Location: {lastSeenLocation}
+          </Text>
         </View>
-        <DetailsButton title="Details" onPress={() => {}} />
+        <DetailsButton title="View Details" onPress={() => {}} />
       </View>
     </View>
   );
@@ -41,6 +60,12 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
+  },
+  image: {
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
   infoContainer: {
     height: 88,

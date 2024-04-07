@@ -8,11 +8,6 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {
-  ImageLibraryOptions,
-  ImagePickerResponse,
-  launchImageLibrary,
-} from 'react-native-image-picker';
 import * as ImagePicker from 'react-native-image-picker';
 
 import DatePicker from 'react-native-date-picker';
@@ -86,12 +81,12 @@ const Upload = () => {
       },
       mediaType: 'photo',
       quality: 1,
-    } as ImageLibraryOptions;
+    } as ImagePicker.ImageLibraryOptions;
 
     try {
       const res = await ImagePicker.launchImageLibrary(
         options,
-        (response: ImagePickerResponse) => {
+        (response: ImagePicker.ImagePickerResponse) => {
           if (!response.didCancel) {
             const selectedImgUri = response.assets?.[0]?.uri;
             if (selectedImgUri) {
@@ -170,7 +165,11 @@ const Upload = () => {
         {selectedImage ? (
           <Image
             source={{ uri: selectedImage }}
-            style={{ width: 350, height: 250 }}
+            style={{
+              width: Units.WINDOW_WIDTH * 0.8933,
+              height: Units.WINDOW_HEIGHT * 0.2126,
+              objectFit: 'cover',
+            }}
             resizeMode="cover"
           />
         ) : null}

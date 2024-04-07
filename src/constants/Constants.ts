@@ -21,6 +21,9 @@ import Logout from '../assets/svg/Logout.svg';
 import CrossIcon from '../assets/svg/CrossIcon.svg';
 import EditIcon from '../assets/svg/EditIcon.svg';
 import FloatIcon from '../assets/svg/FloatingIcon.svg';
+import MailIcon from '../assets/images/MailIcon.png';
+import HeroImage from '../assets/images/HeroImage.png';
+import MissingPerson from '../assets/images/MissingPerson.png';
 import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -48,9 +51,9 @@ export const Images = {
   GOOGLE_IMAGE: GoogleImage,
   LOGO: Logo,
   VECTOR_ROUNDED_DIAGRAM: RoundedDiagram,
-  MAIL_ICON: require('../assets/images/MailIcon.png'),
-  HERO_IMAGE: require('../assets/images/HeroImage.png'),
-  MISSING_PERSON: require('../assets/images/MissingPerson.png'),
+  MAIL_ICON: MailIcon,
+  HERO_IMAGE: HeroImage,
+  MISSING_PERSON: MissingPerson,
   VECTOR_DIAGRAM_LOGIN: LoginImage,
   THINKING_VECTOR: ThinkingVector,
   BACKSPACE_ICON: BackspaceIcon,
