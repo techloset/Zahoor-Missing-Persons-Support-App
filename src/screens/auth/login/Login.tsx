@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { Colors, Images, Units } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
+import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
 import Button from '../../../components/inputComponents/button/Button';
 import { styles } from './styles';
 import auth from '@react-native-firebase/auth';

@@ -1,38 +1,30 @@
+/* eslint-disable react-native/no-inline-styles */
 import { ScrollView, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import { Colors, Images } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
+import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/inputComponents/button/Button';
 import { styles } from './styles';
-import auth from '@react-native-firebase/auth';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store/store';
+import { Colors, Images } from '../../../constants/Constants';
+import { createUser } from '../../../redux/slices/authActions';
 
 export default function Registration() {
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const error = useAppSelector((state: RootState) => state.auth.error);
 
-  const handleCheckboxPress = () => {
-    setIsChecked(!isChecked);
+  const handleCreateUser = () => {
+    dispatch(createUser({ email, password }));
   };
-  const createUser = () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        } else if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-        console.error(error);
-      });
-  };
+
   return (
     <ScrollView style={{}}>
+      {error && <Text>{error}</Text>}
       <View style={styles.imageStyles}>
         <Images.VECTOR_ROUNDED_DIAGRAM width={302} height={259} />
       </View>
@@ -67,15 +59,14 @@ export default function Registration() {
           value={password}
           onChangeText={setPassword}
           placeholderText="*************"
-          validationText="Your password must be 8 character."
+          validationText="Your password must be 8 characters."
           keyboardType="default"
         />
         <View style={styles.checkboxContainer}>
           <BouncyCheckbox
             size={20}
-            onPress={handleCheckboxPress}
+            onPress={() => setIsChecked(!isChecked)} // Updated handleCheckboxPress to setIsChecked
             isChecked={isChecked}
-            // eslint-disable-next-line react-native/no-inline-styles
             innerIconStyle={{
               borderColor: Colors.SECONDARY_COLOR,
               borderRadius: 3,
@@ -93,7 +84,7 @@ export default function Registration() {
           </View>
         </View>
         <Button
-          onPressLearnMore={createUser}
+          onPressLearnMore={handleCreateUser}
           titleText="Next"
           accessibilityLabelText="Register Button"
         />

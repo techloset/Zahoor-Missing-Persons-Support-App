@@ -2,7 +2,7 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/textInputComponent/TextInputComponent';
+import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
 import Button from '../../../components/inputComponents/button/Button';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';

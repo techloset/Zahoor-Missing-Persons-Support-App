@@ -12,7 +12,7 @@ import * as ImagePicker from 'react-native-image-picker';
 
 import DatePicker from 'react-native-date-picker';
 import { Images, Units } from '../../constants/Constants';
-import TextInputComponent from '../../components/inputComponents/textInputComponent/TextInputComponent';
+import TextInputComponent from '../../components/inputComponents/inputText/InputText';
 import { FormData } from '../../types/types';
 import { styles } from './styles';
 
