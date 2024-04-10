@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { RootState } from '../store/store';
-import { setUser, setError } from '../slices/authSlice';
+import { setUser, setError, signOutUser } from '../slices/authSlice';
 
 interface AuthData {
   email: string;
@@ -54,5 +54,15 @@ export const loginUser =
           : 'An error occurred while logging in.';
       dispatch(setError(errorMessage));
       console.error(error);
+    }
+  };
+
+export const signOut =
+  (): ThunkAction<void, RootState, null, Action<string>> => async dispatch => {
+    try {
+      await auth().signOut(); // Sign out the user
+      dispatch(signOutUser()); // Dispatch the sign-out action
+    } catch (error) {
+      console.error('Error signing out:', error);
     }
   };

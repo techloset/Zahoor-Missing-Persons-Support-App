@@ -4,16 +4,16 @@ import React from 'react';
 import { Colors, Images, Units } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
 import Button from '../../../components/inputComponents/button/Button';
+import { useAppDispatch } from '../../../redux/hooks';
+import { signOut } from '../../../redux/slices/authActions';
 import { useNavigation } from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
 
 const Profile = () => {
-  const signoutHandler = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-  };
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  const signoutHandler = () => {
+    dispatch(signOut()); // Dispatch the sign-out action
+  };
   return (
     <View
       style={{
