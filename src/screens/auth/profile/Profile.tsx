@@ -12,7 +12,7 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const signoutHandler = () => {
-    dispatch(signOut()); // Dispatch the sign-out action
+    dispatch(signOut());
   };
   return (
     <View
