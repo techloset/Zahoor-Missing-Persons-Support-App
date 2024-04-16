@@ -58,10 +58,13 @@ export const loginUser =
   };
 
 export const signOut =
-  (): ThunkAction<void, RootState, null, Action<string>> => async dispatch => {
+  () =>
+  async (
+    dispatch: (arg0: { payload: undefined; type: 'auth/signOutUser' }) => void,
+  ) => {
     try {
-      await auth().signOut(); // Sign out the user
-      dispatch(signOutUser()); // Dispatch the sign-out action
+      await auth().signOut();
+      dispatch(signOutUser());
     } catch (error) {
       console.error('Error signing out:', error);
     }

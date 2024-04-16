@@ -28,7 +28,7 @@ const TextInputComponent = ({
           {icon && (
             <View
               style={{
-                marginRight: -Units.WINDOW_WIDTH * 0.0907,
+                marginRight: -Units.WINDOW_WIDTH * 0.06,
                 marginTop: -Units.WINDOW_HEIGHT * 0.0062,
                 height: Units.WINDOW_HEIGHT * 0.0246,
                 width: Units.WINDOW_WIDTH * 0.0533,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     width: Units.WINDOW_WIDTH * 0.0445,
     height: Units.WINDOW_HEIGHT * 0.0163,
     top: Units.WINDOW_HEIGHT * 0.0041,
-    left: Units.WINDOW_WIDTH * 0.0045,
+    left: Units.WINDOW_WIDTH * 0.03,
     borderWidth: Units.WINDOW_WIDTH * 0.0045,
   },
   textStyle: {
