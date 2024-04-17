@@ -62,7 +62,7 @@ export default TextInputComponent;
 
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: 'auto',
     paddingVertical: Units.WINDOW_HEIGHT * 0.0123,
     paddingRight: Units.WINDOW_WIDTH * 0.0373,
@@ -74,14 +74,15 @@ const styles = StyleSheet.create({
   },
   name: {
     color: Colors.SECONDARY_COLOR,
-    width: 'auto',
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: Units.WINDOW_HEIGHT * 0.0246,
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: Units.WINDOW_HEIGHT * 0.0172,
     fontWeight: '500',
     lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
+    marginLeft: -Units.WINDOW_WIDTH * 0.0373,
   },
   container: {
     width: '100%',

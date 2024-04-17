@@ -117,8 +117,16 @@ const Upload = () => {
   );
 
   const touchableOpacities = [
-    { label: 'Date Of Birth', onPress: () => setOpenDatePicker(true) },
-    { label: 'Last Seen', onPress: () => setOpenDatePicker(true) },
+    {
+      label: 'Date Of Birth',
+      onPress: () => setOpenDatePicker(true),
+      date: new Date(),
+    }, // Add a default date for the first item
+    {
+      label: 'Last Seen',
+      onPress: () => setOpenDatePicker(true),
+      date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    }, // Add a different date for the second item
   ];
 
   return (
@@ -136,7 +144,7 @@ const Upload = () => {
                 key={index}
                 label={item.label}
                 onPress={item.onPress}
-                selectedDate={selectedDate}
+                selectedDate={item.date}
               />
             ))}
             {renderTextInput('Nickname or know aliases', ' ', 'default')}

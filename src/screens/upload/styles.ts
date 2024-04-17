@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
   },
   name: {
     color: Colors.SECONDARY_COLOR,
-    width: Units.WINDOW_WIDTH * 0.8213,
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
     fontFamily: 'Inter',
     fontSize: Units.WINDOW_HEIGHT * 0.0172, // (unit: 14) / 812
@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
   inputContainer: {
     borderColor: Colors.BORDER_COLOR,
     height: Units.WINDOW_HEIGHT * 0.0541, // (unit: 44) / 812
-    width: Units.WINDOW_WIDTH * 0.8213, // (unit: 308) / 375
+    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 308) / 375
     borderRadius: Units.WINDOW_WIDTH * 0.0213, // (unit: 8) / 375
     borderStyle: 'solid',
     borderWidth: 1,

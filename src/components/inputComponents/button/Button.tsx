@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({ onPressLearnMore, titleText }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: Units.WINDOW_WIDTH * 0.8213,
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: 'auto',
     paddingVertical: Units.WINDOW_HEIGHT * 0.0148,
     borderRadius: 8,
