@@ -2,6 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 // import auth from '@react-native-firebase/auth';
 
+// interface User {
+//   email: string;
+//   displayName: string;
+//   photoURL: string;
+// }
 interface AuthState {
   user: any;
   error: string | null;
@@ -27,10 +32,19 @@ const authSlice = createSlice({
       state.user = null;
       state.error = null;
     },
+    // loginWithGoogle: (state, action: PayloadAction<any>) => {
+    //   state.user = action.payload;
+    //   state.error = null;
+    // },
   },
 });
 
-export const { setUser, setError, signOutUser } = authSlice.actions;
+export const {
+  setUser,
+  setError,
+  signOutUser,
+  // loginWithGoogle
+} = authSlice.actions;
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectError = (state: RootState) => state.auth.error;

@@ -3,6 +3,7 @@ import { Action } from '@reduxjs/toolkit';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { RootState } from '../store/store';
 import { setUser, setError, signOutUser } from '../slices/authSlice';
+// import { UserCredentials } from '../../screens/auth/login/useLogin';
 
 interface AuthData {
   email: string;
@@ -45,7 +46,7 @@ export const loginUser =
       console.log('User successfully signed in!');
       dispatch(setUser(userCredential.user));
     } catch (error) {
-      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError; // Cast error to FirebaseAuthTypes.NativeFirebaseError
+      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
       const errorMessage =
         authError.code === 'auth/user-not-found'
           ? 'User not found. Please check your credentials.'
@@ -69,3 +70,26 @@ export const signOut =
       console.error('Error signing out:', error);
     }
   };
+
+// export const loginWithGoogle =
+//   (
+//     userCredentials: UserCredentials,
+//   ): ThunkAction<void, RootState, null, Action<string>> =>
+//   async dispatch => {
+//     try {
+//       // Implement login with Google using the provided user credentials
+//       dispatch(loginWithGoogle(userCredentials));
+//       // dispatch(
+//       //   loginWithGoogle({
+//       //     ...userCredentials,
+//       //     idToken: '',
+//       //     user: {
+//       //       id: '',
+//       //       email: '',
+//       //     },
+//       //   }),
+//       // );
+//     } catch (error) {
+//       console.error('Error logging in with Google:', error);
+//     }
+//   };

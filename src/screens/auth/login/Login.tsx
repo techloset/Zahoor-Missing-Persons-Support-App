@@ -1,34 +1,22 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { Colors, Images, Units } from '../../../constants/Constants';
 import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
 import Button from '../../../components/inputComponents/button/Button';
 import { styles } from './styles';
-import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
+import { useLogin } from './useLogin';
 
 const Login = () => {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const loginHandler = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User successfully signed in!');
-      })
-      .catch(error => {
-        if (error.code === 'auth/user-not-found') {
-          console.log('User not found. Please check your credentials.');
-        } else if (error.code === 'auth/wrong-password') {
-          console.log('Incorrect password. Please try again.');
-        } else {
-          console.error(error);
-        }
-      });
-  };
+  const {
+    navigation,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    loginHandler,
+    signIn,
+  } = useLogin();
 
   return (
     <SafeAreaView
@@ -99,11 +87,7 @@ const Login = () => {
             <Images.GOOGLE_IMAGE
               height={34}
               width={34}
-              // onPress={() =>
-              //   onGoogleButtonPress().then(() =>
-              //     console.log('Signed in with Google!'),
-              //   )
-              // }
+              onPress={() => [signIn()]}
             />
           </View>
         </View>
