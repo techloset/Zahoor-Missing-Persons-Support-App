@@ -9,13 +9,24 @@ interface ListItemProps {
   age: number;
   lastSeen: string;
   lastSeenLocation: string;
+  onPress: () => void;
 }
 
-const ListItem = ({ name, age, lastSeen, lastSeenLocation }: ListItemProps) => {
+const ListItem = ({
+  name,
+  age,
+  lastSeen,
+  lastSeenLocation,
+  imageUrl,
+  onPress,
+}: ListItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={Images.MISSING_PERSON} style={styles.image} />
+        <Image
+          source={imageUrl ? { uri: imageUrl } : Images.MISSING_PERSON}
+          style={styles.image}
+        />
       </View>
       <View style={styles.detailsContainer}>
         <View>
@@ -26,7 +37,7 @@ const ListItem = ({ name, age, lastSeen, lastSeenLocation }: ListItemProps) => {
             Last Seen Location: {lastSeenLocation}
           </Text>
         </View>
-        <DetailsButton title="Details" onPress={() => {}} />
+        <DetailsButton title="Details" onPress={onPress} />
       </View>
     </View>
   );

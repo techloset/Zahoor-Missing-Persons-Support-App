@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/constants';
+import { Colors, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,6 +7,28 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 16,
+  },
+  headerContainer: {
+    height: 35,
+    width: Units.WINDOW_WIDTH,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 9,
+  },
+  header: {
+    height: 28,
+    width: 335,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: 16,
+    // marginHorizontal: 26,
+    // marginVertical: 30,
+  },
+  headerText: {
+    color: Colors.SECONDARY_COLOR,
+    fontSize: 23,
+    fontWeight: '600',
   },
   searchContainer: {
     marginBottom: 26,

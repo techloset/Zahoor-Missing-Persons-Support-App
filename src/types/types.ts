@@ -59,6 +59,14 @@ export type Icon = {
   unfocused: JSX.Element;
 };
 
+export type CardData = {
+  imageUrl: string;
+  name: string;
+  age: number;
+  lastSeen: string;
+  lastSeenLocation: string;
+};
+
 export type ScreenConfig = {
   name: string;
   component: React.ComponentType<any>;

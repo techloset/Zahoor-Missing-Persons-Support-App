@@ -27,6 +27,7 @@ const screenConfigs: ScreenConfig[] = [
       focused: <Images.BLUE_REPORTS height={25} width={25} />,
       unfocused: <Images.REPORTS_ICON height={25} width={25} />,
     },
+    hideHeader: true,
   },
   {
     name: 'Upload',

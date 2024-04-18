@@ -12,6 +12,7 @@ import Card from '../../components/card/Card';
 import Modal from '../../components/modal/Modal';
 import { styles } from './styles';
 import SearchBox from '../../components/searchBox/SearchBox';
+import { CardData } from '../../types/types';
 
 const Home = ({ navigation }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,7 +26,64 @@ const Home = ({ navigation }: any) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
-
+  const dummyCardData: CardData[] = [
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+    {
+      imageUrl:
+        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      age: 12,
+      lastSeen: '12:30',
+      lastSeenLocation: 'Faisalabad',
+      name: 'John Doe',
+    },
+  ];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -53,22 +111,21 @@ const Home = ({ navigation }: any) => {
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {[1, 2, 3, 4, 5].map(index => (
+              {dummyCardData.map((item, index) => (
                 <Card
-                  imageUrl={
-                    'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  }
-                  age={12}
-                  lastSeen="12:30"
-                  lastSeenLocation="Faisalabad"
-                  name="John Doe"
-                  key={index}
+                  key={index.toString()}
+                  imageUrl={item.imageUrl}
+                  name={item.name}
+                  age={item.age}
+                  lastSeen={item.lastSeen}
+                  lastSeenLocation={item.lastSeenLocation}
                   onPress={() =>
                     handleCardPress({
-                      name: 'John Doe',
-                      age: 12,
-                      lastSeen: '12:30',
-                      lastSeenLocation: 'Faisalabad',
+                      imageUrl: item.imageUrl,
+                      name: item.name,
+                      age: item.age,
+                      lastSeen: item.lastSeen,
+                      lastSeenLocation: item.lastSeenLocation,
                     })
                   }
                 />

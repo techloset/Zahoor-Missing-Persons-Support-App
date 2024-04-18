@@ -17,6 +17,7 @@ interface ModalProps {
   age: number;
   lastSeen: string;
   lastSeenLocation: string;
+  imageUrl?: string;
 }
 
 const Modal = ({
@@ -26,6 +27,7 @@ const Modal = ({
   age,
   lastSeen,
   lastSeenLocation,
+  imageUrl,
 }: ModalProps) => {
   if (!visible) return null;
 
@@ -37,7 +39,7 @@ const Modal = ({
         </View>
         <View style={styles.content}>
           <View style={styles.imageContainer}>
-            <Image source={Images.MISSING_PERSON} style={styles.image} />
+            <Image source={{ uri: imageUrl }} style={styles.image} />
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>{name}</Text>
