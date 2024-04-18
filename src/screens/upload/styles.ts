@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/Constants';
+import { Colors, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   rowContainer: {

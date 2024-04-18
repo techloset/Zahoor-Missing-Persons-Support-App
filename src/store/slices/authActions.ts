@@ -1,14 +1,9 @@
 import { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { RootState } from '../store/store';
+import { RootState } from '../store';
 import { setUser, setError, signOutUser } from '../slices/authSlice';
-// import { UserCredentials } from '../../screens/auth/login/useLogin';
-
-interface AuthData {
-  email: string;
-  password: string;
-}
+import { AuthData } from '../../types/types';
 
 export const createUser =
   (userData: AuthData): ThunkAction<void, RootState, null, Action<string>> =>

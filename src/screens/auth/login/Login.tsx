@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { Colors, Images, Units } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
-import Button from '../../../components/inputComponents/button/Button';
+import { Colors, Images, Units } from '../../../constants/constants';
+import TextInputComponent from '../../../components/inputText/InputText';
+import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { useLogin } from './useLogin';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { Colors, Units } from '../../../constants/Constants';
-import DetailsButton from '../../inputComponents/detailsButton/DetailsButton';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { Colors, Units } from '../../constants/constants';
+import DetailsButton from '../detailsButton/DetailsButton';
 
 type CardProps = {
   imageUrl: string;
@@ -9,39 +9,42 @@ type CardProps = {
   age: number;
   lastSeen: string;
   lastSeenLocation: string;
+  onPress: () => void; // Added prop for onPress
 };
 
 const Card = ({
-  imageUrl,
+  // imageUrl,
   name,
   age,
   lastSeen,
   lastSeenLocation,
+  onPress,
 }: CardProps) => {
   return (
-    <View style={styles.cardContainer}>
-      <Text style={styles.missingText}>MISSING</Text>
-      <View style={styles.imageContainer}>
-        <Image
-          source={imageUrl}
-          // style={styles.image}
-        />
-      </View>
-      <View style={styles.infoContainer}>
-        <View>
-          <Text style={styles.text}>Name: {name} </Text>
-          <Text style={styles.text}>Age: {age}</Text>
-          <Text style={styles.text}>Last Seen: {lastSeen}</Text>
-          <Text style={styles.text}>
-            Last Seen Location: {lastSeenLocation}
-          </Text>
+    <Pressable onPress={onPress} style={{ height: Units.WINDOW_HEIGHT }}>
+      <View style={styles.cardContainer}>
+        <Text style={styles.missingText}>MISSING</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/images/MissingPerson.png')}
+            style={styles.image}
+          />
         </View>
-        <DetailsButton title="View Details" onPress={() => {}} />
+        <View style={styles.infoContainer}>
+          <View>
+            <Text style={styles.text}>Name: {name} </Text>
+            <Text style={styles.text}>Age: {age}</Text>
+            <Text style={styles.text}>Last Seen: {lastSeen}</Text>
+            <Text style={styles.text}>
+              Last Seen Location: {lastSeenLocation}
+            </Text>
+          </View>
+          <DetailsButton title="View Details" onPress={onPress} />
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
-
 const styles = StyleSheet.create({
   cardContainer: {
     height: Units.WINDOW_HEIGHT * 0.3744,

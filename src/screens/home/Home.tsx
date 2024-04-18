@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -7,18 +7,30 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { Images } from '../../constants/Constants';
-import Card from '../../components/missingPerson/card/Card';
-import SearchComponent from '../../components/searchComponent/SearchComponent';
+import { Images } from '../../constants/constants';
+import Card from '../../components/card/Card';
+import Modal from '../../components/modal/Modal';
 import { styles } from './styles';
-import HeroImage from '../../assets/images/HeroImage.png';
+import SearchBox from '../../components/searchBox/SearchBox';
 
 const Home = ({ navigation }: any) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedData, setSelectedData] = useState<any>(null);
+
+  const handleCardPress = (data: any) => {
+    setSelectedData(data);
+    setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Images.LOGO />
-        <SearchComponent />
+        <SearchBox />
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.featuredProfilesContainer}>
@@ -39,14 +51,9 @@ const Home = ({ navigation }: any) => {
                 See More
               </Text>
             </View>
-            <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              }}
-            />
 
-            {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {[1, 2, 3, 4, 5].map(index => (
                 <Card
                   imageUrl={
                     'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -56,9 +63,17 @@ const Home = ({ navigation }: any) => {
                   lastSeenLocation="Faisalabad"
                   name="John Doe"
                   key={index}
+                  onPress={() =>
+                    handleCardPress({
+                      name: 'John Doe',
+                      age: 12,
+                      lastSeen: '12:30',
+                      lastSeenLocation: 'Faisalabad',
+                    })
+                  }
                 />
               ))}
-            </ScrollView> */}
+            </ScrollView>
           </View>
         </View>
       </ScrollView>
@@ -67,6 +82,14 @@ const Home = ({ navigation }: any) => {
         width={48}
         style={styles.floatButton}
         onPress={() => Alert.alert('Floating Button Clicked')}
+      />
+      <Modal
+        visible={modalVisible}
+        onClose={handleModalClose}
+        name={selectedData?.name}
+        age={selectedData?.age}
+        lastSeen={selectedData?.lastSeen}
+        lastSeenLocation={selectedData?.lastSeenLocation}
       />
     </SafeAreaView>
   );

@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-  GoogleSignin,
-  // statusCodes,
-} from '@react-native-google-signin/google-signin';
+import // GoogleSignin,
+// statusCodes,
+'@react-native-google-signin/google-signin';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../redux/slices/authActions';
 import { Alert } from 'react-native';
+import { loginUser } from '../../../store/slices/authActions';
 // import { loginWithGoogle } from '../../../redux/slices/authActions';
 
 export interface UserCredentials {

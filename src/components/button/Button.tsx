@@ -1,12 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
-import { Colors, Units } from '../../../constants/Constants';
-
-type ButtonProps = {
-  onPressLearnMore: () => void;
-  titleText: string;
-  accessibilityLabelText?: string;
-};
+import { Colors, Units } from '../../constants/constants';
+import { ButtonProps } from '../../types/types';
 
 const Button: React.FC<ButtonProps> = ({ onPressLearnMore, titleText }) => {
   return (

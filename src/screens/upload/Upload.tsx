@@ -9,10 +9,11 @@ import {
   Image,
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-
+import firestore from '@react-native-firebase/firestore';
+// import storage from '@react-native-firebase/storage';
 import DatePicker from 'react-native-date-picker';
-import { Images, Units } from '../../constants/Constants';
-import TextInputComponent from '../../components/inputComponents/inputText/InputText';
+import { Images, Units } from '../../constants/constants';
+import TextInputComponent from '../../components/inputText/InputText';
 import { FormData } from '../../types/types';
 import { styles } from './styles';
 
@@ -22,6 +23,11 @@ interface DateTimeProps {
   selectedDate: Date | null;
 }
 
+if (!firestore().app) {
+  firestore().settings({
+    persistence: true,
+  });
+}
 const DateTime = ({ onPress, label, selectedDate }: DateTimeProps) => (
   <TouchableOpacity onPress={onPress} style={[styles.container, {}]}>
     <Text style={styles.name}>{label}</Text>
@@ -48,6 +54,7 @@ const Upload = () => {
     hairColor: '',
     lengthOfTheHair: '',
     lastSeen: '',
+    // image: '',
   });
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
@@ -69,8 +76,28 @@ const Upload = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log('Submitting Report with:', formData);
+  const handleSubmit = async () => {
+    try {
+      // console.log('Check FireStore', firestore());
+
+      // const imageName = `image_${Date.now()}`;
+      // const reference = storage().ref(imageName);
+      // await reference.putFile(selectedImage);
+
+      // const imageURL = await reference.getDownloadURL();
+
+      // const formDataWithImage: FormData = {
+      //   ...formData,
+      //   image: imageURL,
+      // };
+
+      // Upload formData to 'MissingPerson' collection in Firestore
+      await firestore().collection('MissingPerson').add(formData);
+      console.log('Form data uploaded successfully.');
+    } catch (error) {
+      console.log('Check FireStore', firestore());
+      console.error('Error uploading form data:', error);
+    }
   };
 
   const imagePicker = async () => {
@@ -95,10 +122,12 @@ const Upload = () => {
           }
         },
       );
+      console.log(res);
     } catch (error) {
       console.log('Error in image picker:', error);
     }
   };
+
   const renderTextInput = (
     name: string,
     placeholder: string,

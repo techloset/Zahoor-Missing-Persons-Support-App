@@ -1,10 +1,10 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
-import { Images } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
-import Button from '../../../components/inputComponents/button/Button';
-import { useAppDispatch } from '../../../redux/hooks';
-import { signOut } from '../../../redux/slices/authActions';
+import { Images } from '../../constants/constants';
+import TextInputComponent from '../../components/inputText/InputText';
+import Button from '../../components/button/Button';
+import { useAppDispatch } from '../../store/store';
+import { signOut } from '../../store/slices/authActions';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 

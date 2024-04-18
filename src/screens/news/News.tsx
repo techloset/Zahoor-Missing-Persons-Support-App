@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import { ScrollView } from 'react-native';
 import React from 'react';
-import NewsItem from '../../components/missingPerson/reportListItem/ReportListItem';
-import { Colors, Units } from '../../constants/Constants';
+import NewsItem from '../../components/reportListItem/ReportListItem';
+import { Colors, Units } from '../../constants/constants';
 
 const News = () => {
   return (

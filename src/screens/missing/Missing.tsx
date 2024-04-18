@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
-import SearchComponent from '../../components/searchComponent/SearchComponent';
-import ListItem from '../../components/missingPerson/listItem/ListItem';
+import ListItem from '../../components/listItem/ListItem';
 import { styles } from './styles';
+import SearchBox from '../../components/searchBox/SearchBox';
 
 const Missing = () => {
   const filterData = ['Male', 'Female', 'Trans', 'Age', 'Location', 'Date'];
@@ -10,7 +10,7 @@ const Missing = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <SearchComponent />
+        <SearchBox />
       </View>
       <View style={styles.filterContainer}>
         <Text style={styles.filterText}>Filter By:</Text>
@@ -23,8 +23,14 @@ const Missing = () => {
         </ScrollView>
       </View>
       <ScrollView style={styles.listContainer}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(item => (
-          <ListItem key={item.toString()} />
+        {[1, 2, 3, 4, 5].map(item => (
+          <ListItem
+            name="John Doe"
+            age={12}
+            lastSeen="12:30"
+            lastSeenLocation="Faisalabad"
+            key={item.toString()}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>

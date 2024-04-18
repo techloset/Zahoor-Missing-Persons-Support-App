@@ -7,7 +7,7 @@ import {
   BottomTabNavigationOptions,
 } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { Colors, Images, Units } from '../constants/Constants';
+import { Colors, Images, Units } from '../constants/constants';
 import { TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Forgot from '../screens/auth/forgot/Forgot';

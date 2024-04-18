@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Images } from '../constants/Constants';
+import { Images } from '../constants/constants';
 import Home from '../screens/home/Home';
 import Missing from '../screens/missing/Missing';
 import Upload from '../screens/upload/Upload';
-import EditProfile from '../screens/auth/profile/Profile';
+import EditProfile from '../screens/profile/Profile';
 import News from '../screens/news/News';
 import { ScreenConfig } from '../types/types';
 

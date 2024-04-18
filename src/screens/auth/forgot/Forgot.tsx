@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Images } from '../../../constants/Constants';
-import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
-import Button from '../../../components/inputComponents/button/Button';
+import { Images } from '../../../constants/constants';
+import TextInputComponent from '../../../components/inputText/InputText';
+import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 

@@ -1,8 +1,8 @@
 import { View, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../constants/Constants';
+import { Colors, Images, Units } from '../../constants/constants';
 
-const SearchComponent = () => {
+const SearchBox = () => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchComponent;
+export default SearchBox;

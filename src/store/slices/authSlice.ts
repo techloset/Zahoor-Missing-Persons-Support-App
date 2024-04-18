@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-// import auth from '@react-native-firebase/auth';
-
-// interface User {
-//   email: string;
-//   displayName: string;
-//   photoURL: string;
-// }
-interface AuthState {
-  user: any;
-  error: string | null;
-}
+import { RootState } from '../store';
+import { AuthState } from '../../types/types';
 
 const initialState: AuthState = {
   user: null,

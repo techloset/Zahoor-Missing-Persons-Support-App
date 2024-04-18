@@ -26,8 +26,17 @@ export type FormData = {
   hairColor: string;
   lengthOfTheHair: string;
   lastSeen: string;
+  // image: string;
 };
-
+export type ButtonProps = {
+  onPressLearnMore: () => void;
+  titleText: string;
+  accessibilityLabelText?: string;
+};
+export type AuthData = {
+  email: string;
+  password: string;
+};
 export type InputComponentsProps = {
   icon: boolean;
   name: string;
@@ -58,4 +67,9 @@ export type ScreenConfig = {
   icon: Icon;
   hideHeader?: boolean;
   tabBarVisible?: (props: { route: { name: string } }) => boolean;
+};
+
+export type AuthState = {
+  user: User | null;
+  error: string | null;
 };

@@ -1,14 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import { ScrollView, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import TextInputComponent from '../../../components/inputComponents/inputText/InputText';
+import TextInputComponent from '../../../components/inputText/InputText';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import Button from '../../../components/inputComponents/button/Button';
+import Button from '../../../components/button/Button';
 import { styles } from './styles';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { RootState } from '../../../redux/store/store';
-import { Colors, Images } from '../../../constants/Constants';
-import { createUser } from '../../../redux/slices/authActions';
+import { Colors, Images } from '../../../constants/constants';
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../store/store';
+import { createUser } from '../../../store/slices/authActions';
 
 export default function Registration() {
   const [fullName, setFullName] = useState<string>('');
@@ -19,7 +22,7 @@ export default function Registration() {
   const error = useAppSelector((state: RootState) => state.auth.error);
 
   const handleCreateUser = () => {
-    dispatch(createUser({ email, password }));
+    dispatch(createUser({ email, password }) as any);
   };
 
   return (

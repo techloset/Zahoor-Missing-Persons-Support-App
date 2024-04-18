@@ -1,9 +1,17 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../../constants/Constants';
-import DetailsButton from '../../inputComponents/detailsButton/DetailsButton';
+import { Colors, Images, Units } from '../../constants/constants';
+import DetailsButton from '../detailsButton/DetailsButton';
 
-const NewsItem = () => {
+interface ListItemProps {
+  imageUrl?: string;
+  name: string;
+  age: number;
+  lastSeen: string;
+  lastSeenLocation: string;
+}
+
+const ListItem = ({ name, age, lastSeen, lastSeenLocation }: ListItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -11,11 +19,14 @@ const NewsItem = () => {
       </View>
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={styles.text}>Name: </Text>
-          <Text style={styles.text}>Reported by: </Text>
-          <Text style={styles.text}>Location: </Text>
+          <Text style={styles.text}>Name: {name}</Text>
+          <Text style={styles.text}>Age: {age}</Text>
+          <Text style={styles.text}>Last Seen: {lastSeen}</Text>
+          <Text style={styles.text}>
+            Last Seen Location: {lastSeenLocation}
+          </Text>
         </View>
-        <DetailsButton title="Contact Person" onPress={() => {}} />
+        <DetailsButton title="Details" onPress={() => {}} />
       </View>
     </View>
   );
@@ -65,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsItem;
+export default ListItem;

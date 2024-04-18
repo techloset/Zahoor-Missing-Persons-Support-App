@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Colors, Images, Units } from '../../../constants/Constants';
+import { Colors, Images, Units } from '../../constants/constants';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { InputComponentsProps } from '../../../types/types';
+import { InputComponentsProps } from '../../types/types';
 
 const TextInputComponent = ({
   icon,

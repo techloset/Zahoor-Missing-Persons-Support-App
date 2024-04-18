@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Pressable, Text } from 'react-native';
 import React from 'react';
-import { Colors, Units } from '../../../constants/Constants';
+import { Colors, Units } from '../../constants/constants';
 
 type DetailsButtonProps = {
   onPress: () => void;
