@@ -39,7 +39,10 @@ const Modal = ({
         </View>
         <View style={styles.content}>
           <View style={styles.imageContainer}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Image
+              source={imageUrl ? { uri: imageUrl } : Images.MISSING_PERSON}
+              style={styles.image}
+            />
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>{name}</Text>

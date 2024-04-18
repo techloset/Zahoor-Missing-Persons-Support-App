@@ -48,6 +48,7 @@ const Card = ({
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   cardContainer: {
     height: Units.WINDOW_HEIGHT * 0.3744,
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   imageContainer: {
+    borderRadius: 8,
     flex: 1,
   },
   image: {
