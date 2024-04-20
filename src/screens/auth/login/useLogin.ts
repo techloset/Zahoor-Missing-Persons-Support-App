@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import { useAppDispatch } from '../../../store/store';
+import { loginUser } from '../../../store/slices/authSlice';
 export interface UserCredentials {
   idToken: string;
   user: {
@@ -14,9 +15,10 @@ export const useLogin = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   const loginHandler = () => {
-    auth().signInWithEmailAndPassword(email, password);
+    dispatch(loginUser({ email, password }));
   };
 
   const signIn = async () => {

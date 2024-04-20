@@ -6,16 +6,19 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { Colors, Images } from '../../../constants/constants';
-import auth from '@react-native-firebase/auth';
+import { useAppDispatch } from '../../../store/store';
+import { createUser, uploadUser } from '../../../store/slices/authSlice';
 
 export default function Registration() {
-  const [fullName, setFullName] = useState<string>('');
+  const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
 
   const handleCreateUser = () => {
-    auth().createUserWithEmailAndPassword(email, password);
+    dispatch(createUser({ email, password }));
+    dispatch(uploadUser({ displayName, email, photoURL: '' }));
   };
 
   return (
@@ -33,8 +36,8 @@ export default function Registration() {
           <TextInputComponent
             icon={false}
             name="Full Name"
-            value={fullName}
-            onChangeText={setFullName}
+            value={displayName}
+            onChangeText={setDisplayName}
             placeholderText="Jane Cooper"
             keyboardType="default"
           />
