@@ -2,39 +2,49 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../constants/constants';
 import DetailsButton from '../detailsButton/DetailsButton';
+import { FormData } from '../../types/types';
 
 interface ListItemProps {
-  imageUrl?: string;
-  name: string;
-  age: number;
-  lastSeen: string;
-  lastSeenLocation: string;
+  data: FormData;
   onPress: () => void;
 }
 
-const ListItem = ({
-  name,
-  age,
-  lastSeen,
-  lastSeenLocation,
-  imageUrl,
-  onPress,
-}: ListItemProps) => {
+const ListItem = ({ data, onPress }: ListItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={imageUrl ? { uri: imageUrl } : Images.MISSING_PERSON}
+          source={
+            data.imageUrl ? { uri: data.imageUrl } : Images.MISSING_PERSON
+          }
           style={styles.image}
         />
       </View>
       <View style={styles.detailsContainer}>
         <View>
-          <Text style={styles.text}>Name: {name}</Text>
-          <Text style={styles.text}>Age: {age}</Text>
-          <Text style={styles.text}>Last Seen: {lastSeen}</Text>
           <Text style={styles.text}>
-            Last Seen Location: {lastSeenLocation}
+            Name:{' '}
+            {data.name && data.name.length > 18
+              ? `${data.name.slice(0, 12)}...`
+              : data.name}
+          </Text>
+          <Text style={styles.text}>
+            Age:{' '}
+            {String(data.dateOfBirth).split('T')[0] &&
+            String(data.dateOfBirth).split('T')[0].length > 12
+              ? `${String(data.dateOfBirth).split('T')[0].slice(0, 12)}...`
+              : String(data.dateOfBirth).split('T')[0]}{' '}
+            Years
+          </Text>
+          <Text style={styles.text}>
+            Last Seen:{' '}
+            {String(data.lastSeen).split('T')[0] &&
+            String(data.lastSeen).split('T')[0].length > 12
+              ? `${String(data.lastSeen).split('T')[0].slice(0, 12)}...`
+              : String(data.lastSeen).split('T')[0]}
+          </Text>
+          <Text style={styles.text}>
+            Last Seen Location: {data.lastSeenLocation}
           </Text>
         </View>
         <DetailsButton title="Details" onPress={onPress} />
@@ -72,18 +82,6 @@ const styles = StyleSheet.create({
     lineHeight: Units.WINDOW_HEIGHT * 0.0296,
     fontSize: Units.WINDOW_WIDTH * 0.0427,
     fontWeight: '400',
-  },
-  button: {
-    backgroundColor: Colors.PRIMARY_COLOR,
-    width: Units.WINDOW_WIDTH * 0.248,
-    height: Units.WINDOW_HEIGHT * 0.0296,
-    marginBottom: Units.WINDOW_HEIGHT * 0.0123,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: Colors.WHITE_COLOR,
   },
 });
 
