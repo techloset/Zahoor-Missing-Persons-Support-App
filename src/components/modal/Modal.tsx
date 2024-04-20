@@ -9,26 +9,15 @@ import {
 } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../constants/constants';
+import { FormData } from '../../types/types';
 
 interface ModalProps {
   visible: boolean;
   onClose: () => void;
-  name: string;
-  age: number;
-  lastSeen: string;
-  lastSeenLocation: string;
-  imageUrl?: string;
+  data: FormData | null;
 }
 
-const Modal = ({
-  visible,
-  onClose,
-  name,
-  age,
-  lastSeen,
-  lastSeenLocation,
-  imageUrl,
-}: ModalProps) => {
+const Modal = ({ visible, onClose, data }: ModalProps) => {
   if (!visible) return null;
 
   return (
@@ -39,17 +28,22 @@ const Modal = ({
         </View>
         <View style={styles.content}>
           <View style={styles.imageContainer}>
-            <Image
-              source={imageUrl ? { uri: imageUrl } : Images.MISSING_PERSON}
-              style={styles.image}
-            />
+            <Image source={{ uri: data?.imageUrl }} style={styles.image} />
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>{name}</Text>
-            <Text style={styles.infoText}>{age}</Text>
-            <Text style={styles.infoText}>Last Scene Time: {lastSeen}</Text>
+            <Text style={styles.infoText}>{data?.name}</Text>
             <Text style={styles.infoText}>
-              Last Scene Location: {lastSeenLocation}
+              Age: {String(data?.dateOfBirth).split('T')[0]} Years
+            </Text>
+            <Text style={styles.infoText}>
+              Last Seen:{' '}
+              {String(data?.lastSeen).split('T')[0] &&
+              String(data?.lastSeen).split('T')[0].length > 12
+                ? `${String(data?.lastSeen).split('T')[0].slice(0, 12)}...`
+                : String(data?.lastSeen).split('T')[0]}
+            </Text>
+            <Text style={styles.infoText}>
+              Last Seen Location: {data?.lastSeenLocation}
             </Text>
           </View>
           <View style={styles.locationInputContainer}>
@@ -155,9 +149,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     padding: 8,
   },
-  locationInput: {
-    // Add specific styling for the location input if needed
-  },
+  locationInput: {},
   descriptionInput: {
     minHeight: 100,
     textAlignVertical: 'top',
