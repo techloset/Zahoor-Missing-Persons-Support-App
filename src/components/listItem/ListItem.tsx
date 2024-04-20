@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.SECONDARY_COLOR,
     lineHeight: Units.WINDOW_HEIGHT * 0.0296,
-    fontSize: Units.WINDOW_WIDTH * 0.0427,
+    fontSize: 16,
     fontWeight: '400',
   },
 });
