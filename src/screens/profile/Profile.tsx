@@ -3,17 +3,15 @@ import React from 'react';
 import { Images } from '../../constants/constants';
 import TextInputComponent from '../../components/inputText/InputText';
 import Button from '../../components/button/Button';
-import { useAppDispatch } from '../../store/store';
-import { signOut } from '../../store/slices/authActions';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
+import auth from '@react-native-firebase/auth';
 
 const Profile = () => {
-  const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
   const signoutHandler = () => {
-    dispatch(signOut());
+    auth().signOut();
   };
 
   return (

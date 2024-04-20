@@ -1,89 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
-  Image,
-  Text,
   ScrollView,
   Alert,
+  Image,
+  Text,
 } from 'react-native';
-import { Images } from '../../constants/constants';
+import { fetchMissingPersons } from '../../store/slices/firestoreSlice';
+import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
 import Card from '../../components/card/Card';
 import Modal from '../../components/modal/Modal';
-import { styles } from './styles';
+import { Images } from '../../constants/constants';
 import SearchBox from '../../components/searchBox/SearchBox';
-import { CardData } from '../../types/types';
+import { styles } from './styles';
+import { FormData } from '../../types/types';
+// import { useNavigation } from '@react-navigation/native';
 
 const Home = ({ navigation }: any) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedData, setSelectedData] = useState<any>(null);
+  // const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state: RootState) => state.firestore.data);
+  const loading = useAppSelector((state: RootState) => state.firestore.loading);
+  const error = useAppSelector((state: RootState) => state.firestore.error);
 
-  const handleCardPress = (data: any) => {
-    setSelectedData(data);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchMissingPersons());
+  }, [dispatch]);
+
+  const handleCardPress = (dat: any) => {
+    setSelectedData(dat);
     setModalVisible(true);
   };
 
   const handleModalClose = () => {
     setModalVisible(false);
   };
-  const dummyCardData: CardData[] = [
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-    {
-      imageUrl:
-        'https://images.unsplash.com/photo-1712313498056-1feb70bd6999?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      age: 12,
-      lastSeen: '12:30',
-      lastSeenLocation: 'Faisalabad',
-      name: 'John Doe',
-    },
-  ];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -111,25 +66,17 @@ const Home = ({ navigation }: any) => {
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {dummyCardData.map((item, index) => (
-                <Card
-                  key={index.toString()}
-                  imageUrl={item.imageUrl}
-                  name={item.name}
-                  age={item.age}
-                  lastSeen={item.lastSeen}
-                  lastSeenLocation={item.lastSeenLocation}
-                  onPress={() =>
-                    handleCardPress({
-                      imageUrl: item.imageUrl,
-                      name: item.name,
-                      age: item.age,
-                      lastSeen: item.lastSeen,
-                      lastSeenLocation: item.lastSeenLocation,
-                    })
-                  }
-                />
-              ))}
+              {loading && <Text>Loading...</Text>}
+              {error && <Text>Error: {error}</Text>}
+              {!loading &&
+                !error &&
+                data.map((item: FormData, index: number) => (
+                  <Card
+                    key={index.toString()}
+                    data={item}
+                    onPress={() => handleCardPress(item)}
+                  />
+                ))}
             </ScrollView>
           </View>
         </View>
@@ -143,10 +90,7 @@ const Home = ({ navigation }: any) => {
       <Modal
         visible={modalVisible}
         onClose={handleModalClose}
-        name={selectedData?.name}
-        age={selectedData?.age}
-        lastSeen={selectedData?.lastSeen}
-        lastSeenLocation={selectedData?.lastSeenLocation}
+        data={selectedData}
       />
     </SafeAreaView>
   );

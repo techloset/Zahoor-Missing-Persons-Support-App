@@ -16,17 +16,18 @@ export type MissingPerson = {
   image: string;
 };
 export type FormData = {
-  fullName: string;
-  gender: string;
-  dateOfBirth: string;
+  name: string;
+  gender: 'Male' | 'Female' | 'Trans';
+  dateOfBirth: Date;
   nicknames: string;
   height: string;
   width: string;
   eyeColor: string;
   hairColor: string;
   lengthOfTheHair: string;
-  lastSeen: string;
-  // image: string;
+  lastSeen: Date;
+  lastSeenLocation: string;
+  imageUrl?: string;
 };
 export type ButtonProps = {
   onPressLearnMore: () => void;
@@ -36,6 +37,8 @@ export type ButtonProps = {
 export type AuthData = {
   email: string;
   password: string;
+  displayName?: string;
+  photoURL?: string;
 };
 export type InputComponentsProps = {
   icon: boolean;

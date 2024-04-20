@@ -6,28 +6,21 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { Colors, Images } from '../../../constants/constants';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../store/store';
-import { createUser } from '../../../store/slices/authActions';
+import auth from '@react-native-firebase/auth';
 
 export default function Registration() {
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
-  const dispatch = useAppDispatch();
-  const error = useAppSelector((state: RootState) => state.auth.error);
 
   const handleCreateUser = () => {
-    dispatch(createUser({ email, password }) as any);
+    auth().createUserWithEmailAndPassword(email, password);
   };
 
   return (
     <ScrollView style={{}}>
-      {error && <Text>{error}</Text>}
+      {/* {error && <Text>{error}</Text>} */}
       <View style={styles.imageStyles}>
         <Images.VECTOR_ROUNDED_DIAGRAM width={302} height={259} />
       </View>
