@@ -1,25 +1,17 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Colors, Units } from '../../constants/constants';
+import { FormData } from '../../types/types';
 import DetailsButton from '../detailsButton/DetailsButton';
 
 type CardProps = {
-  imageUrl: string;
-  name: string;
-  age: number;
-  lastSeen: string;
-  lastSeenLocation: string;
+  data: FormData;
   onPress: () => void;
 };
 
-const Card = ({
-  imageUrl,
-  name,
-  age,
-  lastSeen,
-  lastSeenLocation,
-  onPress,
-}: CardProps) => {
+const Card = ({ data, onPress }: CardProps) => {
+  const { imageUrl, name, dateOfBirth, lastSeen, lastSeenLocation } = data;
+
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.missingText}>MISSING</Text>
@@ -30,15 +22,27 @@ const Card = ({
               ? { uri: imageUrl }
               : require('../../assets/images/MissingPerson.png')
           }
-          // source={require('../../assets/images/MissingPerson.png')}
           style={styles.image}
         />
       </View>
       <View style={styles.infoContainer}>
         <View>
           <Text style={styles.text}>Name: {name} </Text>
-          <Text style={styles.text}>Age: {age}</Text>
-          <Text style={styles.text}>Last Seen: {lastSeen}</Text>
+          <Text style={styles.text}>
+            Age:{' '}
+            {String(dateOfBirth).split('T')[0] &&
+            String(dateOfBirth).split('T')[0].length > 12
+              ? `${String(dateOfBirth).split('T')[0].slice(0, 12)}...`
+              : String(dateOfBirth).split('T')[0]}{' '}
+            Years
+          </Text>
+          <Text style={styles.text}>
+            Last Seen:{' '}
+            {String(lastSeen).split('T')[0] &&
+            String(lastSeen).split('T')[0].length > 12
+              ? `${String(lastSeen).split('T')[0].slice(0, 12)}...`
+              : String(lastSeen).split('T')[0]}
+          </Text>
           <Text style={styles.text}>
             Last Seen Location: {lastSeenLocation}
           </Text>
