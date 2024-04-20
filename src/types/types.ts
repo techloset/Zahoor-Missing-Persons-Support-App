@@ -1,23 +1,11 @@
 export type User = {
-  name: string;
+  displayName: string;
   email: string;
-  password: string;
-};
-export type MissingPerson = {
-  name: string;
-  gender: 'Male' | 'Female' | 'Other';
-  dateOfBirth: string;
-  nickName: string;
-  height: number;
-  width: number;
-  eyeColor: string;
-  hairColor: string;
-  lengthOfTheHair: number;
-  image: string;
+  photoURL: string;
 };
 export type FormData = {
   name: string;
-  gender: 'Male' | 'Female' | 'Trans';
+  gender: '' | 'Male' | 'Female' | 'Trans';
   dateOfBirth: Date;
   nicknames: string;
   height: string;
@@ -27,7 +15,8 @@ export type FormData = {
   lengthOfTheHair: string;
   lastSeen: Date;
   lastSeenLocation: string;
-  imageUrl?: string;
+  imageUrl: string;
+  userID: string;
 };
 export type ButtonProps = {
   onPressLearnMore: () => void;
@@ -37,7 +26,7 @@ export type ButtonProps = {
 export type AuthData = {
   email: string;
   password: string;
-  displayName?: string;
+  name?: string;
   photoURL?: string;
 };
 export type InputComponentsProps = {
@@ -83,4 +72,5 @@ export type ScreenConfig = {
 export type AuthState = {
   user: User | null;
   error: string | null;
+  loading: boolean;
 };

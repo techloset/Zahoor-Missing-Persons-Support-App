@@ -16,58 +16,50 @@ import DatePicker from 'react-native-date-picker';
 import TextInputComponent from '../../components/inputText/InputText';
 import { styles } from './styles';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import * as ImagePicker from 'react-native-image-picker';
 import { Images, Units } from '../../constants/constants';
-import { uploadToFirestore } from '../../store/slices/firestoreSlice';
+import {
+  updateFormData,
+  uploadToFirestore,
+} from '../../store/slices/firestoreSlice';
+import imagePicker from '../../utils/imagePicker';
 
 const Upload = () => {
   const dispatch = useAppDispatch();
-  const formData = useSelector((state: RootState) => state.firestore.formData);
+  const formData = useAppSelector(
+    (state: RootState) => state.firestore.formData,
+  );
   const loading = useAppSelector((state: RootState) => state.firestore.loading);
   const error = useAppSelector((state: RootState) => state.firestore.error);
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [dob, setDob] = useState<Date | null>(null);
+  const [lastSeen, setLastSeen] = useState<Date | null>(null);
 
   const handleChange = (name: keyof typeof formData, value: string) => {
-    dispatch(uploadToFirestore({ [name]: value }));
+    dispatch(updateFormData({ [name]: value }));
   };
 
-  const handleDateChange = (date: Date) => {
+  const handleDob = (date: Date) => {
     setOpenDatePicker(false);
-    setSelectedDate(date);
-    dispatch(uploadToFirestore({ dateOfBirth: date, lastSeen: date }));
+    setDob(date);
+    dispatch(updateFormData({ dateOfBirth: date }));
+  };
+
+  const handleLastSeen = (date: Date) => {
+    setOpenDatePicker(false);
+    setLastSeen(date);
+    dispatch(updateFormData({ lastSeen: date }));
   };
 
   const handleSubmit = () => {
     dispatch(uploadToFirestore({ selectedImage, formData }));
   };
 
-  const imagePicker = async () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-      mediaType: 'photo',
-      quality: 1,
-    } as ImagePicker.ImageLibraryOptions;
-
+  const handleImagePicker = async () => {
     try {
-      const res = await ImagePicker.launchImageLibrary(
-        options,
-        (response: ImagePicker.ImagePickerResponse) => {
-          if (!response.didCancel) {
-            const selectedImgUri = response.assets?.[0]?.uri;
-            if (selectedImgUri) {
-              setSelectedImage(selectedImgUri);
-            }
-          }
-        },
-      );
-      console.log(res);
+      await imagePicker(setSelectedImage);
     } catch (error) {
-      console.log('Error in image picker:', error);
+      console.error('Error picking image:', error);
     }
   };
 
@@ -107,7 +99,7 @@ const Upload = () => {
               <Text style={styles.name}>Date Of Birth</Text>
               <View style={[styles.inputContainer, { height: 50 }]}>
                 <Text style={styles.dateColor}>
-                  {selectedDate ? selectedDate.toDateString() : ' '}
+                  {dob ? dob.toDateString() : ' '}
                 </Text>
                 <View>
                   <Images.CALENDER_ICON
@@ -125,7 +117,7 @@ const Upload = () => {
               <Text style={styles.name}>Last Seen</Text>
               <View style={[styles.inputContainer, { height: 50 }]}>
                 <Text style={styles.dateColor}>
-                  {selectedDate ? selectedDate.toDateString() : ' '}
+                  {lastSeen ? lastSeen.toDateString() : ' '}
                 </Text>
                 <View>
                   <Images.CALENDER_ICON
@@ -215,7 +207,7 @@ const Upload = () => {
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Upload Photographs</Text>
-          <TouchableOpacity onPress={() => imagePicker()}>
+          <TouchableOpacity onPress={() => handleImagePicker()}>
             <Images.UPLOADER_IMAGE
               height={Units.WINDOW_HEIGHT * 0.2126}
               width={Units.WINDOW_WIDTH * 0.8933}
@@ -245,8 +237,10 @@ const Upload = () => {
         <DatePicker
           modal
           open={openDatePicker}
-          date={selectedDate || new Date()}
-          onConfirm={date => handleDateChange(date)}
+          date={dob || lastSeen || new Date()}
+          onConfirm={date => {
+            dob ? handleDob(date) : handleLastSeen(date);
+          }}
           onCancel={() => setOpenDatePicker(false)}
         />
       )}

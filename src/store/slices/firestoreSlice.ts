@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import { FormData } from '../../types/types';
+import auth from '@react-native-firebase/auth';
 
 interface FirestoreState {
   data: FormData[];
@@ -14,7 +15,7 @@ const initialState: FirestoreState = {
   data: [],
   formData: {
     name: '',
-    gender: 'Male',
+    gender: '',
     dateOfBirth: new Date(),
     nicknames: '',
     height: '',
@@ -25,12 +26,12 @@ const initialState: FirestoreState = {
     lastSeen: new Date(),
     lastSeenLocation: '',
     imageUrl: '',
+    userID: '',
   },
   loading: false,
   error: null,
 };
 
-// Thunk action to upload image to storage and add form data to Firestore
 export const uploadToFirestore = createAsyncThunk(
   'firestore/uploadToFirestore',
   async (
@@ -38,10 +39,11 @@ export const uploadToFirestore = createAsyncThunk(
     thunkAPI,
   ) => {
     try {
+      const user = auth().currentUser;
       const imageRef = storage().ref('images').child(selectedImage);
       await imageRef.putFile(selectedImage);
       const imageUrl: string = await imageRef.getDownloadURL();
-      const updatedFormData = { ...formData, imageUrl };
+      const updatedFormData = { ...formData, imageUrl, userID: user?.uid };
       await firestore().collection('MissingPerson').add(updatedFormData);
       return updatedFormData;
     } catch (error) {
@@ -73,7 +75,7 @@ const firestoreSlice = createSlice({
   name: 'firestore',
   initialState,
   reducers: {
-    updateFormData: (state, action) => {
+    updateFormData(state, action) {
       state.formData = { ...state.formData, ...action.payload };
     },
   },
@@ -82,7 +84,7 @@ const firestoreSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(uploadToFirestore.fulfilled, (state, action) => {
+    builder.addCase(uploadToFirestore.fulfilled, state => {
       state.loading = false;
       state.formData = initialState.formData;
     });
