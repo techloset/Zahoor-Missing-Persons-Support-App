@@ -6,10 +6,12 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../constants/constants';
 import { FormData } from '../../types/types';
+import firestore from '@react-native-firebase/firestore';
 
 interface ModalProps {
   visible: boolean;
@@ -20,8 +22,13 @@ interface ModalProps {
 const Modal = ({ visible, onClose, data }: ModalProps) => {
   if (!visible) return null;
 
+  const handleEmail = async () => {
+    const doc = await firestore().collection('Users').doc(data?.userID).get();
+    console.log(doc);
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.closeButton}>
           <Images.CROSS_ICON height={15} width={15} onPress={onClose} />
@@ -33,7 +40,7 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>{data?.name}</Text>
             <Text style={styles.infoText}>
-              Age: {String(data?.dateOfBirth).split('T')[0]} Years
+              {String(data?.dateOfBirth).split('T')[0]} Years Old {data?.gender}
             </Text>
             <Text style={styles.infoText}>
               Last Seen:{' '}
@@ -64,7 +71,7 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
           </View>
         </View>
         <View style={styles.buttonsContainer}>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={() => handleEmail()}>
             <Text style={styles.buttonText}>Contact Via Email</Text>
           </Pressable>
           <Pressable
@@ -76,7 +83,7 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
           </Pressable>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
