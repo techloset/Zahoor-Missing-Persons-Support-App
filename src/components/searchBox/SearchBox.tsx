@@ -2,7 +2,11 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
 import { Colors, Images, Units } from '../../constants/constants';
 
-const SearchBox = () => {
+interface SearchBoxProps {
+  onChangeText: (text: string) => void;
+}
+
+const SearchBox: React.FC<SearchBoxProps> = ({ onChangeText }) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -10,6 +14,7 @@ const SearchBox = () => {
         placeholder="Search"
         keyboardType="default"
         placeholderTextColor={Colors.SECONDARY_COLOR}
+        onChangeText={onChangeText}
       />
       <View style={styles.iconContainer}>
         <Images.SEARCH_ICON

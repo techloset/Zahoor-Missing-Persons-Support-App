@@ -1,6 +1,11 @@
-// Missing.tsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import ListItem from '../../components/listItem/ListItem';
 import { styles } from './styles';
 import SearchBox from '../../components/searchBox/SearchBox';
@@ -17,6 +22,8 @@ const Missing = () => {
   const error = useAppSelector((state: RootState) => state.firestore.error);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('All'); // State to track selected filter
 
   useEffect(() => {
     dispatch(fetchMissingPersons());
@@ -30,6 +37,21 @@ const Missing = () => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
+  const filterItems = ['All', 'Male', 'Female', 'Trans'];
+
+  const filteredData = data.filter(item => {
+    // Filter by search value
+    const searchFilter = item.name
+      .toLowerCase()
+      .includes(searchValue.toLowerCase());
+
+    // Filter by selected gender
+    const genderFilter =
+      selectedFilter === 'All' || item.gender === selectedFilter.toLowerCase();
+
+    return searchFilter && genderFilter;
+  });
 
   const navigation = useNavigation();
 
@@ -46,14 +68,38 @@ const Missing = () => {
         </View>
       </View>
       <View style={styles.searchContainer}>
-        <SearchBox />
+        <SearchBox onChangeText={text => setSearchValue(text)} />
+      </View>
+      <View style={styles.filterContainer}>
+        <Text style={styles.filterText}>Filter By:</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {filterItems.map((item, index) => (
+            <TouchableOpacity
+              style={[
+                styles.filterItem,
+                selectedFilter === item ? styles.selectedFilter : null,
+              ]}
+              key={index.toString()}
+              onPress={() => setSelectedFilter(item)}
+            >
+              <Text
+                style={[
+                  styles.filterItemText,
+                  selectedFilter === item ? styles.selectedFilterText : null,
+                ]}
+              >
+                {item}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
       <ScrollView style={styles.listContainer}>
         {loading && <Text>Loading...</Text>}
         {error && <Text>Error: {error}</Text>}
         {!loading &&
           !error &&
-          data.map((item, index) => (
+          filteredData.map((item, index) => (
             <ListItem
               key={index.toString()}
               data={item}
