@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE_COLOR,
     height: Units.WINDOW_HEIGHT,
     width: Units.WINDOW_WIDTH,
+    paddingBottom: 40,
   },
   header: {
     height: 35,
@@ -48,6 +49,6 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center',
-    marginTop: 190,
+    marginTop: 150,
   },
 });
