@@ -23,7 +23,7 @@ const Missing = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('All'); // State to track selected filter
+  const [selectedFilter, setSelectedFilter] = useState('All');
 
   useEffect(() => {
     dispatch(fetchMissingPersons());
@@ -41,12 +41,10 @@ const Missing = () => {
   const filterItems = ['All', 'Male', 'Female', 'Trans'];
 
   const filteredData = data.filter(item => {
-    // Filter by search value
     const searchFilter = item.name
       .toLowerCase()
       .includes(searchValue.toLowerCase());
 
-    // Filter by selected gender
     const genderFilter =
       selectedFilter === 'All' || item.gender === selectedFilter.toLowerCase();
 

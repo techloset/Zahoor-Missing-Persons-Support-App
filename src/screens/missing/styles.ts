@@ -8,6 +8,12 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
+  selectedFilter: {
+    backgroundColor: Colors.WHITE_COLOR,
+  },
+  selectedFilterText: {
+    color: Colors.SECONDARY_COLOR,
+  },
   headerContainer: {
     height: 35,
     width: Units.WINDOW_WIDTH,
@@ -73,5 +79,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: 454,
     overflow: 'hidden',
+    gap: 16,
   },
 });
