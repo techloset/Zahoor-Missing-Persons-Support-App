@@ -14,16 +14,9 @@ const Card = ({ data, onPress }: CardProps) => {
 
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.missingText}>MISSING</Text>
+      <Text style={styles.missingText}>missing</Text>
       <View style={styles.imageContainer}>
-        <Image
-          source={
-            imageUrl
-              ? { uri: imageUrl }
-              : require('../../assets/images/MissingPerson.png')
-          }
-          style={styles.image}
-        />
+        <Image source={{ uri: imageUrl }} style={styles.image} />
       </View>
       <View style={styles.infoContainer}>
         <View>

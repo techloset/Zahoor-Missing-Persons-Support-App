@@ -1,36 +1,45 @@
 import { ScrollView, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import NewsItem from '../../components/newsItem/NewsItem';
 import { Colors, Units } from '../../constants/constants';
+import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
+import { fetchMissingPersons } from '../../store/slices/firestoreSlice';
+// import { NewsItemProps } from '../../types/types';
 
 const News = () => {
-  const newsData = [
-    {
-      data: {
-        name: 'Zahoor Ahmad',
-        gender: 'Male' as const,
-        dateOfBirth: '23/01/2002',
-        nicknames: 'zahoorey',
-        height: '60',
-        width: '25',
-        eyeColor: 'Brown',
-        hairColor: 'Brown',
-        lengthOfTheHair: '10',
-        lastSeen: '23/06/2022',
-        lastSeenLocation: 'Faisalabad',
-        imageUrl: 'url',
-        userID: 'uid',
-        reportLocation: 'Multan',
-        reportDescription: 'This person has been seen in Multan',
-      },
-      reportedBy: 'Waqar Akram',
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const news = useAppSelector((state: RootState) => state.firestore.data);
+  useEffect(() => {
+    dispatch(fetchMissingPersons());
+  }, [dispatch]);
   return (
     <ScrollView style={styles.container}>
-      {newsData.map((item, index) => (
-        <NewsItem data={item.data} reportedBy={item.reportedBy} key={index} />
-      ))}
+      {news.map(
+        (item, index) =>
+          item.reportLocation &&
+          item.reportDescription && (
+            <NewsItem
+              id={item.id}
+              imageUrl={item.imageUrl}
+              name={item.name}
+              reportedBy={item.reportedBy}
+              reportLocation={item.reportLocation}
+              reportDescription={item.reportDescription}
+              key={index}
+              dateOfBirth={item.dateOfBirth}
+              eyeColor={item.eyeColor}
+              gender={item.gender}
+              hairColor={item.hairColor}
+              height={item.height}
+              lastSeen={item.lastSeen}
+              lastSeenLocation={item.lastSeenLocation}
+              lengthOfTheHair={item.lengthOfTheHair}
+              nicknames={item.nicknames}
+              userID={item.userID}
+              width={item.width}
+            />
+          ),
+      )}
     </ScrollView>
   );
 };

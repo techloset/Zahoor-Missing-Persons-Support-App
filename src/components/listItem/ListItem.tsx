@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../constants/constants';
+import { Colors, Units } from '../../constants/constants';
 import DetailsButton from '../detailsButton/DetailsButton';
 import { FormData } from '../../types/types';
 
@@ -13,12 +13,7 @@ const ListItem = ({ data, onPress }: ListItemProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={
-            data.imageUrl ? { uri: data.imageUrl } : Images.MISSING_PERSON
-          }
-          style={styles.image}
-        />
+        <Image source={{ uri: data.imageUrl }} style={styles.image} />
       </View>
       <View style={styles.detailsContainer}>
         <View>
@@ -34,7 +29,6 @@ const ListItem = ({ data, onPress }: ListItemProps) => {
             String(data.dateOfBirth).split('T')[0].length > 12
               ? `${String(data.dateOfBirth).split('T')[0].slice(0, 12)}...`
               : String(data.dateOfBirth).split('T')[0]}{' '}
-            Years
           </Text>
           <Text style={styles.text}>
             Last Seen:{' '}

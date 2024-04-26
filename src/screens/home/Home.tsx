@@ -26,7 +26,7 @@ const Home = ({ navigation }: any) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
-
+  const [searchValue, setSearchValue] = useState('');
   useEffect(() => {
     dispatch(fetchMissingPersons());
   }, [dispatch]);
@@ -39,11 +39,20 @@ const Home = ({ navigation }: any) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
+  const filteredData = data.filter(item => {
+    const searchFilter = item.name
+      .toLowerCase()
+      .includes(searchValue.toLowerCase());
+
+    return searchFilter;
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Images.LOGO />
-        <SearchBox />
+        <SearchBox onChangeText={text => setSearchValue(text)} />
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.featuredProfilesContainer}>
@@ -70,7 +79,7 @@ const Home = ({ navigation }: any) => {
               {error && <Text>Error: {error}</Text>}
               {!loading &&
                 !error &&
-                data.map((item: FormData, index: number) => (
+                filteredData.map((item: FormData, index: number) => (
                   <Card
                     key={index.toString()}
                     data={item}
