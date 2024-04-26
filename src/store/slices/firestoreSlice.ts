@@ -10,10 +10,12 @@ interface FirestoreState {
   formData: FormData;
   loading: boolean;
   error: string | null;
+  user: User | null;
 }
 
 const initialState: FirestoreState = {
   data: [],
+  user: null,
   formData: {
     id: '',
     name: '',
@@ -71,22 +73,25 @@ export const updateUserProfile = createAsyncThunk(
       if (!currentUser) {
         return thunkAPI.rejectWithValue('No user found');
       }
-
-      // Upload the selected image to Firebase Storage
       const uploadUri = selectedImage.replace('file://', '');
       const storageRef = storage().ref(
         `userImages/${currentUser.uid}/${Date.now()}`,
       );
-      const task = storageRef.putFile(uploadUri);
-
-      // Wait for the image upload to complete
-      await task;
-
-      // Get the download URL of the uploaded image
+      await storageRef.putFile(uploadUri);
       const downloadURL = await storageRef.getDownloadURL();
 
-      // Update the user's display name and profile image URL in Firestore
-      await firestore().collection('Users').doc(currentUser.uid).update({
+      const userSnapshot = await firestore()
+        .collection('Users')
+        .where('email', '==', currentUser.email)
+        .get();
+
+      if (userSnapshot.empty)
+        throw new Error('User not found in Users collection');
+
+      const userDoc = userSnapshot.docs[0];
+      const userId = userDoc.id;
+
+      await firestore().collection('Users').doc(userId).update({
         displayName,
         photoURL: downloadURL,
       });
@@ -244,14 +249,20 @@ const firestoreSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(updateUserProfile.pending, state => {
-      state.loading = false;
+    builder.addCase(fetchUserProfile.pending, state => {
+      state.loading = true;
       state.error = null;
     });
-    // builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.formData = { ...state.formData, ...action.payload };
-    // });
+
+    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+    });
+
+    builder.addCase(fetchUserProfile.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Failed to fetch user profile';
+    });
   },
 });
 

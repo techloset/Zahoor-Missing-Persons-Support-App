@@ -1,49 +1,39 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable curly */
 import { View, Text, Image, Alert, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import InputText from '../../components/inputText/InputText';
 import Button from '../../components/button/Button';
 import { useNavigation } from '@react-navigation/native';
 import { signoutUser } from '../../store/slices/authSlice';
-import { useAppDispatch } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import imagePicker from '../../utils/imagePicker';
-import { updateUserProfile } from '../../store/slices/firestoreSlice';
+import {
+  fetchUserProfile,
+  updateUserProfile,
+} from '../../store/slices/firestoreSlice';
 import { styles } from './styles';
-import auth from '@react-native-firebase/auth';
-import { User } from '../../types/types';
 import { Images } from '../../constants/constants';
-import firestore from '@react-native-firebase/firestore';
 
 const Profile = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const currentUser = auth().currentUser;
   const [selectedImage, setSelectedImage] = useState<string>('');
-  const [displayName, setDisplayName] = useState<string>('');
-  const [userProfile, setUserProfile] = useState<User | null>(null);
+  const [displayName, setDisplayName] = useState<string>(''); // Separate state for editing
+  const [loading, setLoading] = useState<boolean>(false);
+  const userProfile = useAppSelector(state => state.firestore.user);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const userData = await getUserData();
-      setUserProfile(userData);
-      setDisplayName(userData?.displayName || '');
-    };
-    fetchData();
-  }, []);
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
+
+  // Initialize the display name state only when userProfile changes, not on subsequent renders
+  useEffect(() => {
+    if (userProfile) {
+      setDisplayName(userProfile.displayName || '');
+    }
+  }, [userProfile]);
 
   const signoutHandler = () => {
     dispatch(signoutUser());
-  };
-
-  const getUserData = async () => {
-    if (!currentUser) return null;
-    const userData = await firestore()
-      .collection('Users')
-      .doc(currentUser.uid)
-      .get();
-    if (!userData.exists) return null;
-    return { ...userData.data(), id: userData.id } as User;
   };
 
   const handleImagePicker = async () => {
@@ -53,8 +43,6 @@ const Profile = () => {
       console.error('Error picking image:', error);
     }
   };
-
-  const [loading, setLoading] = useState<boolean>(false);
 
   const userUpdateHandler = async () => {
     try {
