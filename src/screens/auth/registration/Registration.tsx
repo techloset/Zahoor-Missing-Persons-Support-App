@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import TextInputComponent from '../../../components/inputText/InputText';
+import InputText from '../../../components/inputText/InputText';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
@@ -17,13 +17,21 @@ export default function Registration() {
   const dispatch = useAppDispatch();
 
   const handleCreateUser = () => {
-    dispatch(createUser({ email, password }));
-    dispatch(uploadUser({ displayName, email, photoURL: '' }));
+    try {
+      dispatch(createUser({ email, password }));
+    } catch (error) {
+      Alert.alert('Error', 'Failed to create user');
+    }
+    try {
+      dispatch(uploadUser({ displayName, email, photoURL: '' }));
+    } catch (error) {
+      console.log('Error uploading user:', error);
+      Alert.alert('Error', 'Failed to upload user data to Firestore');
+    }
   };
 
   return (
-    <ScrollView style={{}}>
-      {/* {error && <Text>{error}</Text>} */}
+    <ScrollView>
       <View style={styles.imageStyles}>
         <Images.VECTOR_ROUNDED_DIAGRAM width={302} height={259} />
       </View>
@@ -33,7 +41,7 @@ export default function Registration() {
       </View>
       <View style={styles.form}>
         <View>
-          <TextInputComponent
+          <InputText
             icon={false}
             name="Full Name"
             value={displayName}
@@ -41,7 +49,7 @@ export default function Registration() {
             placeholderText="Jane Cooper"
             keyboardType="default"
           />
-          <TextInputComponent
+          <InputText
             icon={true}
             name="Email"
             value={email}
@@ -51,7 +59,7 @@ export default function Registration() {
             keyboardType="email-address"
           />
         </View>
-        <TextInputComponent
+        <InputText
           icon={false}
           name="Password"
           security={true}
@@ -60,11 +68,12 @@ export default function Registration() {
           placeholderText="*************"
           validationText="Your password must be 8 characters."
           keyboardType="default"
+          isError={true}
         />
         <View style={styles.checkboxContainer}>
           <BouncyCheckbox
             size={20}
-            onPress={() => setIsChecked(!isChecked)} // Updated handleCheckboxPress to setIsChecked
+            onPress={() => setIsChecked(!isChecked)}
             isChecked={isChecked}
             innerIconStyle={{
               borderColor: Colors.SECONDARY_COLOR,
@@ -82,11 +91,13 @@ export default function Registration() {
             </Text>
           </View>
         </View>
-        <Button
-          onPressLearnMore={handleCreateUser}
-          titleText="Next"
-          accessibilityLabelText="Register Button"
-        />
+        <View style={styles.submit}>
+          <Button
+            onPressLearnMore={handleCreateUser}
+            titleText="Next"
+            accessibilityLabelText="Register Button"
+          />
+        </View>
         <Text style={styles.underLineText}>Need Help or Have Questions?</Text>
       </View>
     </ScrollView>
