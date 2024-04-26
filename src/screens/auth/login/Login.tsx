@@ -2,7 +2,7 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { Colors, Images, Units } from '../../../constants/constants';
-import TextInputComponent from '../../../components/inputText/InputText';
+import InputText from '../../../components/inputText/InputText';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { useLogin } from './useLogin';
@@ -33,7 +33,7 @@ const Login = () => {
       </View>
       <View style={styles.container}>
         <View style={styles.formSection}>
-          <TextInputComponent
+          <InputText
             icon={true}
             name="Email"
             value={email}
@@ -42,7 +42,7 @@ const Login = () => {
             validationText="Your email address is your username."
             keyboardType="email-address"
           />
-          <TextInputComponent
+          <InputText
             icon={false}
             name="Password"
             value={password}
@@ -51,6 +51,7 @@ const Login = () => {
             placeholderText="**************"
             validationText="Your password must be 8 character. "
             keyboardType="default"
+            isError={true}
           />
         </View>
       </View>

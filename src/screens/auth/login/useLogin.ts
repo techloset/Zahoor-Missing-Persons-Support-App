@@ -18,7 +18,12 @@ export const useLogin = () => {
   const dispatch = useAppDispatch();
 
   const loginHandler = () => {
-    dispatch(loginUser({ email, password }));
+    try {
+      dispatch(loginUser({ email, password }));
+    } catch (error) {
+      console.error('Error logging in:', error);
+      Alert.alert('Error', 'Failed to login');
+    }
   };
 
   const signIn = async () => {
