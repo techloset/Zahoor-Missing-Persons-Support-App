@@ -1,8 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Images, Units } from '../../constants/constants';
 import { FormData } from '../../types/types';
 import DetailsButton from '../detailsButton/DetailsButton';
+import { calculateAge, formatDate } from '../../utils/formateDate';
 
 type CardProps = {
   data: FormData;
@@ -11,7 +13,7 @@ type CardProps = {
 
 const Card = ({ data, onPress }: CardProps) => {
   const { imageUrl, name, dateOfBirth, lastSeen, lastSeenLocation } = data;
-
+  const age = calculateAge(dateOfBirth.toDate());
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.missingText}>missing</Text>
@@ -21,26 +23,30 @@ const Card = ({ data, onPress }: CardProps) => {
       <View style={styles.infoContainer}>
         <View>
           <Text style={styles.text}>Name: {name} </Text>
+          <Text style={styles.text}>Age: {age} Years</Text>
           <Text style={styles.text}>
-            Age:{' '}
-            {String(dateOfBirth).split('T')[0] &&
-            String(dateOfBirth).split('T')[0].length > 12
-              ? `${String(dateOfBirth).split('T')[0].slice(0, 12)}...`
-              : String(dateOfBirth).split('T')[0]}{' '}
-            Years
-          </Text>
-          <Text style={styles.text}>
-            Last Seen:{' '}
-            {String(lastSeen).split('T')[0] &&
-            String(lastSeen).split('T')[0].length > 12
-              ? `${String(lastSeen).split('T')[0].slice(0, 12)}...`
-              : String(lastSeen).split('T')[0]}
+            Last Seen: {formatDate(lastSeen) ? formatDate(lastSeen) : ' '}
           </Text>
           <Text style={styles.text}>
             Last Seen Location: {lastSeenLocation}
           </Text>
         </View>
         <DetailsButton title="View Details" onPress={onPress} />
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          zIndex: 0,
+        }}
+      >
+        <Images.GRADIENT_IMAGE
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
       </View>
     </View>
   );
@@ -81,6 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     gap: 12,
+    zIndex: 1,
   },
   text: {
     color: Colors.WHITE_COLOR,
