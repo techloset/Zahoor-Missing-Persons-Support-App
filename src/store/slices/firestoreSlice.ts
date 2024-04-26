@@ -1,7 +1,8 @@
+/* eslint-disable curly */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { FormData } from '../../types/types';
+import { FormData, User } from '../../types/types';
 import auth from '@react-native-firebase/auth';
 
 interface FirestoreState {
@@ -14,6 +15,7 @@ interface FirestoreState {
 const initialState: FirestoreState = {
   data: [],
   formData: {
+    id: '',
     name: '',
     gender: '',
     dateOfBirth: new Date(),
@@ -32,6 +34,70 @@ const initialState: FirestoreState = {
   error: null,
 };
 
+export const fetchUserProfile = createAsyncThunk(
+  'firestore/fetchUserProfile',
+  async () => {
+    try {
+      const currentUser = auth().currentUser;
+      if (!currentUser) throw new Error('No user found');
+
+      const userSnapshot = await firestore()
+        .collection('Users')
+        .where('email', '==', currentUser.email)
+        .get();
+
+      if (userSnapshot.empty)
+        throw new Error('User not found in Users collection');
+
+      const userData = userSnapshot.docs[0].data() as User;
+      return userData;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
+
+export const updateUserProfile = createAsyncThunk(
+  'firestore/updateUserProfile',
+  async (
+    {
+      displayName,
+      selectedImage,
+    }: { displayName: string; selectedImage: string },
+    thunkAPI,
+  ) => {
+    try {
+      const currentUser = auth().currentUser;
+      if (!currentUser) {
+        return thunkAPI.rejectWithValue('No user found');
+      }
+
+      // Upload the selected image to Firebase Storage
+      const uploadUri = selectedImage.replace('file://', '');
+      const storageRef = storage().ref(
+        `userImages/${currentUser.uid}/${Date.now()}`,
+      );
+      const task = storageRef.putFile(uploadUri);
+
+      // Wait for the image upload to complete
+      await task;
+
+      // Get the download URL of the uploaded image
+      const downloadURL = await storageRef.getDownloadURL();
+
+      // Update the user's display name and profile image URL in Firestore
+      await firestore().collection('Users').doc(currentUser.uid).update({
+        displayName,
+        photoURL: downloadURL,
+      });
+
+      return { displayName, photoURL: downloadURL };
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Error updating user profile');
+    }
+  },
+);
+
 export const uploadToFirestore = createAsyncThunk(
   'firestore/uploadToFirestore',
   async (
@@ -40,10 +106,23 @@ export const uploadToFirestore = createAsyncThunk(
   ) => {
     try {
       const user = auth().currentUser;
+      const userData = await firestore().collection('Users').get();
+
+      if (!user) {
+        return thunkAPI.rejectWithValue('No user found');
+      }
+      const userDoc = userData.docs.find(
+        doc => doc.data().email === user.email,
+      );
+
       const imageRef = storage().ref('images').child(selectedImage);
       await imageRef.putFile(selectedImage);
       const imageUrl: string = await imageRef.getDownloadURL();
-      const updatedFormData = { ...formData, imageUrl, userID: user?.uid };
+      const updatedFormData = {
+        ...formData,
+        imageUrl,
+        userID: userDoc?.id,
+      };
       await firestore().collection('MissingPerson').add(updatedFormData);
       return updatedFormData;
     } catch (error) {
@@ -54,19 +133,47 @@ export const uploadToFirestore = createAsyncThunk(
   },
 );
 
-// Thunk action to fetch data from Firestore
 export const fetchMissingPersons = createAsyncThunk(
   'firestore/fetchMissingPersons',
   async (_, thunkAPI) => {
     try {
       const querySnapshot = await firestore().collection('MissingPerson').get();
-      const newData: FormData[] = querySnapshot.docs.map(documentSnapshot => ({
+      const newData = querySnapshot.docs.map(documentSnapshot => ({
         ...documentSnapshot.data(),
         key: documentSnapshot.id,
       }));
       return newData;
     } catch (error) {
       return thunkAPI.rejectWithValue('Error fetching data from Firestore');
+    }
+  },
+);
+
+export const updateMissingPerson = createAsyncThunk(
+  'firestore/updateMissingPerson',
+  async (
+    {
+      id,
+      reportLocation,
+      reportDescription,
+      reportedBy,
+    }: {
+      id: string;
+      reportLocation: string;
+      reportDescription: string;
+      reportedBy: string;
+    },
+    thunkAPI,
+  ) => {
+    try {
+      await firestore().collection('MissingPerson').doc(id).update({
+        reportLocation,
+        reportDescription,
+        reportedBy,
+      });
+      return { id, reportLocation, reportDescription };
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Error updating data in Firestore');
     }
   },
 );
@@ -92,18 +199,59 @@ const firestoreSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
-    builder.addCase(fetchMissingPersons.pending, state => {
-      state.loading = true;
-      state.error = null;
-    });
     builder.addCase(fetchMissingPersons.fulfilled, (state, action) => {
       state.loading = false;
-      state.data = action.payload;
+      state.data = action.payload.map((item: { key: any }) => ({
+        id: item.key,
+        lastSeen: new Date(),
+        dateOfBirth: new Date(),
+        eyeColor: '',
+        gender: '',
+        hairColor: '',
+        height: '',
+        lastSeenLocation: '',
+        lengthOfTheHair: '',
+        name: '',
+        nicknames: '',
+        userID: '',
+        width: '',
+        imageUrl: '',
+        reportDescription: '',
+        reportLocation: '',
+        reportedBy: '',
+        ...item,
+      }));
     });
     builder.addCase(fetchMissingPersons.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
+    builder.addCase(updateMissingPerson.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(updateMissingPerson.fulfilled, (state, action) => {
+      state.loading = false;
+      const index = state.data.findIndex(data => data.id === action.payload.id);
+      state.data[index].reportLocation = action.payload.reportLocation;
+      state.data[index].reportDescription = action.payload.reportDescription;
+    });
+    builder.addCase(updateMissingPerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    builder.addCase(updateUserProfile.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(updateUserProfile.pending, state => {
+      state.loading = false;
+      state.error = null;
+    });
+    // builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.formData = { ...state.formData, ...action.payload };
+    // });
   },
 });
 

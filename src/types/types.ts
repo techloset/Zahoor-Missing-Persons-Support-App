@@ -1,9 +1,11 @@
 export type User = {
+  id?: string;
   displayName: string;
   email: string;
-  photoURL: string;
+  photoURL?: string;
 };
 export type FormData = {
+  id: string;
   name: string;
   gender: '' | 'Male' | 'Female' | 'Trans';
   dateOfBirth: Date;
@@ -17,7 +19,12 @@ export type FormData = {
   lastSeenLocation: string;
   imageUrl: string;
   userID: string;
+  // news?: NewsType[];
+  reportLocation?: string;
+  reportDescription?: string;
+  reportedBy?: string;
 };
+// export type NewsType = {};
 export type ButtonProps = {
   onPressLearnMore: () => void;
   titleText: string;
@@ -29,8 +36,9 @@ export type AuthData = {
   name?: string;
   photoURL?: string;
 };
-export type InputComponentsProps = {
+export type InputTextType = {
   icon: boolean;
+  editable?: boolean;
   name: string;
   value: string;
   validationText?: string;
@@ -44,6 +52,7 @@ export type InputComponentsProps = {
     | 'numeric'
     | 'email-address'
     | 'phone-pad';
+  isError?: boolean;
 };
 
 export type Icon = {

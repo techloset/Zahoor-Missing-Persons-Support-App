@@ -15,7 +15,7 @@ import Login from '../screens/auth/login/Login';
 import Registration from '../screens/auth/registration/Registration';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useEffect, useState } from 'react';
-import screenConfigs from './screenConfig';
+import screenConfigs from './ScreenConfig';
 import { ScreenConfig } from '../types/types';
 
 type RootStackParamList = {

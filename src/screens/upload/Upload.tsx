@@ -10,10 +10,10 @@ import {
   Image,
   Pressable,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import DatePicker from 'react-native-date-picker';
-import TextInputComponent from '../../components/inputText/InputText';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+import InputText from '../../components/inputText/InputText';
 import { styles } from './styles';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { Images, Units } from '../../constants/constants';
@@ -31,7 +31,8 @@ const Upload = () => {
   const loading = useAppSelector((state: RootState) => state.firestore.loading);
   const error = useAppSelector((state: RootState) => state.firestore.error);
   const [selectedImage, setSelectedImage] = useState<string>('');
-  const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
+  const [openDobPicker, setOpenDobPicker] = useState<boolean>(false);
+  const [openLastSeenPicker, setOpenLastSeenPicker] = useState<boolean>(false);
   const [dob, setDob] = useState<Date | null>(null);
   const [lastSeen, setLastSeen] = useState<Date | null>(null);
 
@@ -39,14 +40,21 @@ const Upload = () => {
     dispatch(updateFormData({ [name]: value }));
   };
 
+  const handleOpenDobPicker = () => {
+    setOpenDobPicker(true);
+  };
+
+  const handleOpenLastSeenPicker = () => {
+    setOpenLastSeenPicker(true);
+  };
   const handleDob = (date: Date) => {
-    setOpenDatePicker(false);
+    setOpenDobPicker(false);
     setDob(date);
     dispatch(updateFormData({ dateOfBirth: date }));
   };
 
   const handleLastSeen = (date: Date) => {
-    setOpenDatePicker(false);
+    setOpenLastSeenPicker(false);
     setLastSeen(date);
     dispatch(updateFormData({ lastSeen: date }));
   };
@@ -72,7 +80,7 @@ const Upload = () => {
             Basic Details of Missing Person
           </Text>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <TextInputComponent
+            <InputText
               name="Missing Person's Full Name"
               value={formData.name}
               onChangeText={text => handleChange('name', text)}
@@ -82,7 +90,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Gender"
               value={formData.gender}
               onChangeText={text => handleChange('gender', text)}
@@ -93,7 +101,7 @@ const Upload = () => {
               validationText=""
             />
             <TouchableOpacity
-              onPress={() => setOpenDatePicker(true)}
+              onPress={handleOpenDobPicker}
               style={[styles.container, {}]}
             >
               <Text style={styles.name}>Date Of Birth</Text>
@@ -111,7 +119,7 @@ const Upload = () => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setOpenDatePicker(true)}
+              onPress={handleOpenLastSeenPicker}
               style={[styles.container, {}]}
             >
               <Text style={styles.name}>Last Seen</Text>
@@ -128,7 +136,7 @@ const Upload = () => {
                 </View>
               </View>
             </TouchableOpacity>
-            <TextInputComponent
+            <InputText
               name="Nicknames or know aliases"
               value={formData.nicknames}
               onChangeText={text => handleChange('nicknames', text)}
@@ -138,7 +146,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Last Seen Location"
               value={formData.lastSeenLocation}
               onChangeText={text => handleChange('lastSeenLocation', text)}
@@ -153,7 +161,7 @@ const Upload = () => {
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Physical Description</Text>
           <View>
-            <TextInputComponent
+            <InputText
               name="Height"
               value={formData.height}
               onChangeText={text => handleChange('height', text)}
@@ -163,7 +171,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Width"
               value={formData.width}
               onChangeText={text => handleChange('width', text)}
@@ -173,7 +181,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Eye Color"
               value={formData.eyeColor}
               onChangeText={text => handleChange('eyeColor', text)}
@@ -183,7 +191,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Hair Color"
               value={formData.hairColor}
               onChangeText={text => handleChange('hairColor', text)}
@@ -193,7 +201,7 @@ const Upload = () => {
               icon={false}
               validationText=""
             />
-            <TextInputComponent
+            <InputText
               name="Length of the Hair"
               value={formData.lengthOfTheHair}
               onChangeText={text => handleChange('lengthOfTheHair', text)}
@@ -228,20 +236,29 @@ const Upload = () => {
         <View style={styles.submitContainer}>
           <Pressable onPress={handleSubmit} style={styles.submitButton}>
             <Text style={styles.submitText}>
-              {loading ? 'Loading...' : 'Submit Report'}
+              {loading ? 'Submitting...' : 'Submit Report'}
             </Text>
           </Pressable>
         </View>
       </View>
-      {openDatePicker && (
+      {openDobPicker && (
         <DatePicker
           modal
-          open={openDatePicker}
-          date={dob || lastSeen || new Date()}
-          onConfirm={date => {
-            dob ? handleDob(date) : handleLastSeen(date);
-          }}
-          onCancel={() => setOpenDatePicker(false)}
+          mode="date"
+          open={openDobPicker}
+          date={dob || new Date()}
+          onConfirm={handleDob}
+          onCancel={() => setOpenDobPicker(false)}
+        />
+      )}
+      {openLastSeenPicker && (
+        <DatePicker
+          modal
+          mode="date"
+          open={openLastSeenPicker}
+          date={lastSeen || new Date()}
+          onConfirm={handleLastSeen}
+          onCancel={() => setOpenLastSeenPicker(false)}
         />
       )}
     </ScrollView>

@@ -1,18 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable curly */
-import { View, Text, Image, Alert, Platform, ScrollView } from 'react-native';
+import { View, Text, Image, Alert, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Images } from '../../constants/constants';
 import InputText from '../../components/inputText/InputText';
 import Button from '../../components/button/Button';
 import { useNavigation } from '@react-navigation/native';
 import { signoutUser } from '../../store/slices/authSlice';
 import { useAppDispatch } from '../../store/store';
 import imagePicker from '../../utils/imagePicker';
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+import { updateUserProfile } from '../../store/slices/firestoreSlice';
 import { styles } from './styles';
 import auth from '@react-native-firebase/auth';
 import { User } from '../../types/types';
+import { Images } from '../../constants/constants';
+import firestore from '@react-native-firebase/firestore';
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -21,17 +22,14 @@ const Profile = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
   const [userProfile, setUserProfile] = useState<User | null>(null);
-  const [userDocId, setUserDocId] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
       const userData = await getUserData();
       setUserProfile(userData);
       setDisplayName(userData?.displayName || '');
-      setUserDocId(userData?.id || '');
     };
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signoutHandler = () => {
@@ -42,11 +40,10 @@ const Profile = () => {
     if (!currentUser) return null;
     const userData = await firestore()
       .collection('Users')
-      .where('email', '==', currentUser.email)
+      .doc(currentUser.uid)
       .get();
-    if (userData.empty) return null;
-    const userDoc = userData.docs[0];
-    return { ...userDoc.data(), id: userDoc.id } as User;
+    if (!userData.exists) return null;
+    return { ...userData.data(), id: userData.id } as User;
   };
 
   const handleImagePicker = async () => {
@@ -57,39 +54,18 @@ const Profile = () => {
     }
   };
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const userUpdateHandler = async () => {
     try {
-      if (!currentUser) return;
-
-      const uploadUri =
-        Platform.OS === 'android'
-          ? selectedImage
-          : selectedImage.replace('file://', '');
-      const storageRef = storage().ref(
-        `userImages/${currentUser.uid}/${Date.now()}`,
-      );
-      const task = storageRef.putFile(uploadUri);
-      task.on(
-        'state_changed',
-        () => {},
-        async error => {
-          console.error('Error uploading image:', error);
-          Alert.alert('Error', 'Failed to update profile');
-        },
-        async () => {
-          const downloadURL = await storageRef.getDownloadURL();
-
-          await firestore().collection('Users').doc(userDocId).update({
-            displayName,
-            photoURL: downloadURL,
-          });
-
-          Alert.alert('Success', 'Profile updated successfully');
-        },
-      );
+      setLoading(true);
+      await dispatch(updateUserProfile({ displayName, selectedImage }));
+      Alert.alert('Success', 'Profile updated successfully');
     } catch (error) {
       console.error('Error updating profile:', error);
       Alert.alert('Error', 'Failed to update profile');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -139,8 +115,8 @@ const Profile = () => {
       </View>
       <View style={styles.buttonContainer}>
         <Button
-          titleText="Save Changes"
-          onPressLearnMore={() => userUpdateHandler()}
+          titleText={loading ? 'Updating...' : 'Update Profile'}
+          onPressLearnMore={userUpdateHandler}
         />
       </View>
     </ScrollView>

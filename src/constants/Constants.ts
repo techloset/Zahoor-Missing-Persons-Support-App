@@ -40,6 +40,7 @@ export const Colors = {
   FADED_TEXT_COLOR: '#667085',
   ERROR_COLOR: '#CC4141',
   SUBMIT_BUTTON_TEXT: '#FAFAFC',
+  BACKGROUND_COLOR: 'rgba(0, 0, 0, 0.67)',
 };
 
 export const Units = {

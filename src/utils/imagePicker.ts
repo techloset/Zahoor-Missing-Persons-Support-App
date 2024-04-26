@@ -1,4 +1,3 @@
-// utils/imagePicker.ts
 import * as ImagePicker from 'react-native-image-picker';
 
 const imagePicker = async (setSelectedImage: (uri: string) => void) => {
