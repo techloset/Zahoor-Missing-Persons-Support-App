@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { Images } from '../../../constants/constants';
-import TextInputComponent from '../../../components/inputText/InputText';
+import InputText from '../../../components/inputText/InputText';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 export default function Forgot() {
   const [email, setEmail] = useState<string>('');
   const navigation = useNavigation();
-  const forgotHandler = () => {
-    console.log('Forgot handler');
-    // Assuming this is a placeholder for sending the password reset email
-    // Replace this with your actual implementation
-    // sendPasswordResetEmail(email, actionCodeSettings);
+  const forgotHandler = async () => {
+    await auth().sendPasswordResetEmail(email);
+    Alert.alert(
+      'Reset Code Sent',
+      'Please check your email for the reset code.',
+    );
   };
 
   return (
@@ -38,7 +40,7 @@ export default function Forgot() {
               Please enter the email address associated with your account. We'll
               send you a verification code to reset your password.
             </Text>
-            <TextInputComponent
+            <InputText
               icon={false}
               keyboardType="email-address"
               name="Email"
