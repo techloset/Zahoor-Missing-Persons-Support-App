@@ -9,18 +9,21 @@ export const useLogin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useAppDispatch();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const loginHandler = () => {
     try {
+      setLoading(true);
       dispatch(loginUser({ email, password }));
     } catch (error) {
       console.error('Error logging in:', error);
       Alert.alert('Error', 'Failed to login');
+    } finally {
+      setLoading(false);
     }
   };
 
   const signIn = async () => {
-    Alert.alert('Login with Google is not working');
+    console.error('Login with Google is disabled');
   };
 
   return {
@@ -31,5 +34,6 @@ export const useLogin = () => {
     setPassword,
     loginHandler,
     signIn,
+    loading,
   };
 };

@@ -18,7 +18,6 @@ export const useSignup = () => {
     try {
       dispatch(uploadUser({ displayName, email }));
     } catch (error) {
-      console.log('Error uploading user:', error);
       Alert.alert('Error', 'Failed to upload user data to Firestore');
     }
   };

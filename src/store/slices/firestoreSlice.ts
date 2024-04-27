@@ -126,6 +126,7 @@ export const uploadToFirestore = createAsyncThunk(
       const updatedFormData = {
         ...formData,
         imageUrl,
+        id: Date.now().toString(),
         userID: userDoc?.id,
       };
       await firestore().collection('MissingPerson').add(updatedFormData);
@@ -162,11 +163,13 @@ export const updateMissingPerson = createAsyncThunk(
       reportLocation,
       reportDescription,
       reportedBy,
+      reportByEmail,
     }: {
       id: string;
       reportLocation: string;
       reportDescription: string;
       reportedBy: string;
+      reportByEmail: string;
     },
     thunkAPI,
   ) => {
@@ -175,8 +178,9 @@ export const updateMissingPerson = createAsyncThunk(
         reportLocation,
         reportDescription,
         reportedBy,
+        reportByEmail,
       });
-      return { id, reportLocation, reportDescription };
+      return { id, reportLocation, reportDescription, reportByEmail };
     } catch (error) {
       return thunkAPI.rejectWithValue('Error updating data in Firestore');
     }

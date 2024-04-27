@@ -1,4 +1,4 @@
-import { View, Text, Image, Alert } from 'react-native';
+import { View, Text, Image, Alert, Linking } from 'react-native';
 import React from 'react';
 import DetailsButton from '../detailsButton/DetailsButton';
 import { styles } from './styles';
@@ -10,9 +10,14 @@ const NewsItem = ({
   reportDescription,
   reportLocation,
   reportedBy,
+  reportedByEmail,
 }: FormData) => {
   const contactPerson = () => {
-    Alert.alert('Contacted Person Details');
+    if (reportedByEmail) {
+      Linking.openURL(`mailto:${reportedByEmail}`);
+    } else {
+      Alert.alert('Error', 'User email not found');
+    }
   };
   return (
     <View style={styles.container}>

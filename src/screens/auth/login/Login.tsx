@@ -16,6 +16,7 @@ const Login = () => {
     setPassword,
     loginHandler,
     signIn,
+    loading,
   } = useLogin();
 
   return (
@@ -50,7 +51,9 @@ const Login = () => {
             security={true}
             placeholderText="**************"
             validationText={
-              password.length < 8 ? 'Your password must be 8 characters.' : ''
+              password.length < 8 && password.length > 0
+                ? 'Your password must be 8 characters.'
+                : ''
             }
             keyboardType="default"
             isError={true}
@@ -61,7 +64,7 @@ const Login = () => {
         <View style={{ alignItems: 'center' }}>
           <Button
             onPressLearnMore={loginHandler}
-            titleText="Log in"
+            titleText={loading ? 'Loading...' : 'Log in'}
             accessibilityLabelText="Login Button"
           />
         </View>

@@ -84,7 +84,7 @@ const Upload = () => {
               name="Missing Person's Full Name"
               value={formData.name}
               onChangeText={text => handleChange('name', text)}
-              placeholderText="Missing Person’s Full Name"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -94,7 +94,7 @@ const Upload = () => {
               name="Gender"
               value={formData.gender}
               onChangeText={text => handleChange('gender', text)}
-              placeholderText="Male , Female or Trans"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -140,7 +140,7 @@ const Upload = () => {
               name="Nicknames or know aliases"
               value={formData.nicknames}
               onChangeText={text => handleChange('nicknames', text)}
-              placeholderText="Nickname or know aliases"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -150,7 +150,7 @@ const Upload = () => {
               name="Last Seen Location"
               value={formData.lastSeenLocation}
               onChangeText={text => handleChange('lastSeenLocation', text)}
-              placeholderText="Last Seen Location"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -160,12 +160,12 @@ const Upload = () => {
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsTitle}>Physical Description</Text>
-          <View>
+          <View style={styles.detailsSection}>
             <InputText
               name="Height"
               value={formData.height}
               onChangeText={text => handleChange('height', text)}
-              placeholderText="Height"
+              placeholderText=""
               keyboardType="number-pad"
               security={false}
               icon={false}
@@ -175,7 +175,7 @@ const Upload = () => {
               name="Width"
               value={formData.width}
               onChangeText={text => handleChange('width', text)}
-              placeholderText="Width"
+              placeholderText=""
               keyboardType="number-pad"
               security={false}
               icon={false}
@@ -185,7 +185,7 @@ const Upload = () => {
               name="Eye Color"
               value={formData.eyeColor}
               onChangeText={text => handleChange('eyeColor', text)}
-              placeholderText="Eye Color"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -195,7 +195,7 @@ const Upload = () => {
               name="Hair Color"
               value={formData.hairColor}
               onChangeText={text => handleChange('hairColor', text)}
-              placeholderText="Hair Color"
+              placeholderText=""
               keyboardType="default"
               security={false}
               icon={false}
@@ -205,7 +205,7 @@ const Upload = () => {
               name="Length of the Hair"
               value={formData.lengthOfTheHair}
               onChangeText={text => handleChange('lengthOfTheHair', text)}
-              placeholderText="Length of the Hair"
+              placeholderText=""
               keyboardType="number-pad"
               security={false}
               icon={false}

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     width: Units.WINDOW_WIDTH * 0.3067,
   },
   detailsContainer: {
-    height: Units.WINDOW_HEIGHT * 0.1622,
+    minHeight: Units.WINDOW_HEIGHT * 0.1622,
     flex: 1,
     justifyContent: 'space-between',
     gap: Units.WINDOW_HEIGHT * 0.0148,

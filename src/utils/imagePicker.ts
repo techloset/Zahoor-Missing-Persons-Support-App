@@ -26,7 +26,7 @@ const imagePicker = async (setSelectedImage: (uri: string) => void) => {
       setSelectedImage(selectedImgUri);
     }
   } catch (error) {
-    console.log('Error in image picker:', error);
+    console.error('Error in image picker:', error);
   }
 };
 

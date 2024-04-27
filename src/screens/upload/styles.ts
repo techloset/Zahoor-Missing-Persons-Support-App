@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     width: Units.WINDOW_WIDTH * 0.8933,
     fontFamily: Fonts.PRIMARY_FONT,
   },
-  detailsSection: { justifyContent: 'center', alignItems: 'center' },
+  detailsSection: { justifyContent: 'center', alignItems: 'center', gap: 16 },
   submitContainer: {
     width: Units.WINDOW_WIDTH,
     height: Units.WINDOW_HEIGHT * 0.0921,

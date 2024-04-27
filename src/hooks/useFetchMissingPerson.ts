@@ -3,7 +3,7 @@ import { fetchMissingPersons } from '../store/slices/firestoreSlice';
 import { useEffect, useState } from 'react';
 import { RootState, useAppDispatch, useAppSelector } from '../store/store';
 
-export default function useMissing() {
+export default function useFetchMissingPerson() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state: RootState) => state.firestore.data);
   const loading = useAppSelector((state: RootState) => state.firestore.loading);
@@ -17,7 +17,7 @@ export default function useMissing() {
     dispatch(fetchMissingPersons());
   }, [dispatch]);
 
-  const handleListPress = (dat: any) => {
+  const handlePress = (dat: any) => {
     setSelectedData(dat);
     setModalVisible(true);
   };
@@ -48,7 +48,7 @@ export default function useMissing() {
     selectedData,
     searchValue,
     selectedFilter,
-    handleListPress,
+    handlePress,
     handleModalClose,
     filterItems,
     filteredData,

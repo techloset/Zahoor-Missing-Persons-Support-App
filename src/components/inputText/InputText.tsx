@@ -20,7 +20,14 @@ const InputText = ({
     validationText?.includes('password') && value.length < 8;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        validationText
+          ? { height: 'auto' }
+          : { height: Units.WINDOW_HEIGHT * 0.1 },
+      ]}
+    >
       <View style={styles.inputContainer}>
         <Text style={styles.name}>{name}</Text>
         <View
@@ -110,7 +117,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: 'auto',
   },
   inputContainer: {
     width: Units.WINDOW_WIDTH * 0.8213,
@@ -130,7 +136,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SECONDARY_FONT,
     fontSize: 14,
     fontWeight: '400',
-    lineHeight: Units.WINDOW_HEIGHT * 0.0246,
+    // lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
   },

@@ -19,12 +19,12 @@ export type FormData = {
   lastSeenLocation: string;
   imageUrl: string;
   userID: string;
-  // news?: NewsType[];
   reportLocation?: string;
   reportDescription?: string;
   reportedBy?: string;
+  reportedByEmail?: string;
 };
-// export type NewsType = {};
+
 export type ButtonProps = {
   onPressLearnMore: () => void;
   titleText: string;

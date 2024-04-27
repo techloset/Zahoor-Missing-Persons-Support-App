@@ -1,19 +1,14 @@
 import { ScrollView, StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import NewsItem from '../../components/newsItem/NewsItem';
 import { Colors, Units } from '../../constants/constants';
-import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
-import { fetchMissingPersons } from '../../store/slices/firestoreSlice';
+import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
 
 const News = () => {
-  const dispatch = useAppDispatch();
-  const news = useAppSelector((state: RootState) => state.firestore.data);
-  useEffect(() => {
-    dispatch(fetchMissingPersons());
-  }, [dispatch]);
+  const { data } = useFetchMissingPerson();
   return (
     <ScrollView style={styles.container}>
-      {news.map(
+      {data.map(
         (item, index) =>
           item.reportLocation &&
           item.reportDescription && (
@@ -25,6 +20,7 @@ const News = () => {
               reportLocation={item.reportLocation}
               reportDescription={item.reportDescription}
               key={index}
+              reportedByEmail={item.reportedByEmail}
               dateOfBirth={item.dateOfBirth}
               eyeColor={item.eyeColor}
               gender={item.gender}

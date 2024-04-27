@@ -11,7 +11,7 @@ import { styles } from './styles';
 import SearchBox from '../../components/searchBox/SearchBox';
 import Modal from '../../components/modal/Modal';
 import { Images } from '../../constants/constants';
-import useMissing from '../../hooks/useMissing';
+import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
 
 const Missing = () => {
   const {
@@ -20,14 +20,14 @@ const Missing = () => {
     modalVisible,
     selectedData,
     selectedFilter,
-    handleListPress,
+    handlePress,
     handleModalClose,
     filterItems,
     filteredData,
     setSearchValue,
     setSelectedFilter,
     navigation,
-  } = useMissing();
+  } = useFetchMissingPerson();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,7 +77,7 @@ const Missing = () => {
             <ListItem
               key={index.toString()}
               data={item}
-              onPress={() => handleListPress(item)}
+              onPress={() => handlePress(item)}
             />
           ))}
       </ScrollView>

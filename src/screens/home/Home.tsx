@@ -13,7 +13,7 @@ import { Images } from '../../constants/constants';
 import SearchBox from '../../components/searchBox/SearchBox';
 import { styles } from './styles';
 import { FormData } from '../../types/types';
-import useHome from '../../hooks/useHome';
+import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
 
 const Home = ({ navigation }: any) => {
   const {
@@ -21,11 +21,11 @@ const Home = ({ navigation }: any) => {
     error,
     modalVisible,
     selectedData,
-    handleCardPress,
+    handlePress,
     handleModalClose,
     filteredData,
     setSearchValue,
-  } = useHome();
+  } = useFetchMissingPerson();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -61,7 +61,7 @@ const Home = ({ navigation }: any) => {
                   <Card
                     key={index.toString()}
                     data={item}
-                    onPress={() => handleCardPress(item)}
+                    onPress={() => handlePress(item)}
                   />
                 ))}
             </ScrollView>

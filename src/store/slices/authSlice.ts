@@ -1,4 +1,3 @@
-// slices/authSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -15,13 +14,13 @@ export const createUser = createAsyncThunk(
   async ({ email, password }: AuthData, thunkAPI) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
-
-      return thunkAPI.rejectWithValue('Failed to create user');
+      return thunkAPI.rejectWithValue('User Created!');
     } catch (error) {
       return thunkAPI.rejectWithValue('Error creating user');
     }
   },
 );
+
 export const uploadUser = createAsyncThunk(
   'auth/uploadUser',
   async (user: User, thunkAPI) => {
@@ -33,6 +32,7 @@ export const uploadUser = createAsyncThunk(
     }
   },
 );
+
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (
@@ -48,7 +48,6 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-// Thunk action to sign out user
 export const signoutUser = createAsyncThunk(
   'auth/signoutUser',
   async (_, thunkAPI) => {

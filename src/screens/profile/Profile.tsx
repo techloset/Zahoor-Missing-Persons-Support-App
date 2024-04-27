@@ -35,6 +35,7 @@ const Profile = () => {
           <Image
             source={{ uri: selectedImage || userProfile?.photoURL }}
             style={styles.profileImage}
+            alt="Profile Image"
           />
           <Images.EDIT_ICON
             height={25}
