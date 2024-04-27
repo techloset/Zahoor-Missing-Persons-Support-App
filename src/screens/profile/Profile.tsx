@@ -1,61 +1,23 @@
-import { View, Text, Image, Alert, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import React from 'react';
 import InputText from '../../components/inputText/InputText';
 import Button from '../../components/button/Button';
-import { useNavigation } from '@react-navigation/native';
-import { signoutUser } from '../../store/slices/authSlice';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import imagePicker from '../../utils/imagePicker';
-import {
-  fetchUserProfile,
-  updateUserProfile,
-} from '../../store/slices/firestoreSlice';
 import { styles } from './styles';
 import { Images } from '../../constants/constants';
+import useProfile from '../../hooks/useProfile';
 
 const Profile = () => {
-  const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const [selectedImage, setSelectedImage] = useState<string>('');
-  const [displayName, setDisplayName] = useState<string>(''); // Separate state for editing
-  const [loading, setLoading] = useState<boolean>(false);
-  const userProfile = useAppSelector(state => state.firestore.user);
-
-  useEffect(() => {
-    dispatch(fetchUserProfile());
-  }, [dispatch]);
-
-  // Initialize the display name state only when userProfile changes, not on subsequent renders
-  useEffect(() => {
-    if (userProfile) {
-      setDisplayName(userProfile.displayName || '');
-    }
-  }, [userProfile]);
-
-  const signoutHandler = () => {
-    dispatch(signoutUser());
-  };
-
-  const handleImagePicker = async () => {
-    try {
-      await imagePicker(setSelectedImage);
-    } catch (error) {
-      console.error('Error picking image:', error);
-    }
-  };
-
-  const userUpdateHandler = async () => {
-    try {
-      setLoading(true);
-      await dispatch(updateUserProfile({ displayName, selectedImage }));
-      Alert.alert('Success', 'Profile updated successfully');
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      Alert.alert('Error', 'Failed to update profile');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    signoutHandler,
+    handleImagePicker,
+    userUpdateHandler,
+    displayName,
+    setDisplayName,
+    selectedImage,
+    loading,
+    navigation,
+    userProfile,
+  } = useProfile();
 
   return (
     <ScrollView style={styles.container}>

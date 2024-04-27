@@ -1,15 +1,8 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
-import { useAppDispatch } from '../../../store/store';
-import { loginUser } from '../../../store/slices/authSlice';
-export interface UserCredentials {
-  idToken: string;
-  user: {
-    id: string;
-    email: string;
-  };
-}
+import { useAppDispatch } from '../store/store';
+import { loginUser } from '../store/slices/authSlice';
 
 export const useLogin = () => {
   const navigation = useNavigation();

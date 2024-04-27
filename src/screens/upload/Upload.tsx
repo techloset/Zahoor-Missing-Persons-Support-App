@@ -79,7 +79,7 @@ const Upload = () => {
           <Text style={styles.detailsTitle}>
             Basic Details of Missing Person
           </Text>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.detailsSection}>
             <InputText
               name="Missing Person's Full Name"
               value={formData.name}

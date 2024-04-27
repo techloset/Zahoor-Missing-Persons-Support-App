@@ -12,23 +12,15 @@ import {
   Modal as RNModal,
   Keyboard,
 } from 'react-native';
-import { Colors, Images, Units } from '../../constants/constants';
-import { FormData, User } from '../../types/types';
+import { Colors, Fonts, Images, Units } from '../../constants/constants';
+import { ModalProps, User } from '../../types/types';
 import firestore from '@react-native-firebase/firestore';
-import { updateMissingPerson } from '../../store/slices/firestoreSlice';
-
-interface ModalProps {
-  visible: boolean;
-  onClose: () => void;
-  data: FormData | null;
-}
-type ModalDataUpdate = {
-  location: string;
-  description: string;
-};
+// import { updateMissingPerson } from '../../store/slices/firestoreSlice';
+import { calculateAge, formatDate } from '../../utils/formateDate';
 
 const Modal = ({ visible, onClose, data }: ModalProps) => {
-  const [modalData, setModalData] = useState<ModalDataUpdate>({
+  const age = calculateAge(data?.dateOfBirth.toDate());
+  const [modalData, setModalData] = useState({
     location: '',
     description: '',
   });
@@ -46,25 +38,25 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
     }
   };
 
-  const handleUpdate = async () => {
-    try {
-      const user = await firestore()
-        .collection('Users')
-        .doc(data?.userID)
-        .get();
-      const userData = user.data() as User;
-      await updateMissingPerson({
-        id: data?.id!,
-        reportLocation: modalData.location,
-        reportDescription: modalData.description,
-        reportedBy: userData.displayName!,
-      });
-      setModalData({ location: '', description: '' });
-      onClose();
-    } catch (error) {
-      console.error('Error updating document:', error);
-    }
-  };
+  // const handleUpdate = async () => {
+  //   try {
+  //     const user = await firestore()
+  //       .collection('Users')
+  //       .doc(data?.userID)
+  //       .get();
+  //     const userData = user.data() as User;
+  //     await updateMissingPerson({
+  //       id: data?.id!,
+  //       reportLocation: modalData.location,
+  //       reportDescription: modalData.description,
+  //       reportedBy: userData.displayName!,
+  //     });
+  //     setModalData({ location: '', description: '' });
+  //     onClose();
+  //   } catch (error) {
+  //     console.error('Error updating document:', error);
+  //   }
+  // };
 
   const [keyboardOpen, setKeyboardOpen] = useState(false);
 
@@ -96,9 +88,8 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
     setModalData({ ...modalData, description: text });
   };
 
-  // Call this function when the "Report Found" button is pressed
   const handleReportFound = () => {
-    handleUpdate();
+    // handleUpdate();
     onClose();
   };
 
@@ -129,11 +120,10 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
             <View style={styles.infoContainer}>
               <Text style={styles.infoText}>{data?.name}</Text>
               <Text style={styles.infoText}>
-                {String(data?.dateOfBirth).split('T')[0]} Years Old{' '}
-                {data?.gender}
+                {age} Years Old {data?.gender}
               </Text>
               <Text style={styles.infoText}>
-                Last Seen: {String(data?.lastSeen).split('T')[0]}
+                Last Seen: {data?.lastSeen ? formatDate(data.lastSeen) : ''}
               </Text>
               <Text style={styles.infoText}>
                 Last Seen Location: {data?.lastSeenLocation}
@@ -143,7 +133,7 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
               <TextInput
                 placeholder="Location"
                 placeholderTextColor={Colors.SECONDARY_COLOR}
-                style={[styles.input, styles.locationInput]}
+                style={styles.input}
                 value={modalData.location}
                 onChangeText={handleLocationChange}
               />
@@ -228,6 +218,8 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: Colors.SECONDARY_COLOR,
+    fontSize: 16,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   locationInputContainer: {
     width: 295,
@@ -248,7 +240,6 @@ const styles = StyleSheet.create({
     padding: 8,
     color: Colors.SECONDARY_COLOR,
   },
-  locationInput: {},
   descriptionInput: {
     minHeight: 100,
     textAlignVertical: 'top',
@@ -273,6 +264,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.SECONDARY_COLOR,
+    fontSize: 16,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
 });
 

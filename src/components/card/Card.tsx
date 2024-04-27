@@ -1,22 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Colors, Images, Units } from '../../constants/constants';
-import { FormData } from '../../types/types';
+import { Colors, Fonts, Images, Units } from '../../constants/constants';
+import { CardProps } from '../../types/types';
 import DetailsButton from '../detailsButton/DetailsButton';
 import { calculateAge, formatDate } from '../../utils/formateDate';
-
-type CardProps = {
-  data: FormData;
-  onPress: () => void;
-};
 
 const Card = ({ data, onPress }: CardProps) => {
   const { imageUrl, name, dateOfBirth, lastSeen, lastSeenLocation } = data;
   const age = calculateAge(dateOfBirth.toDate());
   return (
     <View style={styles.cardContainer}>
-      <Text style={styles.missingText}>missing</Text>
+      <Text style={styles.missingText}>MISSING</Text>
       <View style={styles.imageContainer}>
         <Image source={{ uri: imageUrl }} style={styles.image} />
       </View>
@@ -67,6 +62,7 @@ const styles = StyleSheet.create({
     height: Units.WINDOW_HEIGHT * 0.0541,
     fontSize: 32,
     textAlign: 'center',
+    fontFamily: 'FamiljenGrotest',
   },
   imageContainer: {
     borderRadius: 8,
@@ -94,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 13.2,
     fontWeight: '400',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
 });
 

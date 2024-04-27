@@ -4,7 +4,6 @@ import NewsItem from '../../components/newsItem/NewsItem';
 import { Colors, Units } from '../../constants/constants';
 import { RootState, useAppDispatch, useAppSelector } from '../../store/store';
 import { fetchMissingPersons } from '../../store/slices/firestoreSlice';
-// import { NewsItemProps } from '../../types/types';
 
 const News = () => {
   const dispatch = useAppDispatch();

@@ -1,14 +1,12 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors } from '../../../constants/constants';
+import { Colors, Fonts } from '../../../constants/constants';
 
-// Get the screen dimensions
 const { width, height } = Dimensions.get('window');
 
-// Calculate the dynamic units
-const dynamicWidth = width * 0.8213; // 308 / 375
-const dynamicHeight = height * 0.2334; // 190 / 812
-const dynamicTop = height * 0.2084; // 170 / 812
-const dynamicLastLayoutHeight = height * 0.2793; // 227 / 812
+const dynamicWidth = width * 0.8213;
+const dynamicHeight = height * 0.2334;
+const dynamicTop = height * 0.2084;
+const dynamicLastLayoutHeight = height * 0.2793;
 
 export const styles = StyleSheet.create({
   logoContainer: {
@@ -16,14 +14,14 @@ export const styles = StyleSheet.create({
     height: 96,
     alignSelf: 'center',
     alignContent: 'center',
-    marginTop: height * 0.0319, // 26 / 812
+    marginTop: height * 0.0319,
     gap: 24,
   },
   logo: {
     width: 167,
     height: 96,
     alignSelf: 'center',
-    marginTop: height * 0.0319, // 26 / 812
+    marginTop: height * 0.0319,
   },
   name: {
     fontSize: 14,
@@ -36,6 +34,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     color: Colors.SECONDARY_COLOR,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   input: {
     marginHorizontal: 16,
@@ -62,8 +61,8 @@ export const styles = StyleSheet.create({
   },
   formSection: {
     width: dynamicWidth,
-    height: height * 0.5539, // 450 / 812
-    marginBottom: height * 0.0418, // 34 / 812
+    height: height * 0.5539,
+    marginBottom: height * 0.0418,
     justifyContent: 'center',
   },
   lastLayout: {
@@ -81,13 +80,14 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     color: Colors.SECONDARY_COLOR,
     gap: 10,
-    marginTop: height * 0.0258, // 21 / 812
+    marginTop: height * 0.0258,
     textDecorationLine: 'underline',
   },
   forgotText: {
     textDecorationLine: 'underline',
     color: Colors.SECONDARY_COLOR,
     marginRight: 10,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   divider: {
     color: Colors.SECONDARY_COLOR,
@@ -96,6 +96,7 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: Colors.SECONDARY_COLOR,
     marginLeft: 10,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   separatorContainer: {
     flexDirection: 'row',

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -28,13 +28,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 16,
-    // marginHorizontal: 26,
-    // marginVertical: 30,
   },
   headerText: {
     color: Colors.SECONDARY_COLOR,
     fontSize: 23,
     fontWeight: '600',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   searchContainer: {
     marginBottom: 26,
@@ -48,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   filterText: {
     color: Colors.SECONDARY_COLOR,
-    fontFamily: 'Inter',
+    fontFamily: Fonts.SECONDARY_FONT,
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 20,

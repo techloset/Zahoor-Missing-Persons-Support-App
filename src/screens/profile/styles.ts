@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     color: Colors.SECONDARY_COLOR,
     fontSize: 24,
     fontWeight: '700',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   content: {
     alignItems: 'center',

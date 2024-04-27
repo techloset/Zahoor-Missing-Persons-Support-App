@@ -1,15 +1,12 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 import DetailsButton from '../detailsButton/DetailsButton';
-import { FormData } from '../../types/types';
-
-interface ListItemProps {
-  data: FormData;
-  onPress: () => void;
-}
+import { ListItemProps } from '../../types/types';
+import { calculateAge, formatDate } from '../../utils/formateDate';
 
 const ListItem = ({ data, onPress }: ListItemProps) => {
+  const age = calculateAge(data?.dateOfBirth.toDate());
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -23,22 +20,15 @@ const ListItem = ({ data, onPress }: ListItemProps) => {
               ? `${data.name.slice(0, 12)}...`
               : data.name}
           </Text>
+          <Text style={styles.text}>Age: {age} Years</Text>
           <Text style={styles.text}>
-            Age:{' '}
-            {String(data.dateOfBirth).split('T')[0] &&
-            String(data.dateOfBirth).split('T')[0].length > 12
-              ? `${String(data.dateOfBirth).split('T')[0].slice(0, 12)}...`
-              : String(data.dateOfBirth).split('T')[0]}{' '}
+            Last Seen: {formatDate(data?.lastSeen)}
           </Text>
           <Text style={styles.text}>
-            Last Seen:{' '}
-            {String(data.lastSeen).split('T')[0] &&
-            String(data.lastSeen).split('T')[0].length > 12
-              ? `${String(data.lastSeen).split('T')[0].slice(0, 12)}...`
-              : String(data.lastSeen).split('T')[0]}
-          </Text>
-          <Text style={styles.text}>
-            Last Seen Location: {data.lastSeenLocation}
+            Last Seen Location:{' '}
+            {data.lastSeenLocation && data.lastSeenLocation.length > 18
+              ? `${data.lastSeenLocation.slice(0, 25)}...`
+              : data.lastSeenLocation}
           </Text>
         </View>
         <DetailsButton title="Details" onPress={onPress} />
@@ -76,6 +66,7 @@ const styles = StyleSheet.create({
     lineHeight: Units.WINDOW_HEIGHT * 0.0296,
     fontSize: 16,
     fontWeight: '400',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
 });
 

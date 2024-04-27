@@ -1,12 +1,11 @@
 import { View, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
-import { Colors, Images, Units } from '../../constants/constants';
+import { Colors, Fonts, Images, Units } from '../../constants/constants';
+import { SearchBoxProps } from '../../types/types';
 
-interface SearchBoxProps {
-  onChangeText: (text: string) => void;
-}
-
-const SearchBox: React.FC<SearchBoxProps> = ({ onChangeText }) => {
+const SearchBox: React.FC<SearchBoxProps> = ({
+  onChangeText,
+}: SearchBoxProps) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -45,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: Units.WINDOW_WIDTH * 0.0293,
     fontWeight: '400',
     lineHeight: Units.WINDOW_HEIGHT * 0.0162,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   iconContainer: {
     marginLeft: -Units.WINDOW_WIDTH * 0.08,

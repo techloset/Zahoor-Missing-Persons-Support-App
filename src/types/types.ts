@@ -30,6 +30,26 @@ export type ButtonProps = {
   titleText: string;
   accessibilityLabelText?: string;
 };
+export type CardProps = {
+  data: FormData;
+  onPress: () => void;
+};
+export type DetailsButtonProps = {
+  onPress: () => void;
+  title: string;
+};
+export interface ListItemProps {
+  data: FormData;
+  onPress: () => void;
+}
+export type ModalProps = {
+  visible: boolean;
+  onClose: () => void;
+  data: FormData | null;
+};
+export type SearchBoxProps = {
+  onChangeText: (text: string) => void;
+};
 export type AuthData = {
   email: string;
   password: string;

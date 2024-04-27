@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -53,10 +53,12 @@ export const styles = StyleSheet.create({
     color: Colors.SECONDARY_COLOR,
     fontSize: 23,
     fontWeight: '400',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   seeMoreText: {
     color: Colors.PRIMARY_COLOR,
     textDecorationLine: 'underline',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   floatButton: { position: 'absolute', bottom: 30, right: 30 },
 });

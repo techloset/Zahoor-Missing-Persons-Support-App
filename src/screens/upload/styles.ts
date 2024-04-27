@@ -1,22 +1,22 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
-    gap: Units.WINDOW_WIDTH * 0.0427, // (unit: 16) / 375
-    width: Units.WINDOW_WIDTH, // (unit: 375) / 375
-    height: Units.WINDOW_HEIGHT * 0.069, // (unit: 56) / 812
-    marginTop: Units.WINDOW_HEIGHT * 0.0074, // (unit: 6) / 812
+    gap: Units.WINDOW_WIDTH * 0.0427,
+    width: Units.WINDOW_WIDTH,
+    height: Units.WINDOW_HEIGHT * 0.069,
+    marginTop: Units.WINDOW_HEIGHT * 0.0074,
     alignItems: 'center',
-    paddingLeft: Units.WINDOW_WIDTH * 0.0693, // (unit: 26) / 375
-    paddingRight: Units.WINDOW_WIDTH * 0.0507, // (unit: 19) / 375
-    paddingTop: Units.WINDOW_HEIGHT * 0.0074, // (unit: 6) / 812
-    paddingBottom: Units.WINDOW_HEIGHT * 0.0221, // (unit: 18) / 812
+    paddingLeft: Units.WINDOW_WIDTH * 0.0693,
+    paddingRight: Units.WINDOW_WIDTH * 0.0507,
+    paddingTop: Units.WINDOW_HEIGHT * 0.0074,
+    paddingBottom: Units.WINDOW_HEIGHT * 0.0221,
   },
   title: {
     color: Colors.SECONDARY_COLOR,
-    fontSize: Units.WINDOW_HEIGHT * 0.0283, // (unit: 23) / 812
+    fontSize: Units.WINDOW_HEIGHT * 0.0283,
     fontWeight: '600',
   },
   main: {
@@ -25,29 +25,30 @@ export const styles = StyleSheet.create({
   },
   detailsContainer: {
     flexDirection: 'column',
-    gap: Units.WINDOW_HEIGHT * 0.0197, // (unit: 16) / 812
-    marginTop: Units.WINDOW_HEIGHT * 0.0271, // (unit: 22) / 812
-    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
+    gap: Units.WINDOW_HEIGHT * 0.0197,
+    marginTop: Units.WINDOW_HEIGHT * 0.0271,
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
   },
   mainContainer: {
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
+    gap: Units.WINDOW_HEIGHT * 0.0246,
   },
   detailsTitle: {
     color: Colors.SECONDARY_COLOR,
-    fontSize: Units.WINDOW_HEIGHT * 0.0283, // (unit: 23) / 812
+    fontSize: Units.WINDOW_HEIGHT * 0.0283,
     fontWeight: '400',
-    lineHeight: Units.WINDOW_HEIGHT * 0.0338, // (unit: 27.6) / 812
-    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
+    lineHeight: Units.WINDOW_HEIGHT * 0.0338,
+    width: Units.WINDOW_WIDTH * 0.8933,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
+  detailsSection: { justifyContent: 'center', alignItems: 'center' },
   submitContainer: {
-    width: Units.WINDOW_WIDTH, // (unit: 375) / 375
-    height: Units.WINDOW_HEIGHT * 0.0921, // (unit: 75) / 812
+    width: Units.WINDOW_WIDTH,
+    height: Units.WINDOW_HEIGHT * 0.0921,
     borderTopColor: Colors.SECONDARY_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
@@ -57,80 +58,79 @@ export const styles = StyleSheet.create({
     borderLeftWidth: 0,
   },
   submitButton: {
-    width: Units.WINDOW_WIDTH * 0.552, // (unit: 207) / 375
-    height: Units.WINDOW_HEIGHT * 0.0541, // (unit: 44) / 812
+    width: Units.WINDOW_WIDTH * 0.552,
+    height: Units.WINDOW_HEIGHT * 0.0541,
     backgroundColor: Colors.PRIMARY_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: Units.WINDOW_WIDTH * 0.0213, // (unit: 8) / 375
+    borderRadius: Units.WINDOW_WIDTH * 0.0213,
   },
   submitText: {
     color: Colors.SUBMIT_BUTTON_TEXT,
-    fontSize: Units.WINDOW_HEIGHT * 0.0283, // (unit: 23) / 812
+    fontSize: Units.WINDOW_HEIGHT * 0.0283,
     fontWeight: '500',
-    lineHeight: Units.WINDOW_HEIGHT * 0.0338, // (unit: 27.6) / 812
+    lineHeight: Units.WINDOW_HEIGHT * 0.0338,
   },
   input: {
     width: '100%',
     height: 'auto',
-    paddingVertical: Units.WINDOW_HEIGHT * 0.0123, // (unit: 10) / 812
-    paddingRight: Units.WINDOW_WIDTH * 0.0373, // (unit: 14) / 375
-    borderRadius: Units.WINDOW_WIDTH * 0.0213, // (unit: 8) / 375
+    paddingVertical: Units.WINDOW_HEIGHT * 0.0123,
+    paddingRight: Units.WINDOW_WIDTH * 0.0373,
+    borderRadius: Units.WINDOW_WIDTH * 0.0213,
     borderWidth: 1,
     borderColor: Colors.BORDER_COLOR,
-    marginBottom: Units.WINDOW_HEIGHT * 0.0098, // (unit: 8) / 812
+    marginBottom: Units.WINDOW_HEIGHT * 0.0098,
     color: Colors.SECONDARY_COLOR,
   },
   name: {
     color: Colors.SECONDARY_COLOR,
     width: Units.WINDOW_WIDTH * 0.8933,
-    height: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
+    height: Units.WINDOW_HEIGHT * 0.0246,
     fontFamily: 'Inter',
-    fontSize: Units.WINDOW_HEIGHT * 0.0172, // (unit: 14) / 812
+    fontSize: Units.WINDOW_HEIGHT * 0.0172,
     fontWeight: '500',
-    lineHeight: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
+    lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
   },
   container: {
-    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 335) / 375
+    width: Units.WINDOW_WIDTH * 0.8933,
     height: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
   },
   inputContainer: {
     borderColor: Colors.BORDER_COLOR,
-    height: Units.WINDOW_HEIGHT * 0.0541, // (unit: 44) / 812
-    width: Units.WINDOW_WIDTH * 0.8933, // (unit: 308) / 375
-    borderRadius: Units.WINDOW_WIDTH * 0.0213, // (unit: 8) / 375
+    height: Units.WINDOW_HEIGHT * 0.0541,
+    width: Units.WINDOW_WIDTH * 0.8933,
+    borderRadius: Units.WINDOW_WIDTH * 0.0213,
     borderStyle: 'solid',
     borderWidth: 1,
-    marginBottom: Units.WINDOW_HEIGHT * 0.0074, // (unit: 6) / 812
+    marginBottom: Units.WINDOW_HEIGHT * 0.0074,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 'auto',
     justifyContent: 'space-between',
 
-    paddingHorizontal: Units.WINDOW_WIDTH * 0.0373, // (unit: 14) / 375
-    // margin: 10,
+    paddingHorizontal: Units.WINDOW_WIDTH * 0.0373,
   },
   dateColor: {
     color: Colors.SECONDARY_COLOR,
   },
   image: {
-    width: Units.WINDOW_WIDTH * 0.0445, // (unit: 16.67) / 375
-    height: Units.WINDOW_HEIGHT * 0.0164, // (unit: 13.33) / 812
-    // top: 3.33,
-    left: Units.WINDOW_WIDTH * -0.0267, // (unit: -10) / 375
-    borderWidth: Units.WINDOW_WIDTH * 0.0045, // (unit: 1.67) / 375
+    width: Units.WINDOW_WIDTH * 0.0445,
+    height: Units.WINDOW_HEIGHT * 0.0164,
+
+    left: Units.WINDOW_WIDTH * -0.0267,
+    borderWidth: Units.WINDOW_WIDTH * 0.0045,
   },
   textStyle: {
-    width: Units.WINDOW_WIDTH * 0.8213, // (unit: 308) / 375
-    height: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
+    width: Units.WINDOW_WIDTH * 0.8213,
+    height: Units.WINDOW_HEIGHT * 0.0246,
     fontFamily: 'Inter',
-    fontSize: Units.WINDOW_HEIGHT * 0.0172, // (unit: 14) / 812
+    fontSize: Units.WINDOW_HEIGHT * 0.0172,
     fontWeight: '400',
-    lineHeight: Units.WINDOW_HEIGHT * 0.0246, // (unit: 20) / 812
+    lineHeight: Units.WINDOW_HEIGHT * 0.0246,
     letterSpacing: 0,
     textAlign: 'left',
   },

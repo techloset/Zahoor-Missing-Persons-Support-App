@@ -1,4 +1,4 @@
-import { Colors, Units } from '../../../constants/constants';
+import { Colors, Fonts, Units } from '../../../constants/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     fontSize: Units.WINDOW_WIDTH * 0.0613,
     fontWeight: '600',
     height: Units.WINDOW_HEIGHT * 0.04,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   imageContainer: {
     marginTop: Units.WINDOW_HEIGHT * 0.0689,
@@ -50,5 +51,6 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     color: Colors.SECONDARY_COLOR,
     textAlign: 'center',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
 });

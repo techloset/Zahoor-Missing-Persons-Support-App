@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 import { ButtonProps } from '../../types/types';
 
 const Button: React.FC<ButtonProps> = ({ onPressLearnMore, titleText }) => {
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     color: Colors.WHITE_COLOR,
+    fontFamily: Fonts.PRIMARY_FONT,
   },
 });
 

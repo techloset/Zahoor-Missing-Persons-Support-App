@@ -5,7 +5,7 @@ import { Colors, Images, Units } from '../../../constants/constants';
 import InputText from '../../../components/inputText/InputText';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
-import { useLogin } from './useLogin';
+import { useLogin } from '../../../hooks/useLogin';
 
 const Login = () => {
   const {
@@ -49,7 +49,9 @@ const Login = () => {
             onChangeText={setPassword}
             security={true}
             placeholderText="**************"
-            validationText="Your password must be 8 character. "
+            validationText={
+              password.length < 8 ? 'Your password must be 8 characters.' : ''
+            }
             keyboardType="default"
             isError={true}
           />

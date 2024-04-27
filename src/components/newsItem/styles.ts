@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Units } from '../../constants/constants';
+import { Colors, Fonts, Units } from '../../constants/constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     lineHeight: Units.WINDOW_HEIGHT * 0.0296,
     fontSize: Units.WINDOW_WIDTH * 0.0427,
     fontWeight: '400',
+    fontFamily: Fonts.PRIMARY_FONT,
   },
   button: {
     backgroundColor: Colors.PRIMARY_COLOR,

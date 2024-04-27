@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Forgot from '../screens/auth/forgot/Forgot';
 import Login from '../screens/auth/login/Login';
-import Registration from '../screens/auth/registration/Registration';
+import Signup from '../screens/auth/signup/Signup';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useEffect, useState } from 'react';
 import screenConfigs from './ScreenConfig';
@@ -35,7 +35,7 @@ const StackGroup = () => {
       }}
     >
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Registration" component={Registration} />
+      <Stack.Screen name="Registration" component={Signup} />
       <Stack.Screen name="Forgot" component={Forgot} />
     </Stack.Navigator>
   );

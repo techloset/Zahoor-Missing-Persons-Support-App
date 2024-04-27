@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Colors, Images, Units } from '../../constants/constants';
+import { Colors, Fonts, Images, Units } from '../../constants/constants';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { InputComponentsProps } from '../../types/types';
+import { InputTextType } from '../../types/types';
 
-const TextInputComponent = ({
+const InputText = ({
   icon,
   name,
   value,
@@ -12,8 +12,13 @@ const TextInputComponent = ({
   placeholderText,
   validationText,
   security,
+  editable,
   keyboardType,
-}: InputComponentsProps) => {
+  isError,
+}: InputTextType) => {
+  const shouldShowValidation =
+    validationText?.includes('password') && value.length < 8;
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -48,17 +53,35 @@ const TextInputComponent = ({
             placeholderTextColor={Colors.FADED_SECONDARY_COLOR}
             secureTextEntry={security}
             keyboardType={keyboardType}
+            editable={editable}
           />
         </View>
-        {validationText && (
-          <Text style={styles.textStyle}>{validationText}</Text>
+        {shouldShowValidation ? (
+          <Text
+            style={[
+              styles.textStyle,
+              { color: isError ? Colors.ERROR_COLOR : Colors.SECONDARY_COLOR },
+              shouldShowValidation ? null : { display: 'none' },
+            ]}
+          >
+            {validationText}
+          </Text>
+        ) : (
+          <Text
+            style={[
+              styles.textStyle,
+              { color: isError ? Colors.ERROR_COLOR : Colors.SECONDARY_COLOR },
+            ]}
+          >
+            {validationText}
+          </Text>
         )}
       </View>
     </View>
   );
 };
 
-export default TextInputComponent;
+export default InputText;
 
 const styles = StyleSheet.create({
   input: {
@@ -71,12 +94,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.BORDER_COLOR,
     marginBottom: Units.WINDOW_HEIGHT * 0.0098,
     color: Colors.SECONDARY_COLOR,
+    fontFamily: Fonts.SECONDARY_FONT,
   },
   name: {
     color: Colors.SECONDARY_COLOR,
     width: Units.WINDOW_WIDTH * 0.8933,
     height: Units.WINDOW_HEIGHT * 0.0246,
-    fontFamily: 'Inter',
+    fontFamily: Fonts.SECONDARY_FONT,
     fontSize: Units.WINDOW_HEIGHT * 0.0172,
     fontWeight: '500',
     lineHeight: Units.WINDOW_HEIGHT * 0.0246,
@@ -103,7 +127,7 @@ const styles = StyleSheet.create({
   textStyle: {
     width: Units.WINDOW_WIDTH * 0.8213,
     height: Units.WINDOW_HEIGHT * 0.0246,
-    fontFamily: 'Inter',
+    fontFamily: Fonts.SECONDARY_FONT,
     fontSize: 14,
     fontWeight: '400',
     lineHeight: Units.WINDOW_HEIGHT * 0.0246,

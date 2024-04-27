@@ -1,12 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Pressable, Text } from 'react-native';
 import React from 'react';
-import { Colors, Units } from '../../constants/constants';
-
-type DetailsButtonProps = {
-  onPress: () => void;
-  title: string;
-};
+import { Colors, Fonts, Units } from '../../constants/constants';
+import { DetailsButtonProps } from '../../types/types';
 
 const DetailsButton = ({ onPress, title }: DetailsButtonProps) => {
   return (
@@ -29,6 +25,7 @@ const DetailsButton = ({ onPress, title }: DetailsButtonProps) => {
           fontWeight: '400',
           lineHeight: 13.2,
           textAlign: 'center',
+          fontFamily: Fonts.PRIMARY_FONT,
         }}
       >
         {title}

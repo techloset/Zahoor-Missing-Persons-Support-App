@@ -21,10 +21,12 @@ import Logout from '../assets/svg/Logout.svg';
 import CrossIcon from '../assets/svg/CrossIcon.svg';
 import EditIcon from '../assets/svg/EditIcon.svg';
 import FloatIcon from '../assets/svg/FloatingIcon.svg';
+import Gradient from '../assets/svg/Gradient.svg';
 import MailIcon from '../assets/images/MailIcon.png';
 import HeroImage from '../assets/images/HeroImage.png';
 import MissingPerson from '../assets/images/MissingPerson.png';
 import { Dimensions } from 'react-native';
+// import FamiljenGrotest from '../assets/fonts/FamiljenGrotest.ttf';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -75,4 +77,9 @@ export const Images = {
   CROSS_ICON: CrossIcon,
   EDIT_ICON: EditIcon,
   FLOAT_ICON: FloatIcon,
+  GRADIENT_IMAGE: Gradient,
+};
+export const Fonts = {
+  PRIMARY_FONT: 'FamiljenGrotest',
+  SECONDARY_FONT: 'Inter',
 };
