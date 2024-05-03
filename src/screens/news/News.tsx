@@ -2,10 +2,10 @@ import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
 import NewsItem from '../../components/newsItem/NewsItem';
 import { Colors, Units } from '../../constants/constants';
-import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
+import useMissingPersonsData from '../../hooks/useMissingPersonsData';
 
 const News = () => {
-  const { data } = useFetchMissingPerson();
+  const { data } = useMissingPersonsData();
   return (
     <ScrollView style={styles.container}>
       {data.map(

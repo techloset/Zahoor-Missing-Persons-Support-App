@@ -23,7 +23,11 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
     handleReportFound,
     keyboardOpen,
     modalData,
-  } = useReport({ visible: visible, onClose, data });
+  } = useReport({
+    visible,
+    onClose,
+    data,
+  });
 
   return (
     <RNModal

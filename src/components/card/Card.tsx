@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Colors, Fonts, Images, Units } from '../../constants/constants';
@@ -28,20 +27,8 @@ const Card = ({ data, onPress }: CardProps) => {
         </View>
         <DetailsButton title="View Details" onPress={onPress} />
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          zIndex: 0,
-        }}
-      >
-        <Images.GRADIENT_IMAGE
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        />
+      <View style={styles.gradientContainer}>
+        <Images.GRADIENT_IMAGE />
       </View>
     </View>
   );
@@ -63,10 +50,14 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: 'center',
     fontFamily: 'FamiljenGrotest',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   imageContainer: {
-    borderRadius: 8,
     flex: 1,
+    overflow: 'hidden',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   },
   image: {
     resizeMode: 'cover',
@@ -91,6 +82,12 @@ const styles = StyleSheet.create({
     lineHeight: 13.2,
     fontWeight: '400',
     fontFamily: Fonts.PRIMARY_FONT,
+  },
+  gradientContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    zIndex: 0,
   },
 });
 

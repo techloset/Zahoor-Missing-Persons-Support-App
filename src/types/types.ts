@@ -4,7 +4,7 @@ export type User = {
   email: string;
   photoURL?: string;
 };
-export type FormData = {
+export type MissingPersonData = {
   id: string;
   name: string;
   gender: '' | 'Male' | 'Female' | 'Trans';
@@ -31,7 +31,7 @@ export type ButtonProps = {
   accessibilityLabelText?: string;
 };
 export type CardProps = {
-  data: FormData;
+  data: MissingPersonData;
   onPress: () => void;
 };
 export type DetailsButtonProps = {
@@ -39,17 +39,22 @@ export type DetailsButtonProps = {
   title: string;
 };
 export interface ListItemProps {
-  data: FormData;
+  data: MissingPersonData;
   onPress: () => void;
 }
 export type ModalProps = {
   visible: boolean;
   onClose: () => void;
-  data: FormData | null;
+  data: MissingPersonData | null;
+  location?: string;
+  description?: string;
+  userProfile?: User | null;
 };
+
 export type SearchBoxProps = {
   onChangeText: (text: string) => void;
 };
+
 export type AuthData = {
   email: string;
   password: string;

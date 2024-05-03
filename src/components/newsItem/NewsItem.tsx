@@ -2,7 +2,7 @@ import { View, Text, Image, Alert, Linking } from 'react-native';
 import React from 'react';
 import DetailsButton from '../detailsButton/DetailsButton';
 import { styles } from './styles';
-import { FormData } from '../../types/types';
+import { MissingPersonData } from '../../types/types';
 
 const NewsItem = ({
   name,
@@ -11,7 +11,7 @@ const NewsItem = ({
   reportLocation,
   reportedBy,
   reportedByEmail,
-}: FormData) => {
+}: MissingPersonData) => {
   const contactPerson = () => {
     if (reportedByEmail) {
       Linking.openURL(`mailto:${reportedByEmail}`);

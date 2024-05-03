@@ -2,21 +2,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { FormData, User } from '../../types/types';
+import { MissingPersonData, ModalProps, User } from '../../types/types';
 import auth from '@react-native-firebase/auth';
 
 interface FirestoreState {
-  data: FormData[];
-  formData: FormData;
+  missingPersonsData: MissingPersonData[];
+  MissingPersonData: MissingPersonData;
   loading: boolean;
   error: string | null;
-  user: User | null;
+  userProfile: User | null;
 }
 
 const initialState: FirestoreState = {
-  data: [],
-  user: null,
-  formData: {
+  missingPersonsData: [],
+  userProfile: null,
+  MissingPersonData: {
     id: '',
     name: '',
     gender: '',
@@ -35,6 +35,80 @@ const initialState: FirestoreState = {
   loading: false,
   error: null,
 };
+
+export const reportMissingPerson = createAsyncThunk(
+  'firestore/reportMissingPerson',
+  async (
+    { data, location, description, userProfile }: ModalProps,
+    thunkAPI,
+  ) => {
+    try {
+      const userSnapshot = await firestore()
+        .collection('Users')
+        .doc(data?.userID)
+        .get();
+      const userData = userSnapshot.data() as User;
+      if (userData.email === userProfile?.email) {
+        throw new Error('You cannot report your own missing person');
+      }
+
+      const missingPersonSnapshot = await firestore()
+        .collection('MissingPerson')
+        .where('id', '==', data?.id)
+        .get();
+
+      if (!missingPersonSnapshot.empty) {
+        const missingPersonDoc = missingPersonSnapshot.docs[0];
+        await missingPersonDoc.ref.update({
+          reportLocation: location,
+          reportDescription: description,
+          reportedBy: userProfile?.displayName!,
+          reportedByEmail: userProfile?.email!,
+        });
+
+        location = '';
+        description = '';
+
+        return 'Reported Successfully';
+      } else {
+        throw new Error('Missing person not found');
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const getEmailHandler = createAsyncThunk(
+  'firestore/getEmailHandler',
+  async (userID: string, thunkAPI) => {
+    try {
+      const userSnapshot = await firestore()
+        .collection('Users')
+        .doc(userID)
+        .get();
+      const user = userSnapshot.data() as User;
+      if (user.email) {
+        return user.email;
+      } else {
+        throw new Error('User email not found');
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const sendPasswordResetEmail = createAsyncThunk(
+  'firestore/sendPasswordResetEmail',
+  async (email: string) => {
+    try {
+      await auth().sendPasswordResetEmail(email);
+    } catch (error) {
+      throw error;
+    }
+  },
+);
 
 export const fetchUserProfile = createAsyncThunk(
   'firestore/fetchUserProfile',
@@ -106,7 +180,10 @@ export const updateUserProfile = createAsyncThunk(
 export const uploadToFirestore = createAsyncThunk(
   'firestore/uploadToFirestore',
   async (
-    { selectedImage, formData }: { selectedImage: string; formData: FormData },
+    {
+      selectedImage,
+      MissingPersonData,
+    }: { selectedImage: string; MissingPersonData: MissingPersonData },
     thunkAPI,
   ) => {
     try {
@@ -123,14 +200,16 @@ export const uploadToFirestore = createAsyncThunk(
       const imageRef = storage().ref('images').child(selectedImage);
       await imageRef.putFile(selectedImage);
       const imageUrl: string = await imageRef.getDownloadURL();
-      const updatedFormData = {
-        ...formData,
+      const updatedMissingPersonData = {
+        ...MissingPersonData,
         imageUrl,
         id: Date.now().toString(),
         userID: userDoc?.id,
       };
-      await firestore().collection('MissingPerson').add(updatedFormData);
-      return updatedFormData;
+      await firestore()
+        .collection('MissingPerson')
+        .add(updatedMissingPersonData);
+      return updatedMissingPersonData;
     } catch (error) {
       return thunkAPI.rejectWithValue(
         'Error uploading image and adding to Firestore',
@@ -191,18 +270,33 @@ const firestoreSlice = createSlice({
   name: 'firestore',
   initialState,
   reducers: {
-    updateFormData(state, action) {
-      state.formData = { ...state.formData, ...action.payload };
+    updateMissingPersonData(state, action) {
+      state.MissingPersonData = {
+        ...state.MissingPersonData,
+        ...action.payload,
+      };
     },
   },
   extraReducers: builder => {
+    builder.addCase(sendPasswordResetEmail.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(sendPasswordResetEmail.fulfilled, state => {
+      state.loading = false;
+    });
+    builder.addCase(sendPasswordResetEmail.rejected, (state, action) => {
+      state.loading = false;
+      state.error =
+        action.error.message || 'Failed to send password reset email';
+    });
     builder.addCase(uploadToFirestore.pending, state => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(uploadToFirestore.fulfilled, state => {
       state.loading = false;
-      state.formData = initialState.formData;
+      state.MissingPersonData = initialState.MissingPersonData;
     });
     builder.addCase(uploadToFirestore.rejected, (state, action) => {
       state.loading = false;
@@ -210,7 +304,7 @@ const firestoreSlice = createSlice({
     });
     builder.addCase(fetchMissingPersons.fulfilled, (state, action) => {
       state.loading = false;
-      state.data = action.payload.map((item: { key: any }) => ({
+      state.missingPersonsData = action.payload.map((item: { key: any }) => ({
         id: item.key,
         lastSeen: new Date(),
         dateOfBirth: new Date(),
@@ -241,9 +335,13 @@ const firestoreSlice = createSlice({
     });
     builder.addCase(updateMissingPerson.fulfilled, (state, action) => {
       state.loading = false;
-      const index = state.data.findIndex(data => data.id === action.payload.id);
-      state.data[index].reportLocation = action.payload.reportLocation;
-      state.data[index].reportDescription = action.payload.reportDescription;
+      const index = state.missingPersonsData.findIndex(
+        data => data.id === action.payload.id,
+      );
+      state.missingPersonsData[index].reportLocation =
+        action.payload.reportLocation;
+      state.missingPersonsData[index].reportDescription =
+        action.payload.reportDescription;
     });
     builder.addCase(updateMissingPerson.rejected, (state, action) => {
       state.loading = false;
@@ -260,16 +358,38 @@ const firestoreSlice = createSlice({
 
     builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
+      state.userProfile = action.payload;
     });
 
     builder.addCase(fetchUserProfile.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message || 'Failed to fetch user profile';
     });
+    builder.addCase(reportMissingPerson.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(reportMissingPerson.fulfilled, state => {
+      state.loading = false;
+    });
+    builder.addCase(reportMissingPerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    builder.addCase(getEmailHandler.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getEmailHandler.fulfilled, state => {
+      state.loading = false;
+    });
+    builder.addCase(getEmailHandler.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
   },
 });
 
-export const { updateFormData } = firestoreSlice.actions;
+export const { updateMissingPersonData } = firestoreSlice.actions;
 
 export default firestoreSlice.reducer;

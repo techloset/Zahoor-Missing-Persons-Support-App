@@ -11,7 +11,7 @@ import { styles } from './styles';
 import SearchBox from '../../components/searchBox/SearchBox';
 import Modal from '../../components/modal/Modal';
 import { Images } from '../../constants/constants';
-import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
+import useMissingPersonsData from '../../hooks/useMissingPersonsData';
 
 const Missing = () => {
   const {
@@ -27,7 +27,7 @@ const Missing = () => {
     setSearchValue,
     setSelectedFilter,
     navigation,
-  } = useFetchMissingPerson();
+  } = useMissingPersonsData();
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
 import { calculateAge } from '../utils/formateDate';
 import useProfile from './useProfile';
-import firestore from '@react-native-firebase/firestore';
-import { ModalProps, User } from '../types/types';
+import { ModalProps } from '../types/types';
 import { Alert, Keyboard, Linking } from 'react-native';
+import {
+  reportMissingPerson,
+  getEmailHandler,
+} from '../store/slices/firestoreSlice';
+import { RootState, useAppDispatch, useAppSelector } from '../store/store';
 
 export const useReport = ({ onClose, data }: ModalProps) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const age = calculateAge(data?.dateOfBirth.toDate());
   const { userProfile } = useProfile();
+  const dispatch = useAppDispatch();
+  const userEmail = useAppSelector(
+    (state: RootState) => state.firestore.userProfile?.email,
+  );
 
   const [modalData, setModalData] = useState({
     location: '',
@@ -16,50 +24,30 @@ export const useReport = ({ onClose, data }: ModalProps) => {
   });
 
   const emailHandler = async () => {
-    const userSnapshot = await firestore()
-      .collection('Users')
-      .doc(data?.userID)
-      .get();
-    const user = userSnapshot.data() as User;
-    if (user.email) {
-      Linking.openURL(`mailto:${user.email}`);
-    } else {
-      Alert.alert('Error', 'User email not found');
+    if (!userEmail) {
+      dispatch(getEmailHandler(data?.userID || ''));
+      return;
     }
+
+    Linking.openURL(`mailto:${userEmail}`);
   };
+
   const handleUpdate = async () => {
     try {
-      const user = await firestore()
-        .collection('Users')
-        .doc(data?.userID)
-        .get();
-      const userData = user.data() as User;
-      if (userData.email === userProfile?.email) {
-        Alert.alert('Error', 'You cannot report your own missing person');
-        return;
-      }
-      const missingPersonSnapshot = await firestore()
-        .collection('MissingPerson')
-        .where('id', '==', data?.id)
-        .get();
-      if (!missingPersonSnapshot.empty) {
-        const missingPersonDoc = missingPersonSnapshot.docs[0];
-        await missingPersonDoc.ref.update({
-          reportLocation: modalData.location,
-          reportDescription: modalData.description,
-          reportedBy: userProfile?.displayName!,
-          reportedByEmail: userProfile?.email!,
-        });
-
-        Alert.alert('Success', 'Reported Successfully');
-      } else {
-        Alert.alert('Error', 'Missing person not found');
-      }
-
-      setModalData({ location: '', description: '' });
+      await dispatch(
+        reportMissingPerson({
+          data,
+          location: modalData.location,
+          description: modalData.description,
+          userProfile,
+          visible: false,
+          onClose: () => onClose(),
+        }),
+      );
       onClose();
     } catch (error) {
-      console.error('Error updating document:', error);
+      Alert.alert('Error', 'Failed to report missing person');
+      console.error('Error reporting missing person:', error);
     }
   };
 
@@ -93,8 +81,8 @@ export const useReport = ({ onClose, data }: ModalProps) => {
 
   const handleReportFound = () => {
     handleUpdate();
-    onClose();
   };
+
   return {
     age,
     emailHandler,

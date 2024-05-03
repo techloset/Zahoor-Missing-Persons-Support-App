@@ -58,7 +58,9 @@ export default function Signup() {
           onChangeText={setPassword}
           placeholderText="*************"
           validationText={
-            password.length < 8 ? 'Your password must be 8 characters.' : ''
+            password.length < 8 && password.length > 0
+              ? 'Your password must be 8 characters.'
+              : ''
           }
           keyboardType="default"
           isError={true}

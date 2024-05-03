@@ -15,7 +15,7 @@ const Login = () => {
     password,
     setPassword,
     loginHandler,
-    signIn,
+    onGoogleButtonPress,
     loading,
   } = useLogin();
 
@@ -93,7 +93,7 @@ const Login = () => {
             <Images.GOOGLE_IMAGE
               height={34}
               width={34}
-              onPress={() => [signIn()]}
+              onPress={() => [onGoogleButtonPress()]}
             />
           </View>
         </View>

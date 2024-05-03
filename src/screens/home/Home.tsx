@@ -12,8 +12,8 @@ import Modal from '../../components/modal/Modal';
 import { Images } from '../../constants/constants';
 import SearchBox from '../../components/searchBox/SearchBox';
 import { styles } from './styles';
-import { FormData } from '../../types/types';
-import useFetchMissingPerson from '../../hooks/useFetchMissingPerson';
+import { MissingPersonData } from '../../types/types';
+import useMissingPersonsData from '../../hooks/useMissingPersonsData';
 
 const Home = ({ navigation }: any) => {
   const {
@@ -25,7 +25,7 @@ const Home = ({ navigation }: any) => {
     handleModalClose,
     filteredData,
     setSearchValue,
-  } = useFetchMissingPerson();
+  } = useMissingPersonsData();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -57,7 +57,7 @@ const Home = ({ navigation }: any) => {
               {error && <Text>Error: {error}</Text>}
               {!loading &&
                 !error &&
-                filteredData.map((item: FormData, index: number) => (
+                filteredData.map((item: MissingPersonData, index: number) => (
                   <Card
                     key={index.toString()}
                     data={item}

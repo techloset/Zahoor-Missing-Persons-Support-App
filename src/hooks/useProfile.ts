@@ -15,7 +15,7 @@ export default function useProfile() {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [displayName, setDisplayName] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const userProfile = useAppSelector(state => state.firestore.user);
+  const userProfile = useAppSelector(state => state.firestore.userProfile);
 
   useEffect(() => {
     dispatch(fetchUserProfile());

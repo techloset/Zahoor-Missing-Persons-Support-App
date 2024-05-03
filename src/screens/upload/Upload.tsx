@@ -18,15 +18,15 @@ import { styles } from './styles';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { Images, Units } from '../../constants/constants';
 import {
-  updateFormData,
+  updateMissingPersonData,
   uploadToFirestore,
 } from '../../store/slices/firestoreSlice';
 import imagePicker from '../../utils/imagePicker';
 
 const Upload = () => {
   const dispatch = useAppDispatch();
-  const formData = useAppSelector(
-    (state: RootState) => state.firestore.formData,
+  const MissingPersonData = useAppSelector(
+    (state: RootState) => state.firestore.MissingPersonData,
   );
   const loading = useAppSelector((state: RootState) => state.firestore.loading);
   const error = useAppSelector((state: RootState) => state.firestore.error);
@@ -36,8 +36,11 @@ const Upload = () => {
   const [dob, setDob] = useState<Date | null>(null);
   const [lastSeen, setLastSeen] = useState<Date | null>(null);
 
-  const handleChange = (name: keyof typeof formData, value: string) => {
-    dispatch(updateFormData({ [name]: value }));
+  const handleChange = (
+    name: keyof typeof MissingPersonData,
+    value: string,
+  ) => {
+    dispatch(updateMissingPersonData({ [name]: value }));
   };
 
   const handleOpenDobPicker = () => {
@@ -50,17 +53,17 @@ const Upload = () => {
   const handleDob = (date: Date) => {
     setOpenDobPicker(false);
     setDob(date);
-    dispatch(updateFormData({ dateOfBirth: date }));
+    dispatch(updateMissingPersonData({ dateOfBirth: date }));
   };
 
   const handleLastSeen = (date: Date) => {
     setOpenLastSeenPicker(false);
     setLastSeen(date);
-    dispatch(updateFormData({ lastSeen: date }));
+    dispatch(updateMissingPersonData({ lastSeen: date }));
   };
 
   const handleSubmit = () => {
-    dispatch(uploadToFirestore({ selectedImage, formData }));
+    dispatch(uploadToFirestore({ selectedImage, MissingPersonData }));
   };
 
   const handleImagePicker = async () => {
@@ -82,7 +85,7 @@ const Upload = () => {
           <View style={styles.detailsSection}>
             <InputText
               name="Missing Person's Full Name"
-              value={formData.name}
+              value={MissingPersonData.name}
               onChangeText={text => handleChange('name', text)}
               placeholderText=""
               keyboardType="default"
@@ -92,7 +95,7 @@ const Upload = () => {
             />
             <InputText
               name="Gender"
-              value={formData.gender}
+              value={MissingPersonData.gender}
               onChangeText={text => handleChange('gender', text)}
               placeholderText=""
               keyboardType="default"
@@ -138,7 +141,7 @@ const Upload = () => {
             </TouchableOpacity>
             <InputText
               name="Nicknames or know aliases"
-              value={formData.nicknames}
+              value={MissingPersonData.nicknames}
               onChangeText={text => handleChange('nicknames', text)}
               placeholderText=""
               keyboardType="default"
@@ -148,7 +151,7 @@ const Upload = () => {
             />
             <InputText
               name="Last Seen Location"
-              value={formData.lastSeenLocation}
+              value={MissingPersonData.lastSeenLocation}
               onChangeText={text => handleChange('lastSeenLocation', text)}
               placeholderText=""
               keyboardType="default"
@@ -163,7 +166,7 @@ const Upload = () => {
           <View style={styles.detailsSection}>
             <InputText
               name="Height"
-              value={formData.height}
+              value={MissingPersonData.height}
               onChangeText={text => handleChange('height', text)}
               placeholderText=""
               keyboardType="number-pad"
@@ -173,7 +176,7 @@ const Upload = () => {
             />
             <InputText
               name="Width"
-              value={formData.width}
+              value={MissingPersonData.width}
               onChangeText={text => handleChange('width', text)}
               placeholderText=""
               keyboardType="number-pad"
@@ -183,7 +186,7 @@ const Upload = () => {
             />
             <InputText
               name="Eye Color"
-              value={formData.eyeColor}
+              value={MissingPersonData.eyeColor}
               onChangeText={text => handleChange('eyeColor', text)}
               placeholderText=""
               keyboardType="default"
@@ -193,7 +196,7 @@ const Upload = () => {
             />
             <InputText
               name="Hair Color"
-              value={formData.hairColor}
+              value={MissingPersonData.hairColor}
               onChangeText={text => handleChange('hairColor', text)}
               placeholderText=""
               keyboardType="default"
@@ -203,7 +206,7 @@ const Upload = () => {
             />
             <InputText
               name="Length of the Hair"
-              value={formData.lengthOfTheHair}
+              value={MissingPersonData.lengthOfTheHair}
               onChangeText={text => handleChange('lengthOfTheHair', text)}
               placeholderText=""
               keyboardType="number-pad"

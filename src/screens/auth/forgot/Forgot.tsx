@@ -4,10 +4,10 @@ import { Images } from '../../../constants/constants';
 import InputText from '../../../components/inputText/InputText';
 import Button from '../../../components/button/Button';
 import { styles } from './styles';
-import useForgot from '../../../hooks/useForgot';
+import useForgotPassword from '../../../hooks/useForgotPassword';
 
 export default function Forgot() {
-  const { email, setEmail, navigation, forgotHandler } = useForgot();
+  const { email, setEmail, navigation, forgotHandler } = useForgotPassword();
 
   return (
     <ScrollView contentContainerStyle={styles.ScrollView}>
