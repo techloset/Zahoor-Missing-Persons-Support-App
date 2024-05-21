@@ -2,6 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { AuthData, AuthState, User } from '../../types/types';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '279731918860-tl149fdve8oao52n0m76michlhf8g1sm.apps.googleusercontent.com',
+});
 
 const initialState: AuthState = {
   user: null,
@@ -60,6 +66,35 @@ export const signoutUser = createAsyncThunk(
   },
 );
 
+export const signInWithGoogle = createAsyncThunk(
+  'auth/signInWithGoogle',
+  async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const userCredential = await auth().signInWithCredential(
+        googleCredential,
+      );
+      const user = userCredential.user;
+      // console.log(user);
+      // const userExists = await firestore()
+      //   .collection('Users')
+      //   .where('email', '==', user.email)
+      //   .get();
+      // if (userExists.empty) {
+      //   await firestore().collection('Users').add(user);
+      // }
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -113,6 +148,23 @@ const authSlice = createSlice({
     builder.addCase(signoutUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+    });
+    builder.addCase(signInWithGoogle.pending, state => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(signInWithGoogle.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = {
+        ...action.payload,
+        displayName: action.payload.displayName || '',
+        photoURL: action.payload.photoURL || '',
+        email: action.payload.email ?? '',
+      };
+    });
+    builder.addCase(signInWithGoogle.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message ?? '';
     });
   },
 });

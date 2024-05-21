@@ -2,14 +2,7 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { useAppDispatch } from '../store/store';
-import { loginUser } from '../store/slices/authSlice';
-import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-
-GoogleSignin.configure({
-  webClientId:
-    '279731918860-tl149fdve8oao52n0m76michlhf8g1sm.apps.googleusercontent.com',
-});
+import { loginUser, signInWithGoogle } from '../store/slices/authSlice';
 
 export const useLogin = () => {
   const navigation = useNavigation();
@@ -30,11 +23,15 @@ export const useLogin = () => {
   };
 
   async function onGoogleButtonPress() {
-    // await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    // const { idToken } = await GoogleSignin.signIn();
-    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // return auth().signInWithCredential(googleCredential);
-    Alert.alert('Error', 'Google Sign In is not implemented yet');
+    try {
+      setLoading(true);
+      await dispatch(signInWithGoogle());
+    } catch (error) {
+      console.error('Error logging in with Google:', error);
+      Alert.alert('Error', 'Failed to login with Google');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return {

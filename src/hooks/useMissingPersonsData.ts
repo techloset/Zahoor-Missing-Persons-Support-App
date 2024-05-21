@@ -47,7 +47,6 @@ export default function useMissingPersonsData() {
       }
     }
   });
-
   const navigation = useNavigation();
   return {
     data,

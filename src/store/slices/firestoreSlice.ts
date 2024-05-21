@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import { MissingPersonData, ModalProps, User } from '../../types/types';
 import auth from '@react-native-firebase/auth';
+import { Alert } from 'react-native';
 
 interface FirestoreState {
   missingPersonsData: MissingPersonData[];
@@ -49,7 +50,10 @@ export const reportMissingPerson = createAsyncThunk(
         .get();
       const userData = userSnapshot.data() as User;
       if (userData.email === userProfile?.email) {
-        throw new Error('You cannot report your own missing person');
+        Alert.alert(
+          'Report Error',
+          'You cannot report your own missing person',
+        );
       }
 
       const missingPersonSnapshot = await firestore()
@@ -74,7 +78,9 @@ export const reportMissingPerson = createAsyncThunk(
         throw new Error('Missing person not found');
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(
+        (error as Error).message || 'Unknown error',
+      );
     }
   },
 );
@@ -182,6 +188,7 @@ export const uploadToFirestore = createAsyncThunk(
   async (
     {
       selectedImage,
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       MissingPersonData,
     }: { selectedImage: string; MissingPersonData: MissingPersonData },
     thunkAPI,
@@ -301,6 +308,10 @@ const firestoreSlice = createSlice({
     builder.addCase(uploadToFirestore.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+    });
+    builder.addCase(fetchMissingPersons.pending, state => {
+      state.loading = true;
+      state.error = null;
     });
     builder.addCase(fetchMissingPersons.fulfilled, (state, action) => {
       state.loading = false;

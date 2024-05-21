@@ -87,7 +87,7 @@ const Modal = ({ visible, onClose, data }: ModalProps) => {
             </View>
           </View>
           <View style={styles.buttonsContainer}>
-            <Pressable style={styles.button} onPress={() => emailHandler()}>
+            <Pressable style={styles.button} onPress={emailHandler}>
               <Text style={styles.buttonText}>Contact Via Email</Text>
             </Pressable>
             <Pressable

@@ -11,7 +11,7 @@ import { RootState, useAppDispatch, useAppSelector } from '../store/store';
 
 export const useReport = ({ onClose, data }: ModalProps) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
-  const age = calculateAge(data?.dateOfBirth.toDate());
+  const age = calculateAge(data?.dateOfBirth);
   const { userProfile } = useProfile();
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector(
@@ -25,14 +25,14 @@ export const useReport = ({ onClose, data }: ModalProps) => {
 
   const emailHandler = async () => {
     if (!userEmail) {
-      dispatch(getEmailHandler(data?.userID || ''));
+      await dispatch(getEmailHandler(data?.userID || ''));
       return;
     }
 
     Linking.openURL(`mailto:${userEmail}`);
   };
 
-  const handleUpdate = async () => {
+  const handleReportFound = async () => {
     try {
       await dispatch(
         reportMissingPerson({
@@ -41,13 +41,13 @@ export const useReport = ({ onClose, data }: ModalProps) => {
           description: modalData.description,
           userProfile,
           visible: false,
-          onClose: () => onClose(),
+          onClose,
         }),
       );
       onClose();
     } catch (error) {
-      Alert.alert('Error', 'Failed to report missing person');
       console.error('Error reporting missing person:', error);
+      Alert.alert('Error', 'Failed to report missing person');
     }
   };
 
@@ -79,10 +79,6 @@ export const useReport = ({ onClose, data }: ModalProps) => {
     setModalData({ ...modalData, description: text });
   };
 
-  const handleReportFound = () => {
-    handleUpdate();
-  };
-
   return {
     age,
     emailHandler,
@@ -94,4 +90,5 @@ export const useReport = ({ onClose, data }: ModalProps) => {
     setModalData,
   };
 };
+
 export default useReport;

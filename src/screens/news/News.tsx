@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     width: Units.WINDOW_WIDTH,
     paddingTop: 36,
     paddingHorizontal: 20,
+    paddingBottom: 90,
   },
 });
 
