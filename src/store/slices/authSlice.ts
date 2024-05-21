@@ -79,14 +79,14 @@ export const signInWithGoogle = createAsyncThunk(
         googleCredential,
       );
       const user = userCredential.user;
-      // console.log(user);
-      // const userExists = await firestore()
-      //   .collection('Users')
-      //   .where('email', '==', user.email)
-      //   .get();
-      // if (userExists.empty) {
-      //   await firestore().collection('Users').add(user);
-      // }
+      console.log(user);
+      const userExists = await firestore()
+        .collection('Users')
+        .where('email', '==', user.email)
+        .get();
+      if (userExists.empty) {
+        await firestore().collection('Users').add(user);
+      }
 
       return user;
     } catch (error) {
