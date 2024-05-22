@@ -11,7 +11,7 @@ import { RootState, useAppDispatch, useAppSelector } from '../store/store';
 
 export const useReport = ({ onClose, data }: ModalProps) => {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
-  const age = calculateAge(data?.dateOfBirth);
+  const age = calculateAge(data?.dateOfBirth.toDate());
   const { userProfile } = useProfile();
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector(
